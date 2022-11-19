@@ -23,9 +23,6 @@ register("chat", () => {
             inquisExists = true
             ChatLib.say("/pc inquis!")
         }
-        else {
-            ChatLib.chat("no inquis noob")
-        }
     })
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
 
