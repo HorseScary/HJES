@@ -45,7 +45,7 @@ class Settings {
 
     @SwitchProperty({
         name: "runic",
-        description: "justifies your gia construct deaths",
+        description: "justifies gia construct deaths",
         category: "Trollege"
     })
     runic = true;
