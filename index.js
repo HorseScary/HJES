@@ -1,15 +1,6 @@
 let myCheese = false
 let inquisExists = false
-
-function sendcoords() {
-    ChatLib.say("/chat p")
-    setTimeout(() => {
-        setTimeout(() => {
-            ChatLib.say("/chat g")
-        }, 500)
-        ChatLib.say("/patcher sendcoords")
-    }, 250)
-}
+    
 
 register("chat", () => {
     if (!myCheese && !inquisExists) {
@@ -32,7 +23,7 @@ register("chat", () => {
         if (entity.getName().toLowerCase().includes("inquis") && !inquisExists) {
             inquisExists = true
             ChatLib.say("/pc inquis!")
-            sendcoords()
+            ChatLib.say(`/pc x: ${playerX}, y: ${playerY}, z: ${playerZ}`)
         }
     })
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
@@ -54,7 +45,7 @@ register("chat", () => {
 register("command", () => {
     inquisExists = true
     ChatLib.say("/pc inquis! (manual input)")
-    sendcoords()
+    ChatLib.say(`/pc x: ${playerX}, y: ${playerY}, z: ${playerZ}`)
 }).setName('myinq')
 
 register("command", () => {
@@ -63,14 +54,36 @@ register("command", () => {
 }).setName('deadinq')
 
 register("command", () => {
-    sendcoords()
+    ChatLib.say(`/pc x: ${playerX}, y: ${playerY}, z: ${playerZ}`)
 }).setName('sc')
+
+register("chat", () => {
+    ChatLib.say("/pc It was runic, I swear!")
+}).setChatCriteria("&r&c ☠ &r&7${*} killed by &r&2Exalted${*}&r&7&r&7.&r")
+
+register("chat", () => {
+    ChatLib.say("/gc [SBE] RARE DROP! Antique Remedies")
+}).setChatCriteria("&3[SBE] &a&6&lRARE DROP! &5Antique Remedies&r")
+
+register("chat", () => {
+    ChatLib.say("/gc [SBE] RARE DROP! Crochet Tiger Plushie")
+}).setChatCriteria("&3[SBE] &a&6&lRARE DROP! &5Crochet Tiger Plushie&r")
+
+register("chat", () => {
+    ChatLib.say("/gc [SBE] RARE DROP! Dwarf Turtle Shelmet")
+}).setChatCriteria("&3[SBE] &a&6&lRARE DROP! &9Dwarf Turtle Shelmet&r")
+
+
 
 /*
 &r&9Party &8> &b[MVP&0+&b] jperrm&f: &rIt was runic, I swear!&r
 
 &r&9Party &8> &b[MVP&0+&b] jperrm&f: &rUwU&r
 &r&e&lCHEESE! &r&7You smell Cheese nearby!&r
+
+&r&c ☠ &r&7You were killed by &r&2Exalted Gaia Construct&r&7&r&7.&r
+
+&3[SBE] &a&6&lRARE DROP! &5Antique Remedies&r
 
 CHEESE! You buffed Brendidy giving them +7✯ Magic Find for 
 &r&e&lCHEESE!&r&7 You buffed &r&bBrendidy&r&7 giving them &r&b+7✯ Magic Find&r&7 for &r&a60&r&7 seconds!&r
