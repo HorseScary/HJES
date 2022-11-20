@@ -33,7 +33,7 @@ class Settings {
         category: "General",
         subcategory: "Rat"
     })
-    lOnCheese = true;
+    leaveOnCheese = true;
 
     @SwitchProperty({
         name: "Join on Cheese",
@@ -56,6 +56,14 @@ class Settings {
         category: "Testing"
     })
     announceChamp = false;
+
+    @TextProperty({
+        name: "ChampTimeout",
+        description: "Time (in milliseconds) before inquis is registered as killed",
+        category: "Testing",
+        placeholder: "100000"
+    })
+    champTimeout = "100000";
 
     constructor() {
         this.initialize(this);
