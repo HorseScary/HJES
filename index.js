@@ -31,7 +31,7 @@ register("chat", () => {
         if (entity.getName().toLowerCase().includes("inquis") && !inquisExists) {
             inquisExists = true
             ChatLib.say("/pc inquis!")
-            ChatLib.say(`/pc x: ${playerX}, y: ${playerY}, z: ${playerZ}`)
+            sendcoords()
         }
     })
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
@@ -79,5 +79,3 @@ register("chat", () => {
 register("chat", () => {
     ChatLib.say("/gc [SBE] RARE DROP! Dwarf Turtle Shelmet")
 }).setChatCriteria("&3[SBE] &a&6&lRARE DROP! &9Dwarf Turtle Shelmet&r")
-
-//comment out the drop posters if you dont want them i just watned to annoy my guild
