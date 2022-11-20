@@ -96,6 +96,7 @@ register("chat", () => {
     }
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[Diana Utils] Cheese obtained!&r")
 
+// penis code made by beedit
 register("command", () => {
     var playerX = Player.getX();
     var playerY = Player.getY();
