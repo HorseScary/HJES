@@ -1,6 +1,16 @@
 let myCheese = false
 let inquisExists = false
 
+function sendcoords() {
+    ChatLib.say("/chat p")
+    setTimeout(() => {
+        setTimeout(() => {
+            ChatLib.say("/chat g")
+        }, 500)
+        ChatLib.say("/patcher sendcoords")
+    }, 250)
+}
+
 register("chat", () => {
     if (!myCheese && !inquisExists) {
         ChatLib.say('/l')
@@ -22,6 +32,7 @@ register("chat", () => {
         if (entity.getName().toLowerCase().includes("inquis") && !inquisExists) {
             inquisExists = true
             ChatLib.say("/pc inquis!")
+            sendcoords()
         }
     })
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
@@ -38,6 +49,22 @@ register("tick", () => {
 register("chat", () => {
     ChatLib.say('/play sb')
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[Diana Utils] Cheese obtained!&r")
+
+
+register("command", () => {
+    inquisExists = true
+    ChatLib.say("/pc inquis! (manual input)")
+    sendcoords()
+}).setName('myinq')
+
+register("command", () => {
+    inquisExists = false
+    ChatLib.say("/pc inquis dead (manual input)")
+}).setName('deadinq')
+
+register("command", () => {
+    sendcoords()
+}).setName('sc')
 
 /*
 &r&9Party &8> &b[MVP&0+&b] jperrm&f: &rIt was runic, I swear!&r
