@@ -1,6 +1,6 @@
-# Diana Utils
+# HJES
 
-Makes rat pet stuff more easier for diana
+DW about what the acronym is ;). Skyblock chattriggers module
 
 ## Features
 

@@ -39,12 +39,7 @@ register("chat", () => {
 function inquisSpawned() {
     inquisExists += 1
     if (Settings.announceInquis) {
-        setTimeout(() => {
-            ChatLib.say(`/pc [Diana Utils] Inquis `)
-        }, 250)
-        setTimeout(() => {
-            ChatLib.say(`x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
-        }, 250)
+        ChatLib.say(`/pc [Diana Utils] Inquis `)
     }
 
     setTimeout(() => {
@@ -52,42 +47,42 @@ function inquisSpawned() {
             ChatLib.chat("&d[Diana Utils]&f Inquis timeout reached. Inquis registerd as dead!")
             inquisExists -= 1
         }
-    }, parseInt(Settings.inquisTimeout))
+    }, parseInt(Settings.inquisTmeout))
+}
+function champSpawned() {
+    if (Settings.announceInquis) {
+        ChatLib.say(`/pc [Diana Utils] Champ`)
+        setTimeout(() => {
+            ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+        }, 500)
+    }
+
+    setTimeout(() => {
+        if (inquisExists) {
+            ChatLib.chat("&d[Diana Utils]&f Champ timeout reached. Champ registerd as dead!")
+            inquisExists -= 1
+        }
+    }, parseInt(Settings.inquisTmeout))
 }
 register("chat", () => {
     World.getAllEntities().forEach(entity => {
         if (entity.getName().toLowerCase().includes("inquis") && !inquisExists) {
             inquisSpawned()
+            setTimeout(() => {
+                ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+            }, 500)
         }
 
         if (entity.getName().toLowerCase().includes("champ") && !inquisExists) {
             if (Settings.announceChamp) {
-                ChatLib.chat(`&d[Diana Utils]&f Champ!? `)
+                champSpawned()
                 setTimeout(() => {
-                    ChatLib.chat(`x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
-                }, 250)
+                    ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+                }, 500)
             }
-
-            setTimeout(() => {
-                if (inquisExists) {
-                    ChatLib.chat("&d[Diana Utils] &fMax inquis time reached. Inquis registerd as dead!")
-                }
-            }, parseInt(Settings.champTimeout))
         }
     })
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
-
-/*
-register("tick", () => {
-    World.getAllEntities().forEach(entity => {
-        if (entity.getName().toLowerCase().includes("inquis") && (entity.isDead())) {
-            ChatLib.say("/pc inquis dead!")
-            inquisExists = false
-            myCheese = false
-        }
-    })
-})
-*/
 
 register("chat", () => {
     if (Settings.runic) {
@@ -116,6 +111,9 @@ register("command", (args) => {
     else if (args == "add") {
         ChatLib.chat(`&d[Diana Utils]&f Inquis manually registered.`)
         inquisSpawned()
+        setTimeout(() => {
+            ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+        }, 500)
     }
     else if (args == "help") {
         ChatLib.chat(helpMessage)
@@ -147,6 +145,18 @@ register("pickupitem", () => {
     ChatLib.chat("thing")
 })
 
+register("chat", (chat) => {
+    muted = new Message(chat).getUnformattedText()
+
+    if (Settings.autoMute) {
+        ChatLib.chat(muted.toLowerCase().split(Settings.autoMutePlayer.toLowerCase()).length)
+        if (muted.toLowerCase().split(Settings.autoMutePlayer.toLowerCase()).length == 3.0) {
+            ChatLib.say(`/g mute ${Settings.autoMutePlayer} 30d`)
+        }
+
+    }
+}).setChatCriteria("${*}has unmuted${*}")
+
 /*
 &r&9Party &8> &b[MVP&0+&b] jperrm&f: &rIt was runic, I swear!&r
 
@@ -159,4 +169,6 @@ CHEESE! You buffed Brendidy giving them +7✯ Magic Find for
 
 &r&c ☠ &r&7You were killed by &r&2Exalted Gaia Construct&r&7&r&7.&r
 &r&c ☠ &r&7&r&bjperrm&r&7 was killed by &r&2Exalted Gaia Construct&r&7&r&7.&r
+
+&r&9Party &8> &b[MVP&5+&b] HorseScary&f: &ra&r
 */

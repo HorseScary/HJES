@@ -51,6 +51,21 @@ class Settings {
     runic = true;
 
     @SwitchProperty({
+        name: "Auto Mute",
+        description: "automaticly g mutes player",
+        category: "Trollege"
+    })
+    autoMute = false;
+
+    @TextProperty({
+        name: "AutoMutePlayer",
+        description: "player to be muted",
+        category: "Trollege",
+        placeholder: "sergeantsar"
+    })
+    autoMutePlayer = "sergeantsar"
+
+    @SwitchProperty({
         name: "announce champ",
         description: "tests inquis stuff",
         category: "Testing"
@@ -64,6 +79,13 @@ class Settings {
         placeholder: "100000"
     })
     champTimeout = "100000";
+
+    @SwitchProperty({
+        name: "chat thing",
+        description: "tests chat thing",
+        category: "Testing"
+    })
+    chatThing = false
 
     constructor() {
         this.initialize(this);
