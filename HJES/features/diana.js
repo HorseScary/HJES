@@ -4,11 +4,6 @@ import Settings from "../config"
 let myCheese = false
 let inquisExists = 0
 
-// Test command for settings things
-register("command", () => {
-    ChatLib.chat(JSON.stringify(Settings))
-    ChatLib.chat(Settings.lOnCheese)
-}).setName("dusettingstest", true)
 
 // Leaves to hub when someone gets cheese
 register("chat", () => {
@@ -35,9 +30,7 @@ register("chat", () => {
 // tells party when you spawn an inquis
 function inquisSpawned() {
     inquisExists += 1
-    if (Settings.announceInquis) {
-        ChatLib.say(`/pc [Diana Utils] Inquis `)
-    }
+    ChatLib.say(`/pc [Diana Utils] Inquis `)
 
     setTimeout(() => {
         if (inquisExists) {
@@ -46,6 +39,8 @@ function inquisSpawned() {
         }
     }, parseInt(Settings.inquisTmeout))
 }
+
+// function for testing inquis stuff using champions. Requires announceInquis to be enabled
 function champSpawned() {
     if (Settings.announceInquis) {
         ChatLib.say(`/pc [Diana Utils] Champ`)
@@ -62,30 +57,33 @@ function champSpawned() {
     }, parseInt(Settings.inquisTmeout))
 }
 register("chat", () => {
-    World.getAllEntities().forEach(entity => {
-        if (entity.getName().toLowerCase().includes("inquis") && !inquisExists) {
-            inquisSpawned()
-            setTimeout(() => {
-                ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
-            }, 500)
-        }
-
-        if (entity.getName().toLowerCase().includes("champ") && !inquisExists) {
-            if (Settings.announceChamp) {
-                champSpawned()
+    if (Settings.announceInquis) {
+        World.getAllEntities().forEach(entity => {
+            if (entity.getName().toLowerCase().includes("inquis") && !inquisExists) {
+                inquisSpawned()
                 setTimeout(() => {
                     ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
                 }, 500)
             }
-        }
-    })
+
+
+            if (Settings.announceChamp) {
+                if (entity.getName().toLowerCase().includes("champ") && !inquisExists) {
+                    champSpawned()
+                    setTimeout(() => {
+                        ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+                    }, 500)
+                }
+            }
+        })
+    }
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
 
 register("chat", () => {
     if (Settings.runic) {
         ChatLib.say("/pc It was runic i swear!")
     }
-}).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${}")
+}).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${*}")
 
 register("chat", () => {
     if (Settings.rejoinOnCheese) {
