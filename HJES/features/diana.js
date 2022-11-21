@@ -4,7 +4,10 @@ import { helpHelper, HJESMessage } from "../functions"
 
 let myCheese = false
 let inquisExists = 0
-let inventoryItems = null
+let inventoryItems = Array()
+let lastMob = String()
+let lastBurrowType = String()
+let lastTreasure = String()
 
 
 // Leaves to hub when someone gets cheese
@@ -29,22 +32,6 @@ register("chat", () => {
     }
 }).setChatCriteria("&r&e&lCHEESE!&r&7 You buffed &r${*}&r&7 giving them &r&b+${*}✯ Magic Find&r&7 for &r&a${*}&r&7 seconds!&r")
 
-
-function champSpawned() {
-    if (Settings.announceInquis) {
-        ChatLib.say(`/pc [HJES Diana] Champ`)
-        setTimeout(() => {
-            ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
-        }, 500)
-    }
-
-    setTimeout(() => {
-        if (inquisExists) {
-            ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registerd as dead!")
-            inquisExists -= 1
-        }
-    }, parseInt(Settings.inquisTmeout))
-}
 register("chat", () => {
     if (Settings.announceInquis) {
         World.getAllEntities().forEach(entity => {
@@ -98,46 +85,122 @@ register("command", () => {
 
 }).setName("hjesgetitems")
 
-register("chat", () => {
+register("chat", (chat) => {
+    registeredChat = new Message(chat).getUnformattedText()
+
+    minosRegEx = /(?:Minos Champion)|(?:Siamese Lynxes)|(?:Minos Hunter)|(?:Minotaur)|(?:Gaia Construct)/
+    treasureRegEx = /(?:Crown of Greed)|(?:Washed-up Souvenir)|(?:Griffin Feather)/
+
+    lastTreasure = treasureRegEx.exec(registeredChat)
+    lastMob = minosRegEx.exec(registeredChat)
+
+    if (registeredChat.includes("coins")) {
+        ChatLib.chat(registeredChat)
+        lastTreasure = registeredChat.split("&r")[3].split("&6")[1]
+        lastBurrowType = "Treasure"
+    }
+    else if (lastTreasure) {
+        lastBurrowType = "Treasure"
+    }
+    else if (lastMob) {
+        lastBurrowType = "Mob"
+    }
+
     inventoryItems = Player.getInventory().getItems()
-    ChatLib.chat("inventory logged")
-}).setChatCriteria("${*}You dug out${*}")
 
-register("chat", () => {
-    ChatLib.chat("burrow dug")
-    updatedInventoryItems = Player.getInventory().getItems()
-    newItems = Array()
+    ChatLib.chat(`lastBurrowType: ${lastBurrowType}\nlastMob: ${lastMob}\nlastTreasure: ${lastTreasure}`)
+}).setChatCriteria("${*}&r&eYou dug out${*}")
 
-    for (i = 0; i < inventoryItems.length; i++) {
-        if (inventoryItems[i] == null && updatedInventoryItems[i] != null) {
-            newItems.push(updatedInventoryItems[i].getName())
+register
+
+// as i write this i am struggling to understand it
+register("chat", (chat) => {
+    if (Settings.announceDrops || Settings.burrowOverview) {
+        registeredChat = new Message(chat).getUnformattedText()
+
+        updatedInventoryItems = Player.getInventory().getItems()
+        newItems = Array()
+        goldTotal = 0
+        ironTotal = 0
+        clawTotal = 0
+        enchClawTotal = 0
+
+        for (i = 0; i < inventoryItems.length; i++) {
+            if (inventoryItems[i] != null) {
+                oldItemName = inventoryItems[i].getName()
+                oldItemStackSize = inventoryItems[i].getStackSize()
+            }
+            if (inventoryItems[i] != null) {
+                newItemName = updatedInventoryItems[i].getName()
+                newItemStackSize = updatedInventoryItems[i].getStackSize()
+            }
+
+            if (updatedInventoryItems[i] == null) {
+                continue
+            }
+            else if (inventoryItems[i] == null) {
+                if (newItemName.includes("Claw")) {
+                    if (newItemName.includes("Enchanted")) {
+                        enchClawTotal += newItemStackSize
+                    }
+                    ChatLib.chat(`total: ${clawTotal}\nadding: ${newItemStackSize}`)
+                    clawTotal += newItemStackSize
+                    continue
+                }
+                else if (newItemName.includes("Gold")) { goldTotal += newItemStackSize; continue }
+                else if (newItemName.includes("Iron")) { ironTotal += newItemStackSize; continue }
+
+                newItems.push(newItemName)
+            }
+
+            else if (oldItemStackSize != newItemStackSize) {
+                if (newItemName.includes("Claw")) {
+                    if (newItemName.includes("Enchanted")) {
+                        enchClawTotal += newItemStackSize - oldItemStackSize
+                        continue
+                    }
+                    clawTotal += newItemStackSize - oldItemStackSize
+                    ChatLib.chat(`total: ${clawTotal}\nadding: ${newItemStackSize - oldItemStackSize}`)
+                }
+                else if (newItemName.includes("Gold")) {
+                    goldTotal += newItemStackSize - oldItemStackSize
+                }
+                else if (updatedInventoryItems[i].getName().includes("Iron")) {
+                    ironTotal += newItemStackSize - oldItemStackSize
+                }
+            }
         }
-        else if (inventoryItems[i].getName() != updatedInventoryItems[i].getName()) {
-            newItems.push(updatedInventoryItems[i].getName())
+        ChatLib.chat(`newitems: ${newItems}\nclawTotal: ${clawTotal}\n chat: ${registeredChat}`)
+
+        if (Settings.burrowOverview) {
+            if (registeredChat.includes('(1/4)')) { lastBurrowType = "Start" }
+
+            overviewMessage = String()
+            overviewMessage += HJESMessage("", "Burrow Overview")
+
+            if (lastBurrowType == "Mob") {
+                overviewMessage += `\n&bMob:&2 ${lastMob}\n&bDrops:`
+
+                for (i = 0; i < newItems.length; i++) {
+                    overviewMessage += `\n${newItems[i]}`
+                }
+                if (clawTotal) { overviewMessage += `\n&9${clawTotal}x Ancient Claw` }
+                else if (enchClawTotal) { overviewMessage += `\n&5${enchClawTotal}x Ancient Claw` }
+                else if (goldTotal) { overviewMessage += `\n&a${goldTotal}x Enchanted Gold` }
+                else if (ironTotal) { overviewMessage += `\n&a${ironTotal}x Enchanted Gold` }
+            }
+            else if (lastBurrowType == "Treasure") {
+                overviewMessage += `\n&bTreasure:&6 ${lastTreasure}`
+            }
+            else if (lastBurrowType == "Start") {
+                overviewMessage += `\n&bStart Burrow`
+            }
+
+
+            ChatLib.chat(overviewMessage)
         }
     }
-
-    for (i = 0; i < newItems.length; i++) {
-        ChatLib.chat(newItems[i])
-    }
-}).setChatCriteria("&r&eYou dug out a Griffin Burrow${*}")
-/*
-org.mozilla.javascript.EcmaError: TypeError: Cannot call method "getName" of null (file:/home/horse/.local/share/multimc/instances/1.8.9/.minecraft/config/ChatTriggers/modules/HJES/features/diana.js#115)
-    at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:4642)
-    at org.mozilla.javascript.ScriptRuntime.constructError(ScriptRuntime.java:4622)
-    at org.mozilla.javascript.ScriptRuntime.typeError(ScriptRuntime.java:4651)
-    at org.mozilla.javascript.ScriptRuntime.typeError2(ScriptRuntime.java:4666)
-    at org.mozilla.javascript.ScriptRuntime.undefCallError(ScriptRuntime.java:4684)
-    at org.mozilla.javascript.ScriptRuntime.getPropFunctionAndThis(ScriptRuntime.java:2864)
-    at org.mozilla.javascript.optimizer.OptRuntime.callProp0(OptRuntime.java:90)
-    at HJES_features_diana_js_1800._c_anonymous_17(HJES/features/diana.js:115)
-    at HJES_features_diana_js_1800.call(HJES/features/diana.js)
-    at org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:342)
-    at org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:3951)
-    at HJES_features_diana_js_1800.call(HJES/features/diana.js)
-    at org.mozilla.javascript.ArrowFunction.call(ArrowFunction.java:40)
-    at com.chattriggers.ctjs.engine.langs.js.JSLoader.trigger(JSLoader.kt:299)
-*/
+}).setChatCriteria("&r&eYou dug out a Griffin Burrow! &r&7(3/4)&r&r&7(${*}")
 
 register("command", (args) => {
     helpMessage = helpHelper({

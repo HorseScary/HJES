@@ -67,6 +67,13 @@ class Settings {
     })
     rejoinOnCheese = true;
 
+    @SwitchProperty({
+        name: "Burrow Overview",
+        description: "Gives overview of burrow in chat. Mostly for debugging purposes.",
+        category: "Diana"
+    })
+    burrowOverview = false
+
     //Trollege configs
     @SwitchProperty({
         name: "runic",
@@ -89,6 +96,14 @@ class Settings {
         placeholder: "sergeantsar"
     })
     autoMutePlayer = "sergeantsar"
+
+    @SwitchProperty({
+        name: "Announce Drops",
+        description: "announce rare drops from diana in guild chat",
+        category: "Trollege",
+        subcategory: "Diana"
+    })
+    announceDrops = false
 
     //Testing configs
     @SwitchProperty({
@@ -122,6 +137,8 @@ class Settings {
         this.setSubcategoryDescription("Diana", "Inquis", "things for inquisitors");
 
         this.setCategoryDescription("Trollege", "&4 trollege")
+        this.setSubcategoryDescription("Trollege", "Diana", "Diana Trollege")
+
         this.setCategoryDescription("Testing", "prolly dont enable these")
     }
 }
