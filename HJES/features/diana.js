@@ -1,4 +1,5 @@
 import Settings from "../config"
+import { helpHelper, HJESMessage } from "../functions"
 
 
 let myCheese = false
@@ -10,31 +11,31 @@ register("chat", () => {
     if (!myCheese && !inquisExists && Settings.leaveOnCheese) {
         ChatLib.say('/l')
     }
-}).setChatCriteria("&r&9Party &8>${*}&f: &r[Diana Utils] Cheese!&r")
+}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese!&r")
 
 // tells party when you get cheese
 register("chat", () => {
     if (Settings.announceCheese) {
         myCheese = true
-        ChatLib.say('/pc [Diana Utils] Cheese!')
+        ChatLib.say('/pc [HJES Diana] Cheese!')
     }
 }).setChatCriteria("&r&e&lCHEESE! &r&7You smell Cheese nearby!&r")
 
 // tells party when you pick up cheese
 register("chat", () => {
     if (Settings.announceCheese) {
-        ChatLib.say('/pc [Diana Utils] Cheese obtained!')
+        ChatLib.say('/pc [HJES Diana] Cheese obtained!')
     }
 }).setChatCriteria("&r&e&lCHEESE!&r&7 You buffed &r${*}&r&7 giving them &r&b+${*}✯ Magic Find&r&7 for &r&a${*}&r&7 seconds!&r")
 
 // tells party when you spawn an inquis
 function inquisSpawned() {
     inquisExists += 1
-    ChatLib.say(`/pc [Diana Utils] Inquis `)
+    ChatLib.say(`/pc [HJES Diana] Inquis `)
 
     setTimeout(() => {
         if (inquisExists) {
-            ChatLib.chat("&d[Diana Utils]&f Inquis timeout reached. Inquis registerd as dead!")
+            ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registerd as dead!")
             inquisExists -= 1
         }
     }, parseInt(Settings.inquisTmeout))
@@ -43,7 +44,7 @@ function inquisSpawned() {
 // function for testing inquis stuff using champions. Requires announceInquis to be enabled
 function champSpawned() {
     if (Settings.announceInquis) {
-        ChatLib.say(`/pc [Diana Utils] Champ`)
+        ChatLib.say(`/pc [HJES Diana] Champ`)
         setTimeout(() => {
             ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
         }, 500)
@@ -51,7 +52,7 @@ function champSpawned() {
 
     setTimeout(() => {
         if (inquisExists) {
-            ChatLib.chat("&d[Diana Utils]&f Champ timeout reached. Champ registerd as dead!")
+            ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registerd as dead!")
             inquisExists -= 1
         }
     }, parseInt(Settings.inquisTmeout))
@@ -89,22 +90,28 @@ register("chat", () => {
     if (Settings.rejoinOnCheese) {
         ChatLib.say('/play sb')
     }
-}).setChatCriteria("&r&9Party &8>${*}&f: &r[Diana Utils] Cheese obtained!&r")
+}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 register("command", (args) => {
-    helpMessage = (`&d[Diana Utils Inquis]\n&fAliases:&7 duinquis, duinq\n&d[Arguments]\n&fclear:&7 sets "inquisExists" value to 0\n&fstatus:&7 returns number of registerd inquisitors\n&fadd:&7 manually registers inquis`)
+    helpMessage = helpHelper({
+        '__title__': 'Diana',
+        'clear': 'Sets inquis count to 0',
+        'status': 'Returns number of inquisitors currently registered',
+        'add': 'Manually registers an inquisitor'
+    })
+
     if (!args) {
         ChatLib.chat(helpMessage)
     }
     else if (args == "clear") {
-        ChatLib.chat("&[Diana Utils]&f Inquisitors cleared!")
+        ChatLib.chat(HJESMessage('Inquisitors cleared!', 'Diana'))
         inquisExists = 0
     }
     else if (args == "status") {
-        ChatLib.chat(`&d[Diana Utils]&f ${inquisExists} inquis registered.`)
+        ChatLib.chat(HJESMessage(`${inquisExists} inquis registered.`, 'Diana'))
     }
     else if (args == "add") {
-        ChatLib.chat(`&d[Diana Utils]&f Inquis manually registered.`)
+        ChatLib.chat(HJESMessage('Inquis manually registered.', 'Diana'))
         inquisSpawned()
         setTimeout(() => {
             ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
@@ -114,7 +121,7 @@ register("command", (args) => {
         ChatLib.chat(helpMessage)
     }
     else {
-        ChatLib.chat(`&d[Diana Utils]&f ${args} is not a valid option.`)
+        ChatLib.chat(`&d[HJES Diana]&f ${args} is not a valid option. Type '/inquis help' for help.`)
     }
-}).setName("dianaUtilsInquis", true).setAliases("duinquis", "duinq")
+}).setName("inquisitor", true).setAliases("inquis", "iq")
 
