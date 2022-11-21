@@ -6,10 +6,10 @@ import { helpHelper, HJESMessage } from "./functions";
 
 register("command", (arg) => {
     helpMessage = helpHelper({
-        '__title__': '',
-        '__subtitle__': 'Diana',
+        '': '__title__',
+        'Diana': '__subtitle__',
         'inquis': 'Diana inquisitor functions',
-        '__subtitle__': 'Trollege',
+        'Trollege': '__subtitle__',
         'sendPenis': 'sends coordinates of a penis. works best with soopy player coordinates thing'
     })
     if (arg == "help") {

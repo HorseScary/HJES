@@ -7,27 +7,30 @@ function spaceAdder(text) {
 
 /*
 Generates help messages from an object
-use __title__ for the main title of the help message and __subtitle__ for subtitles (wow no way crazy)
+Example usage
+helpHelper({
+    '':'__title__',
+    'subtitle':'__subtitle__',
+    'someCommandName':'this command does something',
+    'custom text! free of helpHelpers formatting!!':'__custom__'
+})
 */
 export function helpHelper(commandInfo) {
-    helpMessage = ``
     lastItem = (function () {
         entries = Object.entries(commandInfo)
-        return (entries[entries.length][0])
+        return (entries[entries.length - 1][0])
     })()
 
+    helpMessage = String()
     for (i in commandInfo) {
-        if (i == "__title__") {
-            helpMessage += `&l&d[&aH&3J&dES&f${padStart(commandInfo[i])}&d]`
+        if (commandInfo[i] == "__title__") {
+            helpMessage += `&l&d[&aH&3J&dES&5${spaceAdder(i)}&d]`
         }
-        else if (i == "__subtitle__") {
-            helpMessage += `&l&d[&f${commandInfo[i]}&d]`
+        else if (commandInfo[i] == "__subtitle__") {
+            helpMessage += `&l&d[&5${i}&d]`
         }
-        else if (i == "__warning__") {
-            helpMessage += `&d[&aH&3J&dES]&f ${commandInfo}`
-        }
-        else if (i == "__custom__") {
-            helpMessage += `${commandInfo[i]}`
+        else if (commandInfo[i] == "__custom__") {
+            helpMessage += `${i}`
         }
         else {
             helpMessage += `&b${i}:&f ${commandInfo[i]}`
@@ -37,8 +40,10 @@ export function helpHelper(commandInfo) {
             helpMessage += `\n`
         }
     }
+
+    return (helpMessage)
 }
 
 export function HJESMessage(message, category) {
-    return (`&d[&aH&3J&dES&f${spaceAdder(category)}&d]&f ${message}`)
+    return (`&d[&aH&3J&dES&5${spaceAdder(category)}&d]&f ${message}`)
 }
