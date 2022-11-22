@@ -181,6 +181,8 @@ register("chat", (chat) => {
                 }
                 else if (newItemName.includes("Gold")) { goldTotal += newItemStackSize; continue }
                 else if (newItemName.includes("Iron")) { ironTotal += newItemStackSize; continue }
+
+                newItems.push(newItemName)
             }
 
             // checks for differences in stack sizes for stackable items
@@ -235,8 +237,9 @@ register("chat", (chat) => {
         }
 
         if (Settings.announceDrops) {
+            // TODO: fix "crochet" drop level not including remedies
             function sbeifyDrop(drop) { return (`[SBE] RARE DROP! ${drop}`) }
-            dropsList = ["Minos Relic", "Dwarf Turtle Shelmet", "Crochet Tiger Plushie", "Antique Remedies"].slice(0, Settings.announceDropsLevel)
+            dropsList = ["Minos Relic", "Dwarf Turtle Shelmet", "Crochet Tiger Plushie"].slice(0, Settings.announceDropsLevel + 1)
             dropAnnounced = false
 
             if (lastBurrowType == "Mob") {
@@ -248,6 +251,10 @@ register("chat", (chat) => {
                         }
                     })
                 }
+                if (Settings.announceDrops == 2 && dropAnnounced) {
+                    ChatLib.say(`${announceDropsChat()} ${sbeifyDrop('Antique Remedies')}`)
+                }
+
                 if (!dropAnnounced && Settings.announceDropsLevel == 4) {
                     if (enchClawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`Enchanted Ancient Claw`)) }
                     else if (clawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`${clawTotal}x Ancient Claw`)) }
