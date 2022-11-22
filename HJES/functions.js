@@ -7,7 +7,7 @@ function spaceAdder(text) {
 
 /*
 Generates help messages from an object
-Example usage
+Example usage:
 helpHelper({
     '':'__title__',
     'subtitle':'__subtitle__',
