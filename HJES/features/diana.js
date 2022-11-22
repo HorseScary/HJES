@@ -245,14 +245,19 @@ register("chat", (chat) => {
             if (lastBurrowType == "Mob") {
                 for (i = 0; i <= dropsList.length; i++) {
                     newItems.forEach(element => {
-                        if (element.includes(dropsList[i])) {
+                        if (element.includes(dropsList[i]) && !dropAnnounced) {
                             ChatLib.say(`${announceDropsChat()} ${sbeifyDrop(dropsList[i])}`)
                             dropAnnounced = true
                         }
                     })
                 }
-                if (Settings.announceDrops >= 2 && !dropAnnounced) {
-                    ChatLib.say(`${announceDropsChat()} ${sbeifyDrop('Antique Remedies')}`)
+                if (Settings.announceDropsLevel >= 2 && !dropAnnounced) {
+                    newItems.forEach(element => {
+                        if (element.includes('Antique Remedies')) {
+                            ChatLib.say(`${announceDropsChat()} ${sbeifyDrop('Antique Remedies')}`)
+                            dropAnnounced = true
+                        }
+                    })
                 }
 
                 if (!dropAnnounced && Settings.announceDropsLevel == 4) {
