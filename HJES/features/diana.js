@@ -86,6 +86,8 @@ register("command", () => {
 }).setName("hjesgetitems")
 
 register("chat", (chat) => {
+
+    ChatLib.chat(`lastBurrowType: ${lastBurrowType}\nlastMob: ${lastMob}\nlastTreasure: ${lastTreasure}`)
     registeredChat = new Message(chat).getUnformattedText()
 
     minosRegEx = /(?:Minos Champion)|(?:Siamese Lynxes)|(?:Minos Hunter)|(?:Minotaur)|(?:Gaia Construct)/
@@ -96,7 +98,8 @@ register("chat", (chat) => {
 
     if (registeredChat.includes("coins")) {
         ChatLib.chat(registeredChat)
-        lastTreasure = registeredChat.split("&r")[3].split("&6")[1]
+        lastTreasure = registeredChat.split("out")[1]
+        lastTreasure.slice(1, lastTreasure.length - 2)
         lastBurrowType = "Treasure"
     }
     else if (lastTreasure) {
@@ -107,13 +110,11 @@ register("chat", (chat) => {
     }
 
     inventoryItems = Player.getInventory().getItems()
-
     ChatLib.chat(`lastBurrowType: ${lastBurrowType}\nlastMob: ${lastMob}\nlastTreasure: ${lastTreasure}`)
+
 }).setChatCriteria("${*}&r&eYou dug out${*}")
 
-register
-
-// as i write this i am struggling to understand it
+// hell
 register("chat", (chat) => {
     if (Settings.announceDrops || Settings.burrowOverview) {
         registeredChat = new Message(chat).getUnformattedText()
@@ -130,7 +131,7 @@ register("chat", (chat) => {
                 oldItemName = inventoryItems[i].getName()
                 oldItemStackSize = inventoryItems[i].getStackSize()
             }
-            if (inventoryItems[i] != null) {
+            if (updatedInventoryItems[i] != null) {
                 newItemName = updatedInventoryItems[i].getName()
                 newItemStackSize = updatedInventoryItems[i].getStackSize()
             }
@@ -143,7 +144,6 @@ register("chat", (chat) => {
                     if (newItemName.includes("Enchanted")) {
                         enchClawTotal += newItemStackSize
                     }
-                    ChatLib.chat(`total: ${clawTotal}\nadding: ${newItemStackSize}`)
                     clawTotal += newItemStackSize
                     continue
                 }
@@ -160,7 +160,6 @@ register("chat", (chat) => {
                         continue
                     }
                     clawTotal += newItemStackSize - oldItemStackSize
-                    ChatLib.chat(`total: ${clawTotal}\nadding: ${newItemStackSize - oldItemStackSize}`)
                 }
                 else if (newItemName.includes("Gold")) {
                     goldTotal += newItemStackSize - oldItemStackSize
@@ -185,9 +184,9 @@ register("chat", (chat) => {
                     overviewMessage += `\n${newItems[i]}`
                 }
                 if (clawTotal) { overviewMessage += `\n&9${clawTotal}x Ancient Claw` }
-                else if (enchClawTotal) { overviewMessage += `\n&5${enchClawTotal}x Ancient Claw` }
-                else if (goldTotal) { overviewMessage += `\n&a${goldTotal}x Enchanted Gold` }
-                else if (ironTotal) { overviewMessage += `\n&a${ironTotal}x Enchanted Gold` }
+                if (enchClawTotal) { overviewMessage += `\n&5${enchClawTotal}x Enchanted Ancient Claw` }
+                if (goldTotal) { overviewMessage += `\n&a${goldTotal}x Enchanted Gold` }
+                if (ironTotal) { overviewMessage += `\n&a${ironTotal}x Enchanted Gold` }
             }
             else if (lastBurrowType == "Treasure") {
                 overviewMessage += `\n&bTreasure:&6 ${lastTreasure}`
@@ -200,7 +199,7 @@ register("chat", (chat) => {
             ChatLib.chat(overviewMessage)
         }
     }
-}).setChatCriteria("&r&eYou dug out a Griffin Burrow! &r&7(3/4)&r&r&7(${*}")
+}).setChatCriteria("&r&eYou ${*} Griffin ${*}urrow${*}&r&7(${*}")
 
 register("command", (args) => {
     helpMessage = helpHelper({
