@@ -106,6 +106,7 @@ class Settings {
     })
     announceDrops = false
 
+
     @SelectorProperty({
         name: "Announce Drops Chat",
         description: "The chat that drops are announced in",
@@ -123,6 +124,23 @@ class Settings {
         options: ["Relic", "Shelm", "Crochet", "Feather", "Claws"]
     })
     announceDropsLevel = 2;
+
+    @SwitchProperty({
+        name: "Announce Coins",
+        description: "Announce coins in chat.",
+        category: "Trollege",
+        subcategory: "Diana"
+    })
+    announceCoins = false
+
+    @SelectorProperty({
+        name: "Announce Coins Threshold",
+        description: "The chat that drops are announced in",
+        category: "Trollege",
+        subcategory: "Diana",
+        options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
+    })
+    announceCoinsAtValue = 8;
 
     //Testing configs
     @SwitchProperty({
