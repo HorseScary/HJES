@@ -85,9 +85,14 @@ register("command", () => {
 
 }).setName("hjesgetitems")
 
-register("chat", (chat) => {
+function announceDropsChat() {
+    chat = Settings.announceDropsChat
+    if (chat == 0) { return ('/gc') }
+    else if (chat == 1) { return ('/pc') }
+    else if (chat == 2) { return ('/ac') }
+}
 
-    ChatLib.chat(`lastBurrowType: ${lastBurrowType}\nlastMob: ${lastMob}\nlastTreasure: ${lastTreasure}`)
+register("chat", (chat) => {
     registeredChat = new Message(chat).getUnformattedText()
 
     minosRegEx = /(?:Minos Champion)|(?:Siamese Lynxes)|(?:Minos Hunter)|(?:Minotaur)|(?:Gaia Construct)/
@@ -95,6 +100,10 @@ register("chat", (chat) => {
 
     lastTreasure = treasureRegEx.exec(registeredChat)
     lastMob = minosRegEx.exec(registeredChat)
+
+    if (Settings.announceDrops && lastTreasure) {
+        ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
+    }
 
     if (registeredChat.includes("coins")) {
         ChatLib.chat(registeredChat)
@@ -109,9 +118,8 @@ register("chat", (chat) => {
         lastBurrowType = "Mob"
     }
 
-    inventoryItems = Player.getInventory().getItems()
-    ChatLib.chat(`lastBurrowType: ${lastBurrowType}\nlastMob: ${lastMob}\nlastTreasure: ${lastTreasure}`)
 
+    inventoryItems = Player.getInventory().getItems()
 }).setChatCriteria("${*}&r&eYou dug out${*}")
 
 // hell
@@ -169,7 +177,6 @@ register("chat", (chat) => {
                 }
             }
         }
-        ChatLib.chat(`newitems: ${newItems}\nclawTotal: ${clawTotal}\n chat: ${registeredChat}`)
 
         if (Settings.burrowOverview) {
             if (registeredChat.includes('(1/4)')) { lastBurrowType = "Start" }
@@ -189,14 +196,39 @@ register("chat", (chat) => {
                 if (ironTotal) { overviewMessage += `\n&a${ironTotal}x Enchanted Gold` }
             }
             else if (lastBurrowType == "Treasure") {
-                overviewMessage += `\n&bTreasure:&6 ${lastTreasure}`
+                if (lastTreasure.includes("Griffin")) {
+                    overviewMessage += `\n&bTreasure:&9 ${lastTreasure}`
+                }
+                else {
+                    overviewMessage += `\n&bTreasure:&6 ${lastTreasure}`
+                }
             }
             else if (lastBurrowType == "Start") {
                 overviewMessage += `\n&bStart Burrow`
             }
 
-
             ChatLib.chat(overviewMessage)
+        }
+
+        if (Settings.announceDrops) {
+            function sbeifyDrop(drop) { return (`[SBE] RARE DROP! ${drop}`) }
+            dropsList = ["Minos Relic", "Dwarf Turtle Shelmet", "Crochet Tiger Plushie", "Antique Remedies"].slice(0, Settings.announceDropsLevel)
+            dropAnnounced = false
+
+            if (lastBurrowType == "Mob") {
+                for (i = 0; i <= dropsList.length; i++) {
+                    newItems.forEach(element => {
+                        if (element.includes(dropsList[i])) {
+                            ChatLib.say(`${announceDropsChat()} ${sbeifyDrop(dropsList[i])}`)
+                            dropAnnounced = true
+                        }
+                    })
+                }
+                if (!dropAnnounced && Settings.announceDropsLevel >= 6) {
+                    if (enchClawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`Enchanted Ancient Claw`)) }
+                    else if (clawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`${clawTotal}x Ancient Claw`)) }
+                }
+            }
         }
     }
 }).setChatCriteria("&r&eYou ${*} Griffin ${*}urrow${*}&r&7(${*}")

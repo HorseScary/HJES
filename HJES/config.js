@@ -76,13 +76,6 @@ class Settings {
 
     //Trollege configs
     @SwitchProperty({
-        name: "runic",
-        description: "justifies gia construct deaths",
-        category: "Trollege"
-    })
-    runic = true;
-
-    @SwitchProperty({
         name: "Auto Mute",
         description: "automaticly g mutes player",
         category: "Trollege"
@@ -98,12 +91,38 @@ class Settings {
     autoMutePlayer = "sergeantsar"
 
     @SwitchProperty({
+        name: "runic",
+        description: "justifies gia construct deaths",
+        category: "Trollege",
+        subcategory: "Diana"
+    })
+    runic = true;
+
+    @SwitchProperty({
         name: "Announce Drops",
-        description: "announce rare drops from diana in guild chat",
+        description: "Announce rare drops from diana in chat. Based on changes in inventory between burrow digs.",
         category: "Trollege",
         subcategory: "Diana"
     })
     announceDrops = false
+
+    @SelectorProperty({
+        name: "Announce Drops Chat",
+        description: "The chat that drops are announced in",
+        category: "Trollege",
+        subcategory: "Diana",
+        options: ["Guild", "Party", "All (prolly don't do this)"]
+    })
+    announceDropsChat = 0;
+
+    @SelectorProperty({
+        name: "Announce Drops Level",
+        description: "How rare the drops you announce are",
+        category: "Trollege",
+        subcategory: "Diana",
+        options: ["Relic", "Shelm", "Plushie", "Antique", "Feather", "Ench Claw", "Normal Claw"]
+    })
+    announceDropsLevel = 3;
 
     //Testing configs
     @SwitchProperty({
