@@ -111,7 +111,7 @@ register("chat", (chat) => {
     if (registeredChat.includes("coins")) {
         // takes out the coin part out of the coin drop message
         lastTreasure = registeredChat.split("out")[1]
-        lastTreasure.slice(1, lastTreasure.length - 2)
+        lastTreasure = lastTreasure.slice(1, lastTreasure.length - 1)
         lastBurrowType = "Treasure"
     }
 
