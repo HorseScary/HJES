@@ -101,23 +101,33 @@ register("chat", (chat) => {
     lastTreasure = treasureRegEx.exec(registeredChat)
     lastMob = minosRegEx.exec(registeredChat)
 
-    if (Settings.announceDrops && lastTreasure) {
-        ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
-    }
-
     if (registeredChat.includes("coins")) {
-        ChatLib.chat(registeredChat)
         lastTreasure = registeredChat.split("out")[1]
         lastTreasure.slice(1, lastTreasure.length - 2)
         lastBurrowType = "Treasure"
     }
     else if (lastTreasure) {
+        lastTreasure = lastTreasure[0]
         lastBurrowType = "Treasure"
+
+        if (Settings.announceDrops) {
+            level = Settings.announceDropsLevel
+            ChatLib.chat(level)
+            if (level >= 1 && lastTreasure.includes("Crown of Greed")) {
+                ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
+            }
+            else if (level >= 2 && lastTreasure.includes("Washed-up")) {
+                ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
+            }
+            else if (level >= 3 && lastTreasure.includes("Griffin Feather")) {
+                ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
+            }
+
+        }
     }
     else if (lastMob) {
         lastBurrowType = "Mob"
     }
-
 
     inventoryItems = Player.getInventory().getItems()
 }).setChatCriteria("${*}&r&eYou dug out${*}")
@@ -224,7 +234,7 @@ register("chat", (chat) => {
                         }
                     })
                 }
-                if (!dropAnnounced && Settings.announceDropsLevel >= 6) {
+                if (!dropAnnounced && Settings.announceDropsLevel == 4) {
                     if (enchClawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`Enchanted Ancient Claw`)) }
                     else if (clawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`${clawTotal}x Ancient Claw`)) }
                 }

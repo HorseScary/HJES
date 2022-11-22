@@ -100,7 +100,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Announce Drops",
-        description: "Announce rare drops from diana in chat. Based on changes in inventory between burrow digs.",
+        description: "Announce rare drops from diana in chat. Based on changes in inventory between burrow digs, and doesn't support dae stick cause fuck you.",
         category: "Trollege",
         subcategory: "Diana"
     })
@@ -120,9 +120,9 @@ class Settings {
         description: "How rare the drops you announce are",
         category: "Trollege",
         subcategory: "Diana",
-        options: ["Relic", "Shelm", "Plushie", "Antique", "Feather", "Ench Claw", "Normal Claw"]
+        options: ["Relic", "Shelm", "Antique", "Feather", "Claws"]
     })
-    announceDropsLevel = 3;
+    announceDropsLevel = 2;
 
     //Testing configs
     @SwitchProperty({
