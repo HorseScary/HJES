@@ -120,7 +120,7 @@ class Settings {
         description: "How rare the drops you announce are",
         category: "Trollege",
         subcategory: "Diana",
-        options: ["Relic", "Shelm", "Antique", "Feather", "Claws"]
+        options: ["Relic", "Shelm", "Crochet", "Feather", "Claws"]
     })
     announceDropsLevel = 2;
 

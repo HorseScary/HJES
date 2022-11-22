@@ -34,6 +34,7 @@ register("chat", () => {
 
 register("chat", () => {
     if (Settings.announceInquis) {
+        // Looks for entity who's name includes "inquis"
         World.getAllEntities().forEach(entity => {
             if (entity.getName().toLowerCase().includes("inquis")) {
                 inquisExists += 1
@@ -45,12 +46,13 @@ register("chat", () => {
 
                 setTimeout(() => {
                     if (inquisExists) {
-                        ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registerd as dead!")
+                        ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registered as dead!")
                     }
                     inquisExists -= 1
-                }, parseInt(Settings.inquisTmeout))
+                }, parseInt(Settings.inquisTimeout))
             }
 
+            // same thing as inquis code, but doesn't change the inquisExists variable
             else if (entity.getName().toLowerCase().includes("champ") && Settings.announceChamp) {
                 ChatLib.say(`/pc [HJES Diana] Champ`)
                 setTimeout(() => {
@@ -58,25 +60,28 @@ register("chat", () => {
                 }, 500)
 
                 setTimeout(() => {
-                    ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registerd as dead!")
+                    ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registered as dead!")
                 }, parseInt(Settings.champTimeout))
             }
         })
     }
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
 
+// 😼
 register("chat", () => {
     if (Settings.runic) {
         ChatLib.say("/pc It was runic i swear!")
     }
 }).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${*}")
 
+// rejoins lobby when cheese obtained message is registered
 register("chat", () => {
     if (Settings.rejoinOnCheese) {
         ChatLib.say('/play sb')
     }
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
+// puts the items in your inventory in chat. for debugging
 register("command", () => {
     items = Player.getInventory().getItems()
     for (i = 0; i < items.length; i++) {
@@ -85,6 +90,7 @@ register("command", () => {
 
 }).setName("hjesgetitems")
 
+// returns chat command based on the announceDropsChat setting
 function announceDropsChat() {
     chat = Settings.announceDropsChat
     if (chat == 0) { return ('/gc') }
@@ -95,6 +101,7 @@ function announceDropsChat() {
 register("chat", (chat) => {
     registeredChat = new Message(chat).getUnformattedText()
 
+    // returns the mob/treasure type if it exists within a string, returns null if it doesn't
     minosRegEx = /(?:Minos Champion)|(?:Siamese Lynxes)|(?:Minos Hunter)|(?:Minotaur)|(?:Gaia Construct)/
     treasureRegEx = /(?:Crown of Greed)|(?:Washed-up Souvenir)|(?:Griffin Feather)/
 
@@ -102,17 +109,18 @@ register("chat", (chat) => {
     lastMob = minosRegEx.exec(registeredChat)
 
     if (registeredChat.includes("coins")) {
+        // takes out the coin part out of the coin drop message
         lastTreasure = registeredChat.split("out")[1]
         lastTreasure.slice(1, lastTreasure.length - 2)
         lastBurrowType = "Treasure"
     }
+
     else if (lastTreasure) {
         lastTreasure = lastTreasure[0]
         lastBurrowType = "Treasure"
 
         if (Settings.announceDrops) {
             level = Settings.announceDropsLevel
-            ChatLib.chat(level)
             if (level >= 1 && lastTreasure.includes("Crown of Greed")) {
                 ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
             }
@@ -132,11 +140,10 @@ register("chat", (chat) => {
     inventoryItems = Player.getInventory().getItems()
 }).setChatCriteria("${*}&r&eYou dug out${*}")
 
-// hell
 register("chat", (chat) => {
     if (Settings.announceDrops || Settings.burrowOverview) {
+        if (registeredChat.includes('(1/4)')) { lastBurrowType = "Start" }
         registeredChat = new Message(chat).getUnformattedText()
-
         updatedInventoryItems = Player.getInventory().getItems()
         newItems = Array()
         goldTotal = 0
@@ -144,7 +151,9 @@ register("chat", (chat) => {
         clawTotal = 0
         enchClawTotal = 0
 
+
         for (i = 0; i < inventoryItems.length; i++) {
+            // Item.getName wont work on null (since null isn't an item) and empty slots return null
             if (inventoryItems[i] != null) {
                 oldItemName = inventoryItems[i].getName()
                 oldItemStackSize = inventoryItems[i].getStackSize()
@@ -154,23 +163,28 @@ register("chat", (chat) => {
                 newItemStackSize = updatedInventoryItems[i].getStackSize()
             }
 
+            // if theres nothing in the updated inventory slots, theres no reason to do anything else with them
             if (updatedInventoryItems[i] == null) {
                 continue
             }
+
+            // since last statement continues if updated slots are empty, we can assume that every updated slot has something
             else if (inventoryItems[i] == null) {
+                // if the new item is one of the stackable things, it adds to the variable for the stackable things
                 if (newItemName.includes("Claw")) {
                     if (newItemName.includes("Enchanted")) {
                         enchClawTotal += newItemStackSize
+                        continue
                     }
                     clawTotal += newItemStackSize
                     continue
                 }
                 else if (newItemName.includes("Gold")) { goldTotal += newItemStackSize; continue }
                 else if (newItemName.includes("Iron")) { ironTotal += newItemStackSize; continue }
-
-                newItems.push(newItemName)
             }
 
+            // checks for differences in stack sizes for stackable items
+            // adds the difference between new stack size and old stack size
             else if (oldItemStackSize != newItemStackSize) {
                 if (newItemName.includes("Claw")) {
                     if (newItemName.includes("Enchanted")) {
@@ -189,7 +203,6 @@ register("chat", (chat) => {
         }
 
         if (Settings.burrowOverview) {
-            if (registeredChat.includes('(1/4)')) { lastBurrowType = "Start" }
 
             overviewMessage = String()
             overviewMessage += HJESMessage("", "Burrow Overview")
@@ -200,6 +213,7 @@ register("chat", (chat) => {
                 for (i = 0; i < newItems.length; i++) {
                     overviewMessage += `\n${newItems[i]}`
                 }
+                // if these are not zero it will add them to the message
                 if (clawTotal) { overviewMessage += `\n&9${clawTotal}x Ancient Claw` }
                 if (enchClawTotal) { overviewMessage += `\n&5${enchClawTotal}x Enchanted Ancient Claw` }
                 if (goldTotal) { overviewMessage += `\n&a${goldTotal}x Enchanted Gold` }
@@ -241,6 +255,7 @@ register("chat", (chat) => {
             }
         }
     }
+    // Chat criteria is weird cause it needs to account for 2 types of burrows and they are capitalized differently
 }).setChatCriteria("&r&eYou ${*} Griffin ${*}urrow${*}&r&7(${*}")
 
 register("command", (args) => {
@@ -285,4 +300,3 @@ register("command", (args) => {
         ChatLib.chat(`&d[HJES Diana]&f ${args} is not a valid option. Type '/inquis help' for help.`)
     }
 }).setName("inquisitor", true).setAliases("inquis", "inq", "iq")
-
