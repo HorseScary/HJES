@@ -1,6 +1,5 @@
 import Settings from "../config"
-import { helpHelper, HJESMessage } from "../functions"
-
+import { getRandomInt, helpHelper, HJESMessage } from "../functions"
 
 let myCheese = false
 let inquisExists = 0
@@ -240,29 +239,38 @@ register("chat", (chat) => {
             // TODO: fix "crochet" drop level not including remedies
             function sbeifyDrop(drop) { return (`[SBE] RARE DROP! ${drop}`) }
             dropsList = ["Minos Relic", "Dwarf Turtle Shelmet", "Crochet Tiger Plushie"].slice(0, Settings.announceDropsLevel + 1)
+            if (dropsList.length == 3) {
+                dropsList.push("Antique Remedies")
+            }
+            dropsList = ['Enchanted Book', 'Daedalus Stick'].concat(dropsList)
             dropAnnounced = false
+            rarestDrop = String()
+            dropMessage = String()
 
             if (lastBurrowType == "Mob") {
                 for (i = 0; i <= dropsList.length; i++) {
                     newItems.forEach(element => {
                         if (element.includes(dropsList[i]) && !dropAnnounced) {
-                            ChatLib.say(`${announceDropsChat()} ${sbeifyDrop(dropsList[i])}`)
-                            dropAnnounced = true
-                        }
-                    })
-                }
-                if (Settings.announceDropsLevel >= 2 && !dropAnnounced) {
-                    newItems.forEach(element => {
-                        if (element.includes('Antique Remedies')) {
-                            ChatLib.say(`${announceDropsChat()} ${sbeifyDrop('Antique Remedies')}`)
+                            rarestDrop = dropsList[i]
                             dropAnnounced = true
                         }
                     })
                 }
 
                 if (!dropAnnounced && Settings.announceDropsLevel == 4) {
-                    if (enchClawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`Enchanted Ancient Claw`)) }
-                    else if (clawTotal) { ChatLib.say(`${announceDropsChat()} ` + sbeifyDrop(`${clawTotal}x Ancient Claw`)) }
+                    if (enchClawTotal) { rarestDrop = `Enchanted Ancient Claw` }
+                    else if (clawTotal) { rarestDrop = `${clawTotal}x Ancient Claw` }
+                }
+
+                if (rarestDrop.includes('Enchanted Book') || rarestDrop.includes('Daedalus Stick')) {
+                    dropMessage = `${announceDropsChat()} RARE DROP! ${rarestDrop} (+${getRandomInt(100, 350)}% ✯ Magic Find)`
+                }
+                else {
+                    dropMessage = `${announceDropsChat()} ${sbeifyDrop(rarestDrop)}`
+                }
+
+                if (rarestDrop) {
+                    ChatLib.say(dropMessage)
                 }
             }
         }
