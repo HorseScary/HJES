@@ -135,7 +135,7 @@ class Settings {
 
     @SelectorProperty({
         name: "Announce Coins Threshold",
-        description: "The chat that drops are announced in",
+        description: "How many coins should be in a drop before its announced",
         category: "Trollege",
         subcategory: "Diana",
         options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
