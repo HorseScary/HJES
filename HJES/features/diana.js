@@ -112,6 +112,26 @@ register("chat", (chat) => {
         lastTreasure = registeredChat.split("out")[1]
         lastTreasure = lastTreasure.slice(1, lastTreasure.length - 1)
         lastBurrowType = "Treasure"
+
+        if (Settings.announceDrops && Settings.announceDropsLevel >= 2) {
+            coins = parseInt(lastTreasure.split('coins')[0])
+            ChatLib.chat(coins)
+            coinsToAnnounce = 0
+
+            if (coins >= 10 && Settings.announceDropsLevel >= 4) {
+                coinsToAnnounce = coins
+            }
+            else if (coins >= 50 && Settings.announceDropsLevel >= 3) {
+                coinsToAnnounce = coins
+            }
+            else {
+                coinsToAnnounce = coins
+            }
+
+            if (coinsToAnnounce) {
+                ChatLib.say(`${announceDropsChat()} Wow! You dug out ${coinsToAnnounce},000 coins!`)
+            }
+        }
     }
 
     else if (lastTreasure) {
@@ -129,7 +149,6 @@ register("chat", (chat) => {
             else if (level >= 3 && lastTreasure.includes("Griffin Feather")) {
                 ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
             }
-
         }
     }
     else if (lastMob) {
