@@ -142,7 +142,6 @@ register("chat", (chat) => {
 
 register("chat", (chat) => {
     if (Settings.announceDrops || Settings.burrowOverview) {
-        if (registeredChat.includes('(1/4)')) { lastBurrowType = "Start" }
         registeredChat = new Message(chat).getUnformattedText()
         updatedInventoryItems = Player.getInventory().getItems()
         newItems = Array()
@@ -151,6 +150,7 @@ register("chat", (chat) => {
         clawTotal = 0
         enchClawTotal = 0
 
+        if (registeredChat.includes('(1/4)')) { lastBurrowType = "Start" }
 
         for (i = 0; i < inventoryItems.length; i++) {
             // Item.getName wont work on null (since null isn't an item) and empty slots return null
@@ -251,7 +251,7 @@ register("chat", (chat) => {
                         }
                     })
                 }
-                if (Settings.announceDrops == 2 && dropAnnounced) {
+                if (Settings.announceDrops >= 2 && !dropAnnounced) {
                     ChatLib.say(`${announceDropsChat()} ${sbeifyDrop('Antique Remedies')}`)
                 }
 
