@@ -1,0 +1,53 @@
+$background-color: #797979;
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    background-color: $background-color;
+    margin: 0;
+    padding: 1rem 0 .3rem;
+    border-radius: 0 0 1rem 1rem;
+
+    h1 {
+        text-align: center;
+        padding: none;
+    }
+}
+
+nav {
+    background-color: $background-color;
+    border-radius: 1rem;
+
+    padding-left: 3rem;
+    padding-right: 3rem;
+
+    padding-top: .5em;
+    padding-bottom: 1em;
+    margin: 1rem 3rem;
+
+    display: flex;
+    justify-content: center;
+
+    a {
+        text-align: center;
+        margin: 0 1rem;
+
+        color: ;
+    }
+}
+
+.dropdown {
+    background-color: $background-color;
+
+    border-radius: 1rem;
+
+    padding-left: 3rem;
+    padding-right: 3rem;
+
+    padding-top: .5em;
+    padding-bottom: 1em;
+    margin: 3rem;
+}
