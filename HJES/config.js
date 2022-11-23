@@ -165,6 +165,14 @@ class Settings {
     })
     chatThing = false
 
+    @TextProperty({
+        name: "chimchance",
+        description: "decimal",
+        category: "Trollege",
+        placeholder: ".05"
+    })
+    chimChance = ".05"
+
     constructor() {
         this.initialize(this);
         this.setCategoryDescription("General", "&aH&3J&dES")
