@@ -7,6 +7,8 @@ let inventoryItems = Array()
 let lastMob = String()
 let lastBurrowType = String()
 let lastTreasure = String()
+let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
+
 
 
 // Leaves to hub when someone gets cheese
@@ -113,23 +115,11 @@ register("chat", (chat) => {
         lastTreasure = lastTreasure.slice(1, lastTreasure.length - 1)
         lastBurrowType = "Treasure"
 
-        if (Settings.announceDrops && Settings.announceDropsLevel >= 2) {
+        if (Settings.announceCoins) {
             coins = parseInt(lastTreasure.split('coins')[0])
-            ChatLib.chat(coins)
             coinsToAnnounce = 0
-
-            if (coins >= 10 && Settings.announceDropsLevel >= 4) {
-                coinsToAnnounce = coins
-            }
-            else if (coins >= 50 && Settings.announceDropsLevel >= 3) {
-                coinsToAnnounce = coins
-            }
-            else {
-                coinsToAnnounce = coins
-            }
-
-            if (coinsToAnnounce) {
-                ChatLib.say(`${announceDropsChat()} Wow! You dug out ${coinsToAnnounce},000 coins!`)
+            if (coins >= coinValues[Settings.announceCoinsAtValue]) {
+                ChatLib.say(`${announceDropsChat()} Wow! You dug out ${coins},000 coins!`)
             }
         }
     }
