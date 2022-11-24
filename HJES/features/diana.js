@@ -261,7 +261,15 @@ register("chat", (chat) => {
                     newItems.forEach(element => {
                         if (element.includes(dropsList[i]) && !dropAnnounced) {
                             rarestDrop = dropsList[i]
+                            if (Settings.chimeraChance) {
+                                if (rarestDrop == "Antique Remedies" || rarestDrop == "Crochet Tiger Plushie" || rarestDrop == "Dwarf Turtle Shelmet") {
+                                let number = Math.random()
+                                if (number < Settings.chimeraChance) {
+                                    rarestDrop = "Enchanted Book"
+                                }
+                            }
                             dropAnnounced = true
+                        }
                         }
                     })
                 }
