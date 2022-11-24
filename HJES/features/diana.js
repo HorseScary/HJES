@@ -71,7 +71,7 @@ register("chat", () => {
 // 😼
 register("chat", () => {
     if (Settings.runic) {
-        ChatLib.say("/pc It was runic i swear!")
+        ChatLib.say("/pc It was runic, I swear!")
     }
 }).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${*}")
 
