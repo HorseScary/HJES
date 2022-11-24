@@ -253,7 +253,6 @@ register("chat", (chat) => {
             }
             dropsList = ['Enchanted Book', 'Daedalus Stick'].concat(dropsList)
             dropAnnounced = false
-            rarestDrop = String()
             dropMessage = String()
 
             if (lastBurrowType == "Mob") {
@@ -261,20 +260,17 @@ register("chat", (chat) => {
                     newItems.forEach(element => {
                         if (element.includes(dropsList[i]) && !dropAnnounced) {
                             rarestDrop = dropsList[i]
-                            if (Settings.chimeraChance) {
-                                if (rarestDrop == "Antique Remedies" || rarestDrop == "Crochet Tiger Plushie" || rarestDrop == "Dwarf Turtle Shelmet") {
-                                let number = Math.random()
-                                if (number < Settings.chimeraChance) {
+
+                            if (Settings.fakeChim && i > 2) {
+                                if (Math.random() < Settings.chimeraChance) {
                                     rarestDrop = "Enchanted Book"
                                 }
                             }
-                            dropAnnounced = true
-                        }
                         }
                     })
                 }
 
-                if (!dropAnnounced && Settings.announceDropsLevel == 4) {
+                if (!rarestDrop && Settings.announceDropsLevel == 4) {
                     if (enchClawTotal) { rarestDrop = `Enchanted Ancient Claw` }
                     else if (clawTotal) { rarestDrop = `${clawTotal}x Ancient Claw` }
                 }

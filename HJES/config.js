@@ -131,7 +131,7 @@ class Settings {
         category: "Trollege",
         subcategory: "Diana"
     })
-    announceCoins = false
+    announceCoins = false;
 
     @SelectorProperty({
         name: "Announce Coins Threshold",
@@ -141,6 +141,24 @@ class Settings {
         options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
     })
     announceCoinsAtValue = 8;
+
+    @SwitchProperty({
+        name: "Fake Chimera",
+        description: "Chance to send enchanted book drop message instead of shelm plushie or antique",
+        category: "Trollege",
+        subcategory: "Diana"
+    })
+    fakeChim = false;
+
+    @TextProperty({
+        name: "FakeChimeraChance",
+        description: "the chance to send a fake chimera message",
+        category: "Trollege",
+        subcategory: "Diana",
+        placeholder: ".05"
+    })
+    fakeChimChance = ".05";
+
 
     //Testing configs
     @SwitchProperty({
@@ -163,16 +181,7 @@ class Settings {
         description: "tests chat thing",
         category: "Testing"
     })
-    chatThing = false
-
-    @TextProperty({
-        name: "chimchance",
-        description: "decimal",
-        category: "Trollege",
-        placeholder: ".05"
-    })
-    chimChance = ".05"
-
+    chatThing = false;
     constructor() {
         this.initialize(this);
         this.setCategoryDescription("General", "&aH&3J&dES")
