@@ -182,6 +182,7 @@ class Settings {
         category: "Testing"
     })
     chatThing = false;
+
     constructor() {
         this.initialize(this);
         this.setCategoryDescription("General", "&aH&3J&dES")

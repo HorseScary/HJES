@@ -258,16 +258,17 @@ register("chat", (chat) => {
             if (lastBurrowType == "Mob") {
                 for (i = 0; i <= dropsList.length; i++) {
                     newItems.forEach(element => {
-                        if (element.includes(dropsList[i]) && !dropAnnounced) {
+                        if (element.includes(dropsList[i]) && !rarestDrop) {
                             rarestDrop = dropsList[i]
-
-                            if (Settings.fakeChim && i > 2) {
-                                if (Math.random() < Settings.chimeraChance) {
-                                    rarestDrop = "Enchanted Book"
-                                }
-                            }
                         }
                     })
+                    if (rarestDrop && i < 2) { break }
+
+                    if (Settings.fakeChim && i > 2) {
+                        if (Math.random() < Settings.chimeraChance) {
+                            rarestDrop = "Enchanted Book"
+                        }
+                    }
                 }
 
                 if (!rarestDrop && Settings.announceDropsLevel == 4) {
