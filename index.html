@@ -5,45 +5,85 @@
     <meta charset="utf-8">
     <title>HJES</title>
     <meta name="description" content="HJES Chat Triggers Module">
-    <link rel="stylesheet" href="website-resources/style.css">
-    <script src="/website-resources/main.js"></script>
+    <link rel="stylesheet" href="./website-resources/style.css">
+    <script src="./website-resources/main.js"></script>
+
+    <!--font stuff-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=VT323&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>HJES</h1>
+        <h1>
+            <span style="color: #ff55ff;">[</span><span style="color: #55ff55;">H</span><span
+                style="color: #00aaaa;">J</span><span style="color:#ff55ff;">ES]</span>
+        </h1>
     </header>
     <nav>
-        <a href="https://github.com/HorseScary/HJES/releases/latest">Latest Release</a>
-        <a href="https://github.com/HorseScary/HJES">Github</a>
+        <a href="https://github.com/HorseScary/HJES/releases/latest">
+            <img src="./website-resources/rat.webp" alt="a hypixel skyblock rat"> Latest Release
+        </a>
+        <a href="https://github.com/HorseScary/HJES">
+            <img src="./website-resources/github.webp" alt="the github logo">Github
+        </a>
     </nav>
 
     <main>
-        <div class="dropdown">
-            <div id="features">
-                <h2>Features</h2>
+        <div class="dropdown" id="features" onclick="dropdown('features')" dropdownStatus="up">
+            <h2><span class="dropdownArrowDown">^</span> Features</h2>
+            <div style="display: none;">
+                <h3>Diana</h3>
                 <ul>
                     <li>
-                        thing
+                        Auto Cheese
+                        <p>
+                            leave and rejoin when cheese spawns/is obtained (requires party members to also uses HJES)
+                        </p>
                     </li>
+
                     <li>
-                        other thing
+                        Burrow Overview
+                        <p>
+                            Gives details on what came out of the burrow. Mostly for debugging.
+                        </p>
                     </li>
                 </ul>
 
+                <h3>Trollege</h3>
+                <ul>
+                    <li>
+                        Auto g mute
+                    </li>
+                    <li>
+                        announce diana drops
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <div class="dropdown">
-            <h2>FAQ</h2>
-            <div id="FAQ">
+        <div class="dropdown" id="faq" onclick="dropdown('faq')" dropdownStatus="up">
+            <h2><span class="dropdownArrowDown">^</span> FAQ</h2>
+            <div style="display: none;">
                 <div class="question">
-                    <p>Is this a rat?</p>
-                    dw about it
+                    <h3>Is this a rat?</h3>
+                    <p>dw about it</p>
                 </div>
             </div>
         </div>
+
+        <div class="dropdown" id="endorsements" onclick="dropdown('endorsements')" dropdownStatus="up">
+            <h2><span class="dropdownArrowDown">^</span> Endorsements</h2>
+            <div style="display: none;">
+                <h3>"Diana utils victim #10"</h3>
+                <p>- Endray</p>
+            </div>
     </main>
+
+    <footer>
+
+    </footer>
 </body>
 
 </html>
