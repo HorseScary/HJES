@@ -1,7 +1,3 @@
-window.onload = function () {
-
-}
-
 function dropdown(element) {
     dropdownElement = document.getElementById(element)
     dropdownStatus = dropdownElement.getAttribute("dropdownStatus")
