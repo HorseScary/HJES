@@ -53,3 +53,18 @@ export function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function webhook(string, url) {
+    request({
+        url: url,
+        method: "POST",
+        body: { "content": string },
+        headers: { "User-Agent": "Mozilla/5.0" }
+    }).catch(function () {
+        setTimeout(() => { ChatLib.chat("There has been an error with sending data to the webhook. Please try again later.") }, 1000)
+    })
+}
+
+export function getCurrentTimestamp() {
+    return Math.floor(Date.now() / 1000)
+}

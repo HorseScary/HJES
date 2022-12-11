@@ -142,6 +142,30 @@ class Settings {
     })
     announceCoinsAtValue = 8;
 
+    //Eyedrops config
+    @SwitchProperty({
+        name: "Eyedrops",
+        description: "notifies you when you need to re-apply eyedrops to your inferno minions",
+        category: "eyedrops"
+    })
+    eyedrops = false
+
+    @TextProperty({
+        name: "webhook",
+        description: "Webhook to send eyedrops things to",
+        category: "Eyedrops",
+        placeholder: ""
+    })
+    webhook = String()
+
+    @TextProperty({
+        name: "Discord",
+        description: "Discord ID. set this to nothing if you don't want to be pinged.",
+        category: "Eyedrops",
+        placeholder: "473335128375033857"
+    })
+    discord = String()
+
     //Testing configs
     @SwitchProperty({
         name: "announce champ",
@@ -175,6 +199,8 @@ class Settings {
 
         this.setCategoryDescription("Trollege", "&4 trollege")
         this.setSubcategoryDescription("Trollege", "Diana", "Diana Trollege")
+
+        this.setCategoryDescription("Eyedrops", "I love gambling!")
 
         this.setCategoryDescription("Testing", "prolly dont enable these")
     }
