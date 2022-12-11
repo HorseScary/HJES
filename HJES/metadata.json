@@ -2,10 +2,11 @@
     "name": "HJES",
     "creator": "HorseScary",
     "description": "cool and epic diana stuff",
-    "version": "0.2.0",
+    "version": "0.3.1",
     "entry": "index.js",
     "requires": [
         "Vigilance",
-        "requestsV2"
+        "requestsV2",
+        "PogData"
     ]
 }
