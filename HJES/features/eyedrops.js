@@ -55,3 +55,7 @@ register("command", (time) => {
         ChatLib.chat(HJESMessage("This command requires a time."))
     }
 }).setName("changeeyedropstime")
+
+register("command", () => {
+    ChatLib.chat(HJESMessage(`Next eyedrops in ${PogObject.nextEyedropsTime}`))
+}).setName("nexteyedropstime")
