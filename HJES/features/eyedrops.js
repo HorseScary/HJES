@@ -14,9 +14,7 @@ PogObject = new PogObject("HJES", {
     notifyEyedrops: false,
     eyedropsUsed: false,
     eyedropsUsedTime: Number(),
-    notifyNoEyedrops: false,
-    notifyNoEyedropsInterval: Settings.eyedropsbrokeninterval,
-    notifyNoEyedropsTime: Number()
+    notifyNoEyedrops: false
 })
 
 PogObject.autosave()
@@ -44,6 +42,7 @@ register("chat", (message) => {
     if (message.removeFormatting() == "You applied the eyedrops on the minion and ran out!" && !PogObject.eyedropsUsed) {
         webhook(`Eyedrops used. Next eyedrops at <t:${PogObject.nextEyedropsTime}:T> (<t:${PogObject.nextEyedropsTime}:R>) (unix time in seconds: ${PogObject.nextEyedropsTime}\n (put this as time for /changeeyedropstime if you close mc or ct reload))`, Settings.webhook)
         PogObject.notifyEyedrops = false
+        PogObject.notifyNoEyedrops = false
     }
 }).setCriteria("${message}").setContains()
 
@@ -55,13 +54,10 @@ register("tick", () => {
 })
 
 register("tick", () => {
-    if(PogObject.nextEyedropsTime == 0 && PogObject.notifyNoEyedrops) {
-        PogObject.notifyNoEyedrops = false
+    if(PogObject.nextEyedropsTime == 0 && !PogObject.notifyNoEyedrops) {
+        PogObject.notifyNoEyedrops = true
         webhook(`<@${Settings.discord}> eyedrops time = 0, you should probably fix`, Settings.webhook)
         PogObject.notifyNoEyedropsTime = getCurrentTimestamp()
-    }
-    if(!PogObject.notifyNoEyedrops && getCurrentTimestamp() > PogObject.notifyNoEyedropsTime + PogObject.notifyNoEyedropsInterval*60000 && PogObject.nextEyedropsTime == 0) {
-        PogObject.notifyEyedrops = true
     }
 })
 
@@ -70,6 +66,7 @@ register("command", (time) => {
         ChatLib.chat(HJESMessage(`Time set to ${time}`))
         PogObject.nextEyedropsTime = time
         webhook(`Eyedrops time changed. Next eyedrops at <t:${PogObject.nextEyedropsTime}:T> (<t:${PogObject.nextEyedropsTime}:R>) (unix time in seconds: ${PogObject.nextEyedropsTime}\n (put this as time for /changeeyedropstime if you close mc or ct reload))`, Settings.webhook)
+        PogObject.notifyNoEyedrops = false
     } else {
         ChatLib.chat(HJESMessage("This command requires a time. /nexteyedropstime to see next eyedrops time."))
     }

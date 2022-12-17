@@ -171,14 +171,6 @@ class Settings {
     })
     discord = String()
 
-    @TextProperty({
-        name: "Eyedrops Broken Notifier",
-        description: "set time in minutes of how long you want to be incrementally pinged if there is no eyedrops time set",
-        category: "Eyedrops",
-        placeholder: "60"
-    })
-    eyedropsbrokeninterval = String()
-
     //Testing configs
     @SwitchProperty({
         name: "announce champ",
