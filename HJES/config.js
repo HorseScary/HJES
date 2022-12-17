@@ -19,12 +19,17 @@ class Config {
 class Settings {
     // General config
     @SwitchProperty({
-        name: "Switch",
-        description: "useless switch",
+        name: "Stay in Skyblock",
+        description: "Sends to island if in limbo or kicked from island",
         category: "General"
     })
-    a = true
-
+    afk = false
+    @SwitchProperty({
+        name: "Auto-Join to Skyblock",
+        description: "Ideally used with stay in skyblock, pairs with auto-reconnect mod (sends you to island) \n(also bases off of hype message so make sure you join to the prototype lobby and you have max hype)",
+        category: "General"
+    })
+    afk2 = false
     //Diana configs
     @TextProperty({
         name: "InquisTimeout",
