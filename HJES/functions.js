@@ -1,3 +1,5 @@
+import request from "requestv2/index";
+
 function spaceAdder(text) {
     if (!text) {
         return ('')
