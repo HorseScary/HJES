@@ -162,7 +162,7 @@ class Settings {
         name: "Discord",
         description: "Discord ID. set this to nothing if you don't want to be pinged.",
         category: "Eyedrops",
-        placeholder: "473335128375033857"
+        placeholder: ""
     })
     discord = String()
 
