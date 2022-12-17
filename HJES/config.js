@@ -24,6 +24,7 @@ class Settings {
         category: "General"
     })
     afk = false
+
     @SwitchProperty({
         name: "Auto-Join to Skyblock",
         description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normaly)\nBased on max hype message so like have that.",

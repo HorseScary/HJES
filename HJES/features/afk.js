@@ -1,5 +1,8 @@
+import Settings from "../config"
+
 let warpback = false
 let warpbacklimbo = false
+
 register("chat", () => {
     if (Settings.afk2) {
         setTimeout(() => {
