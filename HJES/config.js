@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Trollege", "Eyedrops", "Testing",]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
