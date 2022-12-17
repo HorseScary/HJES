@@ -57,7 +57,7 @@ register("tick", () => {
 register("tick", () => {
     if(PogObject.nextEyedropsTime == 0 && PogObject.notifyNoEyedrops) {
         PogObject.notifyNoEyedrops = false
-        webhook(`<@${Settings.discord}> eyedrops time = 0, you should probably fix`)
+        webhook(`<@${Settings.discord}> eyedrops time = 0, you should probably fix`, Settings.webhook)
         PogObject.notifyNoEyedropsTime = getCurrentTimestamp()
     }
     if(!PogObject.notifyNoEyedrops && getCurrentTimestamp() > PogObject.notifyNoEyedropsTime + PogObject.notifyNoEyedropsInterval*60000 && PogObject.nextEyedropsTime == 0) {
