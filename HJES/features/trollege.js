@@ -26,7 +26,6 @@ register("chat", (chat) => {
     muted = new Message(chat).getUnformattedText()
 
     if (Settings.autoMute) {
-        ChatLib.chat(muted.toLowerCase().split(Settings.autoMutePlayer.toLowerCase()).length)
         if (muted.toLowerCase().split(Settings.autoMutePlayer.toLowerCase()).length == 3.0) {
             ChatLib.say(`/g mute ${Settings.autoMutePlayer} 30d`)
         }
