@@ -2,16 +2,18 @@ import Settings from "../config"
 import PogObject from "PogData"
 import { helpHelper, HJESMessage, webhook, getCurrentTimestamp } from "../functions"
 
+/*
 let nextEyedropsTime = Int()
 let notifyEyedrops = false
 let eyedropsUsed = false
 let eyedropsUsedTime = Int()
+*/
 
 PogObject = new PogObject("HJES", {
-    nextEyedropsTime: Int(),
+    nextEyedropsTime: Number(),
     notifyEyedrops: false,
     eyedropsUsed: false,
-    eyedropsUsed: Int()
+    eyedropsUsed: Number()
 })
 
 register("chat", () => {
@@ -54,9 +56,13 @@ register("command", (time) => {
     } else {
         ChatLib.chat(HJESMessage("This command requires a time. /nexteyedropstime to see next eyedrops time."))
     }
-}).setName("changeeyedropstime")
+}).setName("changeeyedropstime", true)
 
 register("command", () => {
     ChatLib.chat(HJESMessage(`Next eyedrops in ${PogObject.nextEyedropsTime}`))
     webhook(`Eyedrops used. Next eyedrops at <t:${nextEyedropsTime}:T> (<t:${nextEyedropsTime}:R>) (unix time in seconds: ${nextEyedropsTime}\n (put this as time for /changeeyedropstime if you close mc or ct reload))`)
 }).setName("nexteyedropstime")
+
+register("command", (uwu) => {
+    chat.ChatLib.chat("uwu")
+}).setName("eyedropsrcool", true)
