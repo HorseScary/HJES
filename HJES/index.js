@@ -1,7 +1,7 @@
 import Settings from "./config";
 import "./features/diana"
 import "./features/trollege"
-import "./features/eyedrops"
+import "./features/afk"
 import { helpHelper, HJESMessage } from "./functions";
 
 
