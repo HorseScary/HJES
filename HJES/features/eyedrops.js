@@ -25,7 +25,7 @@ register("chat", () => {
 register("tick", () => {
     if (Settings.eyedrops) {
         if (PogObject.eyedropsUsed) {
-            PogObject.eyedropsUsedTime = getCurrentTimestamp() + 60
+            PogObject.eyedropsUsedTime = getCurrentTimestamp() + 120
         }
         if (getCurrentTimestamp() > eyedropsUsedTime) {
             PogObject.eyedropsUsed = false
@@ -43,7 +43,7 @@ register("chat", (message) => {
 register("tick", () => {
     if (getCurrentTimestamp() > PogObject.nextEyedropsTime && !PogObject.notifyEyedrops) {
         PogObject.notifyEyedrops = true
-        webhook(`<@473335128375033857> eyedrops time!`)
+        webhook(`<@${Settings.discord}> eyedrops time!`)
     }
 })
 
@@ -52,10 +52,11 @@ register("command", (time) => {
         ChatLib.chat(HJESMessage(`Time set to ${time}`))
         PogObject.nextEyedropsTime = time
     } else {
-        ChatLib.chat(HJESMessage("This command requires a time."))
+        ChatLib.chat(HJESMessage("This command requires a time. /nexteyedropstime to see next eyedrops time."))
     }
 }).setName("changeeyedropstime")
 
 register("command", () => {
     ChatLib.chat(HJESMessage(`Next eyedrops in ${PogObject.nextEyedropsTime}`))
+    webhook(`Eyedrops used. Next eyedrops at <t:${nextEyedropsTime}:T> (<t:${nextEyedropsTime}:R>) (unix time in seconds: ${nextEyedropsTime}\n (put this as time for /changeeyedropstime if you close mc or ct reload))`)
 }).setName("nexteyedropstime")

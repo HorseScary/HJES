@@ -146,7 +146,7 @@ class Settings {
     @SwitchProperty({
         name: "Eyedrops",
         description: "notifies you when you need to re-apply eyedrops to your inferno minions",
-        category: "eyedrops"
+        category: "Eyedrops"
     })
     eyedrops = false
 
