@@ -13,7 +13,10 @@ PogObject = new PogObject("HJES", {
     nextEyedropsTime: Number(),
     notifyEyedrops: false,
     eyedropsUsed: false,
-    eyedropsUsed: Number()
+    eyedropsUsedTime: Number(),
+    notifyNoEyedrops: false,
+    notifyNoEyedropsInterval: Settings.eyedropsbrokeninterval,
+    notifyNoEyedropsTime: Number()
 })
 
 PogObject.autosave()
@@ -48,6 +51,17 @@ register("tick", () => {
     if (getCurrentTimestamp() > PogObject.nextEyedropsTime && !PogObject.notifyEyedrops) {
         PogObject.notifyEyedrops = true
         webhook(`<@${Settings.discord}> eyedrops time!`, Settings.webhook)
+    }
+})
+
+register("tick", () => {
+    if(PogObject.nextEyedropsTime == 0 && PogObject.notifyNoEyedrops) {
+        PogObject.notifyNoEyedrops = false
+        webhook(`<@${Settings.discord}> eyedrops time = 0, you should probably fix`)
+        PogObject.notifyNoEyedropsTime = getCurrentTimestamp()
+    }
+    if(!PogObject.notifyNoEyedrops && getCurrentTimestamp() > PogObject.notifyNoEyedropsTime + PogObject.notifyNoEyedropsInterval*60000 && PogObject.nextEyedropsTime == 0) {
+        PogObject.notifyEyedrops = true
     }
 })
 
