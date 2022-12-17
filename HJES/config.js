@@ -26,10 +26,11 @@ class Settings {
     afk = false
     @SwitchProperty({
         name: "Auto-Join to Skyblock",
-        description: "Ideally used with stay in skyblock, pairs with auto-reconnect mod (sends you to island) \n(also bases off of hype message so make sure you join to the prototype lobby and you have max hype)",
+        description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normaly)\nBased on max hype message so like have that.",
         category: "General"
     })
     afk2 = false
+
     //Diana configs
     @TextProperty({
         name: "InquisTimeout",
