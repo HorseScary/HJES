@@ -86,4 +86,4 @@ register("command", () => {
 
 register("command", () => {
     PogObject.save()
-}).setname("eyedropssave")
+}).setName("eyedropssave")
