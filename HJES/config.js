@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Trollege", "Ghosts", "Testing"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -148,6 +148,14 @@ class Settings {
         options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
     })
     announceCoinsAtValue = 8;
+
+    //ghost configs
+    @SwitchProperty({
+        name: "Gyro Location",
+        description: "Shows the optimal location to gyro to get the most ghosts",
+        category: "Ghosts"
+    })
+    gyroLocation = false;
 
     //Testing configs
     @SwitchProperty({
