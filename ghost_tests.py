@@ -1,3 +1,5 @@
+# https://www.cs.princeton.edu/~chazelle/pubs/CirclePlacement.pdf
+# i stole this code from somewhere
 # importing the required module
 import matplotlib.pyplot as plt
 # x axis values
