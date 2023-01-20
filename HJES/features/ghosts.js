@@ -1,7 +1,13 @@
 import Settings from "../config"
 
 register("command", () => {
+    ghostList = []
+    playerLocation = Scoreboard.getLines(false)
+    ChatLib.chat(playerLocation[4])
+
     World.getAllEntities().forEach(entity => {
-        ChatLib.chat(entity.getName())
+        if (entity.getName().includes("Creeper")) {
+            ghostList.push([entity.getLastX(), entity.getLastY(), entity.getLastZ()])
+        }
     })
 }).setName("listEntities", true)
