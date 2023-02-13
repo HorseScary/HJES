@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Trollege", "Trinity", "Testing"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -148,6 +148,14 @@ class Settings {
         options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
     })
     announceCoinsAtValue = 8;
+
+    //Trinity configs
+    @SwitchProperty({
+        name: "5 Puzzle Alert",
+        description: "alerts player when there are 5 puzzles",
+        category: "Trinity"
+    })
+    puzzleAlert = false;
 
     //Testing configs
     @SwitchProperty({
