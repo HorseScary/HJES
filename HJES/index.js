@@ -26,9 +26,3 @@ register("command", (arg) => {
         ChatLib.chat(HJESMessage(`${arg} is not a valid option. Type /HJES help for help.`))
     }
 }).setName("HJES", true);
-
-// Test command for settings things
-register("command", () => {
-    ChatLib.chat(JSON.stringify(Settings))
-    ChatLib.chat(Settings.lOnCheese)
-}).setName("hjessettingstest", true)
