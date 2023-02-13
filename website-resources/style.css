@@ -8,50 +8,39 @@ body {
   margin: 0;
   color: white;
   background-color: #c4a4c4;
-  font-family: 'Fjalla One', sans-serif;
+  font-family: "Fjalla One", sans-serif;
 }
 
 header {
   background-color: #884a88;
   margin: 0;
-  padding: .3rem 0 .3rem;
+  padding: 0.3rem 0 0.3rem;
   border-radius: 0 0 1rem 1rem;
 }
-
 header h1 {
   text-align: center;
   margin: 1rem;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   font-size: 5rem;
 }
 
 nav {
   border-radius: 1rem;
   margin: 1rem 5rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
-
 nav a {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   text-align: center;
   text-decoration: none;
   color: white;
   border-radius: 1rem;
   margin: 0 1rem;
-  padding: .5rem;
+  padding: 0.5rem;
   background-color: #884a88;
 }
-
 nav a img {
   height: 2rem;
 }
@@ -61,26 +50,28 @@ nav a img {
   border-radius: 1rem;
   padding-left: 3rem;
   padding-right: 3rem;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   margin: 3rem;
 }
-
 .dropdown p {
-  margin-top: .2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
 }
-
 .dropdown h3 {
   margin-bottom: 0;
 }
-
+.dropdown li {
+  list-style: none;
+  margin-bottom: 0.5rem;
+}
 .dropdown :hover {
   cursor: pointer;
 }
 
 .dropdownArrowDown {
-  -webkit-transform: rotate(0.5turn);
-          transform: rotate(0.5turn);
+  transform: rotate(0.5turn);
   display: inline-block;
 }
 
@@ -90,7 +81,6 @@ footer {
   left: 0;
   bottom: 0;
 }
-
 footer a {
   text-decoration: none;
   font-size: 1.5vw;
@@ -100,19 +90,16 @@ footer a {
   margin: 1vw 0 1vw 1vw;
   border-radius: 1vw 1vw 0 0;
 }
-
 footer a strong {
   background-color: white;
   color: #884a88;
   padding: 1vw 1vw 0;
   border-radius: 1vw 0 0 0;
 }
-
 footer a:hover {
   background-color: white;
   color: #884a88;
 }
-
 footer a:hover strong {
   background-color: #884a88;
   color: white;
