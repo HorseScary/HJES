@@ -152,10 +152,17 @@ class Settings {
     //Trinity configs
     @SwitchProperty({
         name: "5 Puzzle Alert",
-        description: "alerts player when there are 5 puzzles",
+        description: "Alerts you when there are 5 puzzles",
         category: "Trinity"
     })
     puzzleAlert = false;
+
+    @SwitchProperty({
+        name: "Party Transfer Alert",
+        description: "Alerts you when the party is transferer to you.",
+        category: "Trinity"
+    })
+    transferAlert = false;
 
     //Testing configs
     @SwitchProperty({

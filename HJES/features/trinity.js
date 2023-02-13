@@ -17,3 +17,14 @@ register("tick", () => {
         }
     }
 })
+
+// &eThe party was transferred to &r&b[MVP&r&5+&r&b] HorseScary &r&eby &r&b[MVP&r&0+&r&b] jperrm&r
+register("chat", (chat) => {
+    if (Settings.transferAlert) {
+        registeredChat = new Message(chat).getUnformattedText()
+
+        if (registeredChat.split("by")[0].includes(Player.getName())) {
+            World.playSound("random.orb", 1, 1)
+        }
+    }
+}).setCriteria("&eThe party was transferred to ${*}")
