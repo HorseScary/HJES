@@ -1,4 +1,4 @@
-import Settings from "./config"
+import Settings from "../config"
 import { convertToMillisecond } from "../functions"
 
 var gummiesEaten = 0
@@ -30,4 +30,4 @@ register("chat", () => {
             wispSplashed -= 1
         }, convertToMillisecond(30 - Settings.notifyWispOffset))
     }
-})
+}).setCriteria("&a&lBUFF! &fYou splashed yourself with &r&bWisp's Ice-Flavored Water I&r&f! Press TAB or type /effects to view your active effects!&r")
