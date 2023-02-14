@@ -23,14 +23,14 @@ class Settings {
         description: "Sends to island if in limbo or kicked from island",
         category: "General"
     })
-    afk = false
+    afk = false;
 
     @SwitchProperty({
         name: "Auto-Join to Skyblock",
         description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normaly)\nBased on max hype message so like have that.",
         category: "General"
     })
-    afk2 = false
+    afk2 = false;
 
     //Diana configs
     @TextProperty({
@@ -79,7 +79,7 @@ class Settings {
         description: "Gives overview of burrow in chat. Mostly for debugging purposes.",
         category: "Diana"
     })
-    burrowOverview = false
+    burrowOverview = false;
 
     //Trollege configs
     @SwitchProperty({
@@ -95,7 +95,7 @@ class Settings {
         category: "Trollege",
         placeholder: "sergeantsar"
     })
-    autoMutePlayer = "sergeantsar"
+    autoMutePlayer = "sergeantsar";
 
     @SwitchProperty({
         name: "runic",
@@ -111,7 +111,7 @@ class Settings {
         category: "Trollege",
         subcategory: "Diana"
     })
-    announceDrops = false
+    announceDrops = false;
 
 
     @SelectorProperty({
@@ -138,7 +138,7 @@ class Settings {
         category: "Trollege",
         subcategory: "Diana"
     })
-    announceCoins = false
+    announceCoins = false;
 
     @SelectorProperty({
         name: "Announce Coins Threshold",
@@ -162,17 +162,16 @@ class Settings {
         description: "how many minutes before gummy runs out for notification to happen",
         min: 0,
         max: 10,
-        category: "Blaze",
+        category: "Blaze"
     })
-    notifyReheatedOffset = 0
-
+    notifyReheatedOffset = 0;
 
     @SwitchProperty({
         name: "Wisp Notification",
         description: "Notifies you when your wisp pots run out",
         category: "Blaze"
     })
-    notifyWisp = false
+    notifyWisp = false;
 
     @SliderProperty({
         name: "Wisp Notify Before",
@@ -181,7 +180,7 @@ class Settings {
         max: 10,
         category: "Blaze",
     })
-    notifyReheatedOffset = 0
+    notifyWispOffset = 0;
 
     //Trinity configs
     @SwitchProperty({
@@ -219,7 +218,7 @@ class Settings {
         description: "tests chat thing",
         category: "Testing"
     })
-    chatThing = false
+    chatThing = false;
 
     constructor() {
         this.initialize(this);
