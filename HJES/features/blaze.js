@@ -9,7 +9,7 @@ register("chat", () => {
         gummiesEaten += 1
         setTimeout(() => {
             if (gummiesEaten == 1) {
-                Client.showTitle("&4Your gummy is about to run out!", "", 0, 60, 20)
+                Client.showTitle("&aGummy Warning!", "&agummy go bye bye", 0, 60, 20)
                 World.playSound("random.orb", 1, 1)
             }
 
@@ -23,7 +23,7 @@ register("chat", () => {
         wispSplashed += 1
         setTimeout(() => {
             if (wispSplashed == 1) {
-                Client.showTitle("&4Your wisp pot is about to run out!", "", 0, 60, 20)
+                Client.showTitle("&7Wisp Warning!", "&7wisp pot is die", 0, 60, 20)
                 World.playSound("random.orb", 1, 1)
             }
 
