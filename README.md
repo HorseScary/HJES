@@ -2,7 +2,7 @@
 
 DW about what the acronym is ;). Skyblock chattriggers module
 
-To install, download the [latest release](https://github.com/HorseScary/HJES/releases/latest) (or clone the repo) and put the HJES folder into .minecraft/config/ChatTriggers/modules
+To install, download the [latest release](https://github.com/HorseScary/HJES/releases/latest) (or clone the repo) and put the HJES folder into `.minecraft/config/ChatTriggers/modules`
 
 ## Features
 
