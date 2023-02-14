@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Trollege", "Trinity", "Testing"]
+        const categories = ["General", "Diana", "Trollege", "Blaze", "Trinity", "Testing"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -148,6 +148,40 @@ class Settings {
         options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
     })
     announceCoinsAtValue = 8;
+
+    //Blaze configs
+    @SwitchProperty({
+        name: "Re-Heated Notification",
+        description: "Notifies you when your re-heated gummy polar bear runs out",
+        category: "Blaze"
+    })
+    notifyReheated = false;
+
+    @SliderProperty({
+        name: "Re-Heated Notify Before",
+        description: "how many minutes before gummy runs out for notification to happen",
+        min: 0,
+        max: 10,
+        category: "Blaze",
+    })
+    notifyReheatedOffset = 0
+
+
+    @SwitchProperty({
+        name: "Wisp Notification",
+        description: "Notifies you when your wisp pots run out",
+        category: "Blaze"
+    })
+    notifyWisp = false
+
+    @SliderProperty({
+        name: "Wisp Notify Before",
+        description: "how many minutes before wisp pot runs out for notification to happen",
+        min: 0,
+        max: 10,
+        category: "Blaze",
+    })
+    notifyReheatedOffset = 0
 
     //Trinity configs
     @SwitchProperty({
