@@ -2,6 +2,8 @@
 
 DW about what the acronym is ;). Skyblock chattriggers module
 
+To install, download the [latest release](https://github.com/HorseScary/HJES/releases/latest) (or clone the repo) and put the HJES folder into .minecraft/config/ChatTriggers/modules
+
 ## Features
 
 ### Diana
@@ -30,5 +32,3 @@ DW about what the acronym is ;). Skyblock chattriggers module
 
 - auto g mute player when they unmute themselves
 - send coords in the shape of a rocket ;)
-
-To install, download the repo and put the dianaUtils folder into your ct modules folder.
