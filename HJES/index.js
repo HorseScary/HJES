@@ -3,6 +3,8 @@ import "./features/diana"
 import "./features/trollege"
 import "./features/afk"
 import "./features/trinity"
+import "./features/blaze"
+
 import { helpHelper, HJESMessage } from "./functions";
 
 
