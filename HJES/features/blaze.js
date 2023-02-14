@@ -1,10 +1,15 @@
 import Settings from "../config"
-import { convertToMillisecond } from "../functions"
+import { convertToMillisecond, HJESMessage } from "../functions"
 
 var gummiesEaten = 0
 var wispSplashed = 0
+var gummyTimeEaten = 1676383314645
+var wispTimeSplashed = 1676383314645
+
 
 register("chat", () => {
+    gummyTimeEaten = Client.getSystemTime()
+
     if (Settings.notifyReheated) {
         gummiesEaten += 1
         setTimeout(() => {
@@ -19,6 +24,8 @@ register("chat", () => {
 }).setCriteria("&r&aYou ate a &r&aRe-heated Gummy Polar Bear&r&a!&r")
 
 register("chat", () => {
+    wispTimeSplashed = Client.getSystemTime()
+
     if (Settings.notifyWisp) {
         wispSplashed += 1
         setTimeout(() => {
@@ -31,3 +38,10 @@ register("chat", () => {
         }, convertToMillisecond(30 - Settings.notifyWispOffset))
     }
 }).setCriteria("&a&lBUFF! &fYou splashed yourself with &r&bWisp's Ice-Flavored Water I&r&f! Press TAB or type /effects to view your active effects!&r")
+
+register("command", () => {
+    gummyTimeLeft = Client.getSystemTime() - gummyTimeEaten
+    wispTimeLeft = Client.getSystemTime() - wispTimeSplashed
+
+    ChatLib.chat(HJESMessage(`\n&aGummy: &f${gummyTimeLeft}\n&7Wisp: &f${wispTimeLeft}`, "Blaze"))
+}).setName("blazeeffecttime")
