@@ -86,14 +86,14 @@ footer a {
   font-size: 1.5vw;
   background-color: #884a88;
   color: white;
-  padding: 1vw 1vw 0 0;
+  padding: 0.4vw 0.4vw 0 0;
   margin: 1vw 0 1vw 1vw;
   border-radius: 1vw 1vw 0 0;
 }
 footer a strong {
   background-color: white;
   color: #884a88;
-  padding: 1vw 1vw 0;
+  padding: 0.4vw 0.4vw 0 0.4vw;
   border-radius: 1vw 0 0 0;
 }
 footer a:hover {
