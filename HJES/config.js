@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Blaze", "Trinity", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Garden", "Blaze", "Trinity", "Trollege", "Testing"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -148,6 +148,14 @@ class Settings {
         options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
     })
     announceCoinsAtValue = 8;
+
+    //Garden configs
+    @SwitchProperty({
+        name: "New Visiter Alert",
+        description: "alerts you when a new visitor arrives",
+        category: "Garden"
+    })
+    gardenAlert = false;
 
     //Blaze configs
     @SwitchProperty({
