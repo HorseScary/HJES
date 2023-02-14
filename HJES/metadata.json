@@ -2,7 +2,7 @@
     "name": "HJES",
     "creator": "HorseScary",
     "description": "cool and epic diana stuff",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "entry": "index.js",
     "requires": [
         "Vigilance"
