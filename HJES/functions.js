@@ -57,3 +57,9 @@ export function getRandomInt(min, max) {
 export function minToMillisecond(mins) {
     return (mins * 60000)
 }
+
+export function timeFormat(milliseconds) {
+    hours = milliseconds / 3600000
+    minutes = milliseconds / 60000
+    seconds = milliseconds / 1000
+}
