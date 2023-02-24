@@ -1,5 +1,5 @@
 import Settings from "../config"
-import { minToMillisecond, HJESMessage, timeSince } from "../functions"
+import { minToMillisecond, HJESMessage, timeFormat } from "../functions"
 
 var gummiesEaten = 0
 var wispSplashed = 0
@@ -45,24 +45,24 @@ register("command", () => {
 
 register("chat", () => {
     effectTimes()
-})
+}).setCriteria("&r   &r&eBlaze Slayer LVL${*}")
 
 function effectTimes() {
-    gummyTimeLeft = 60000 - (Client.getSystemTime() - gummyTimeEaten)
-    wispTimeLeft = 30000 - (Client.getSystemTime() - wispTimeSplashed)
+    gummyTimeLeft = minToMillisecond(60) - (Client.getSystemTime() - gummyTimeEaten)
+    wispTimeLeft = minToMillisecond(30) - (Client.getSystemTime() - wispTimeSplashed)
 
-    if (gummyTimeLeft >= minToMillisecond(60)) {
+    if (gummyTimeLeft <= 0) {
         gummyTimeFormatted = "&cEffect Inactive!"
     }
     else {
-        gummyTimeFormatted = `${parseInt(gummyTimeLeft / 60000)}:${parseInt((gummyTimeLeft % 60000) / 1000)}`
+        gummyTimeFormatted = timeFormat(gummyTimeLeft)
     }
 
-    if (wispTimeLeft >= minToMillisecond(30)) {
+    if (wispTimeLeft <= 0) {
         wispTimeFormatted = "&cEffect Inactive!"
     }
     else {
-        wispTimeFormatted = `${parseInt(wispTimeLeft / 60000)}:${parseInt((wispTimeLeft % 60000) / 1000)}`
+        wispTimeFormatted = timeFormat(wispTimeLeft)
     }
 
     ChatLib.chat(HJESMessage(`\n&aGummy: &f${gummyTimeFormatted}\n&7Wisp: &f${wispTimeFormatted}`, "Blaze"))
