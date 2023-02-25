@@ -1,5 +1,6 @@
-import Settings from "../config"
-import { getRandomInt, helpHelper, HJESMessage } from "../functions"
+import Settings from "../../config"
+import "./detectPlayers"
+import { getRandomInt, helpHelper, HJESMessage } from "../../functions"
 
 let myCheese = false
 let inquisExists = 0

@@ -1,5 +1,5 @@
 import Settings from "./config";
-import "./features/diana"
+import "./features/diana/diana"
 import "./features/trollege"
 import "./features/afk"
 import "./features/trinity"
