@@ -9,7 +9,11 @@ let lastBurrowType = String()
 let lastTreasure = String()
 let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
 
-
+let warpData={
+    "castle":[-250,130,45],
+    "da":[91,75,176],
+    "museum":[-75,76,80],
+    "hub":[-2,70,-69]};
 
 // Leaves to hub when someone gets cheese
 register("chat", () => {
@@ -52,7 +56,23 @@ register("chat", () => {
                 setTimeout(() => {
                     ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
                 }, 500)
-
+            
+                let castleDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastY()-warpData.castle[1], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2))
+                let daDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.da[0], 2) + Math.pow(entity.getLastY()-warpData.da[1], 2) + Math.pow(entity.getLastZ()-warpData.da[2], 2))
+                let museumDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.museum[0], 2) + Math.pow(entity.getLastY()-warpData.museum[1], 2) + Math.pow(entity.getLastZ()-warpData.museum[2], 2))
+                let hubDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.hub[0], 2) + Math.pow(entity.getLastY()-warpData.hub[1], 2) + Math.pow(entity.getLastZ()-warpData.hub[2], 2))
+                trollege = {
+                    castleDist: "castle",
+                    daDist: "da",
+                    museumDist: "museum",
+                    hubDist: "hub"
+                }
+                setTimeout(() => {
+                    if(Settings.nearestInquisWarp) {
+                        ChatLib.say(`/pc Closest location to inquis is ${trollege[Math.min(castleDist, daDist, museumDist, hubDist)]}`)
+                    }
+                }, 1000)
+                
                 setTimeout(() => {
                     if (inquisExists) {
                         ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registered as dead!")
@@ -65,7 +85,7 @@ register("chat", () => {
             else if (entity.getName().toLowerCase().includes("champ") && Settings.announceChamp) {
                 ChatLib.say(`/pc [HJES Diana] Champ`)
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+                    ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())} [HJES Diana]`)
                 }, 500)
 
                 setTimeout(() => {

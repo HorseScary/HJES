@@ -149,6 +149,13 @@ class Settings {
     })
     announceCoinsAtValue = 8;
 
+    @SwitchProperty({
+        name: "Show nearest warp to inquis as spawner",
+        description: "nearest warp to inquis (get all warps noob)",
+        category: "Diana",
+    })
+    nearestInquisWarp = true;
+
     //Blaze configs
     @SwitchProperty({
         name: "Re-Heated Notification",
