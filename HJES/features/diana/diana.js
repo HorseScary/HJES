@@ -30,8 +30,8 @@ register("chat", () => {
 // tells party when you pick up cheese
 register("chat", () => {
     if (Settings.announceCheese) {
-        ChatLib.say('/pc [HJES Diana] Cheese obtained!')
         myCheese = false;
+        ChatLib.say('/pc [HJES Diana] Cheese obtained!')
     }
 }).setChatCriteria("&r&e&lCHEESE!&r&7 You buffed &r${*}&r&7 giving them &r&b+${*}✯ Magic Find&r&7 for &r&a${*}&r&7 seconds!&r")
 

@@ -98,7 +98,7 @@ class Settings {
         subcategory: "Random Notifier"
 
     })
-    partyPlayers = 0;
+    partyPlayers = 2;
 
     //Trollege configs
     @SwitchProperty({
