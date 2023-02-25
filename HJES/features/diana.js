@@ -30,8 +30,16 @@ register("chat", () => {
 register("chat", () => {
     if (Settings.announceCheese) {
         ChatLib.say('/pc [HJES Diana] Cheese obtained!')
+        myCheese = false;
     }
 }).setChatCriteria("&r&e&lCHEESE!&r&7 You buffed &r${*}&r&7 giving them &r&b+${*}✯ Magic Find&r&7 for &r&a${*}&r&7 seconds!&r")
+
+// rejoins lobby when cheese obtained message is registered
+register("chat", () => {
+    if (Settings.rejoinOnCheese) {
+        ChatLib.say('/play sb')
+    }
+}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 register("chat", () => {
     if (Settings.announceInquis) {
@@ -75,12 +83,6 @@ register("chat", () => {
     }
 }).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${*}")
 
-// rejoins lobby when cheese obtained message is registered
-register("chat", () => {
-    if (Settings.rejoinOnCheese) {
-        ChatLib.say('/play sb')
-    }
-}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 // puts the items in your inventory in chat. for debugging
 register("command", () => {
@@ -316,7 +318,7 @@ register("command", (args) => {
 
         setTimeout(() => {
             if (inquisExists) {
-                ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registerd as dead!")
+                ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registered as dead!")
             }
             inquisExists -= 1
         }, parseInt(Settings.inquisTmeout))
