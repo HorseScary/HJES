@@ -57,3 +57,33 @@ export function getRandomInt(min, max) {
 export function minToMillisecond(mins) {
     return (mins * 60000)
 }
+
+export function closestWarp(entity) {
+    let warpData={
+        "castle":[-250,130,45],
+        "da":[91,75,176],
+        "museum":[-75,76,80],
+        "hub":[-2,70,-69]};
+    let castleDist = parseInt(Math.hypot(entity.getLastX()-warpData.castle[0], entity.getLastZ()-warpData.castle[2]))
+    let daDist = parseInt(Math.hypot(entity.getLastX()-warpData.da[0], entity.getLastZ()-warpData.da[2]))
+    let museumDist = parseInt(Math.hypot(entity.getLastX()-warpData.museum[0], entity.getLastZ()-warpData.museum[2]))
+    let hubDist = parseInt(Math.hypot(entity.getLastX()-warpData.hub[0], entity.getLastZ()-warpData.hub[2]))
+    let lowestDist = parseInt(Math.min(castleDist, daDist, museumDist, hubDist))
+    let locationInquis
+                switch(lowestDist) {
+                    case daDist:
+                        locationInquis = "da";
+                        break;
+                    case museumDist:
+                        locationInquis = "museum";
+                        break;
+                    case hubDist:
+                        locationInquis = "hub";
+                        break;
+                    case castleDist:
+                        locationInquis = "castle";
+                        break;
+                    default: 
+                        locationInquis = "it broke skull reaction";
+                }
+}

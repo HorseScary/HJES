@@ -1,5 +1,5 @@
 import Settings from "../config"
-import { getRandomInt, helpHelper, HJESMessage } from "../functions"
+import { getRandomInt, helpHelper, HJESMessage, closestWarp } from "../functions"
 
 let myCheese = false
 let inquisExists = 0
@@ -8,17 +8,6 @@ let lastMob = String()
 let lastBurrowType = String()
 let lastTreasure = String()
 let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
-let castleDist
-let daDist
-let museumDist
-let hubDist
-let lowestDist
-
-let warpData={
-    "castle":[-250,130,45],
-    "da":[91,75,176],
-    "museum":[-75,76,80],
-    "hub":[-2,70,-69]};
 
 // Leaves to hub when someone gets cheese
 register("chat", () => {
@@ -62,27 +51,7 @@ register("chat", () => {
                     ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
                 }, 500)
             
-                castleDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2)))
-                daDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.da[0], 2) + Math.pow(entity.getLastZ()-warpData.da[2], 2)))
-                museumDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.museum[0], 2) + Math.pow(entity.getLastZ()-warpData.museum[2], 2)))
-                hubDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.hub[0], 2) + Math.pow(entity.getLastZ()-warpData.hub[2], 2)))
-                lowestDist = parseInt(Math.min(castleDist, daDist, museumDist, hubDist))
-                switch(lowestDist) {
-                    case daDist:
-                        locationInquis = "da";
-                        break;
-                    case museumDist:
-                        locationInquis = "museum";
-                        break;
-                    case hubDist:
-                        locationInquis = "hub";
-                        break;
-                    case castleDist:
-                        locationInquis = "castle";
-                        break;
-                    default: 
-                        locationInquis = "it broke skull reaction";
-                }
+                closestWarp(entity)
                 setTimeout(() => {
                     if(Settings.nearestInquisWarp) {
                         ChatLib.say(`/pc Closest location to inquis is ${locationInquis}`)
@@ -103,27 +72,7 @@ register("chat", () => {
                 setTimeout(() => {
                     ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())} [HJES Diana]`)
                 }, 500)
-                castleDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2)))
-                daDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.da[0], 2) + Math.pow(entity.getLastZ()-warpData.da[2], 2)))
-                museumDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.museum[0], 2) + Math.pow(entity.getLastZ()-warpData.museum[2], 2)))
-                hubDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.hub[0], 2) + Math.pow(entity.getLastZ()-warpData.hub[2], 2)))
-                lowestDist = parseInt(Math.min(castleDist, daDist, museumDist, hubDist))
-                switch(lowestDist) {
-                    case daDist:
-                        locationInquis = "da";
-                        break;
-                    case museumDist:
-                        locationInquis = "museum";
-                        break;
-                    case hubDist:
-                        locationInquis = "hub";
-                        break;
-                    case castleDist:
-                        locationInquis = "castle";
-                        break;
-                    default: 
-                        locationInquis = "it broke skull reaction";
-                }
+                closestWarp(entity)
                 setTimeout(() => {
                     if(Settings.nearestInquisWarp) {
                         ChatLib.say(`/pc Closest location to inquis is ${locationInquis}`)
