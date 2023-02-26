@@ -57,3 +57,28 @@ export function getRandomInt(min, max) {
 export function minToMillisecond(mins) {
     return (mins * 60000)
 }
+
+export function timeFormat(milliseconds) {
+    time = []
+    time[0] = parseInt(milliseconds / 1000)
+    for (i = 0; i < 2; i++) {
+        time[i + 1] = parseInt(time[i] / 60)
+        time[i] -= time[i + 1] * 60
+    }
+
+    for (i = 0; i < 3; i++) {
+        if (time[i] == 0) {
+            time[i] = ''
+        }
+        time[i] = time[i].toString()
+
+        if (i != 2) {
+            time[i] = time[i].padStart(2, 0)
+        }
+        if (i != 0 && time[i]) {
+            time[i] = time[i].concat(':')
+        }
+    }
+
+    return (`${time[2]}${time[1]}${time[0]}`)
+}

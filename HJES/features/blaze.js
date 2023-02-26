@@ -1,10 +1,10 @@
 import Settings from "../config"
-import { minToMillisecond, HJESMessage } from "../functions"
+import { minToMillisecond, HJESMessage, timeFormat } from "../functions"
 
 var gummiesEaten = 0
 var wispSplashed = 0
-var gummyTimeEaten = 1676383314645
-var wispTimeSplashed = 1676383314645
+var gummyTimeEaten = 0
+var wispTimeSplashed = 0
 
 
 register("chat", () => {
@@ -40,22 +40,30 @@ register("chat", () => {
 }).setCriteria("&a&lBUFF! &fYou splashed yourself with &r&bWisp's Ice-Flavored Water I&r&f! Press TAB or type /effects to view your active effects!&r")
 
 register("command", () => {
-    gummyTimeLeft = Client.getSystemTime() - gummyTimeEaten
-    wispTimeLeft = Client.getSystemTime() - wispTimeSplashed
+    effectTimes()
+}).setName("blazeEffectTime")
 
-    if (gummyTimeLeft >= minToMillisecond(60)) {
+register("chat", () => {
+    effectTimes()
+}).setCriteria("&r   &r&eBlaze Slayer LVL${*}")
+
+function effectTimes() {
+    gummyTimeLeft = minToMillisecond(60) - (Client.getSystemTime() - gummyTimeEaten)
+    wispTimeLeft = minToMillisecond(30) - (Client.getSystemTime() - wispTimeSplashed)
+
+    if (gummyTimeLeft <= 0) {
         gummyTimeFormatted = "&cEffect Inactive!"
     }
     else {
-        gummyTimeFormatted = `${parseInt(gummyTimeLeft / 60000)}:${parseInt((gummyTimeLeft % 60000) / 1000)}`
+        gummyTimeFormatted = timeFormat(gummyTimeLeft)
     }
 
-    if (wispTimeLeft >= minToMillisecond(30)) {
+    if (wispTimeLeft <= 0) {
         wispTimeFormatted = "&cEffect Inactive!"
     }
     else {
-        wispTimeFormatted = `${parseInt(wispTimeLeft / 60000)}:${parseInt((wispTimeLeft % 60000) / 1000)}`
+        wispTimeFormatted = timeFormat(wispTimeLeft)
     }
 
     ChatLib.chat(HJESMessage(`\n&aGummy: &f${gummyTimeFormatted}\n&7Wisp: &f${wispTimeFormatted}`, "Blaze"))
-}).setName("blazeEffectTime")
+}
