@@ -149,6 +149,13 @@ class Settings {
     })
     announceCoinsAtValue = 8;
 
+    @SwitchProperty({
+        name: "Show nearest warp to inquis",
+        description: "Tells you the closest warp to the inquis when coords are sent in chat.",
+        category: "Diana",
+    })
+    nearestInquisWarp = true;
+
     //Blaze configs
     @SwitchProperty({
         name: "Re-Heated Notification",
