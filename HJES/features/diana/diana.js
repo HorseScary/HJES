@@ -1,5 +1,5 @@
-import Settings from "../config"
-import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../functions"
+import Settings from "../../config"
+import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../../functions"
 import "./randomNotifier"
 
 let myCheese = false
