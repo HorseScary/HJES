@@ -58,32 +58,28 @@ export function minToMillisecond(mins) {
     return (mins * 60000)
 }
 
-export function closestWarp(entity) {
-    let warpData={
-        "castle":[-250,130,45],
-        "da":[91,75,176],
-        "museum":[-75,76,80],
-        "hub":[-2,70,-69]};
-    let castleDist = parseInt(Math.hypot(entity.getLastX()-warpData.castle[0], entity.getLastZ()-warpData.castle[2]))
-    let daDist = parseInt(Math.hypot(entity.getLastX()-warpData.da[0], entity.getLastZ()-warpData.da[2]))
-    let museumDist = parseInt(Math.hypot(entity.getLastX()-warpData.museum[0], entity.getLastZ()-warpData.museum[2]))
-    let hubDist = parseInt(Math.hypot(entity.getLastX()-warpData.hub[0], entity.getLastZ()-warpData.hub[2]))
-    let lowestDist = parseInt(Math.min(castleDist, daDist, museumDist, hubDist))
-    let locationInquis
-                switch(lowestDist) {
-                    case daDist:
-                        locationInquis = "da";
-                        break;
-                    case museumDist:
-                        locationInquis = "museum";
-                        break;
-                    case hubDist:
-                        locationInquis = "hub";
-                        break;
-                    case castleDist:
-                        locationInquis = "castle";
-                        break;
-                    default: 
-                        locationInquis = "it broke skull reaction";
-                }
+
+export function getClosestWarp(x, y, z) {
+    let warpData = {
+        "castle": [-250, 130, 45],
+        "da": [91, 75, 176],
+        "museum": [-75, 76, 80],
+        "hub": [-2, 70, -69]
+    }
+
+    castleDist = Math.hypot(Math.abs(x - warpData.castle[0]), Math.abs(y - warpData.castle[1]), Math.abs(z - warpData.castle[2]))
+    daDist = Math.hypot(Math.abs(x - warpData.da[0]), Math.abs(y - warpData.da[1]), Math.abs(z - warpData.da[2]))
+    museumDist = Math.hypot(Math.abs(x - warpData.museum[0]), Math.abs(y - warpData.museum[1]), Math.abs(z - warpData.museum[2]))
+    hubDist = Math.hypot(Math.abs(x - warpData.hub[0]), Math.abs(y - warpData.hub[1]), Math.abs(z - warpData.hub[2]))
+
+    ChatLib.chat(`hubDist: ${hubDist}\nx: ${x}`)
+
+    dist = {}
+    dist[castleDist] = "castle"
+    dist[daDist] = "da"
+    dist[museumDist] = "da"
+    dist[hubDist] = "hub"
+
+    closest = Math.min(castleDist, daDist, museumDist, hubDist)
+    return dist[closest]
 }
