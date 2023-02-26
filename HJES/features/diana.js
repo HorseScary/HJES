@@ -54,10 +54,12 @@ register("chat", () => {
                 }, 500)
 
                 setTimeout(() => {
-                    if (inquisExists) {
+                    if (inquisExists > 0) {
+                        inquisExists -= 1
+                    }
+                    if (inquisExists == 0) {
                         ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registered as dead!")
                     }
-                    inquisExists -= 1
                 }, parseInt(Settings.inquisTimeout))
             }
 
