@@ -1,5 +1,5 @@
 import Settings from "../config"
-import { getRandomInt, helpHelper, HJESMessage, closestWarp } from "../functions"
+import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../functions"
 
 let myCheese = false
 let inquisExists = 0
@@ -46,43 +46,47 @@ register("chat", () => {
             if (entity.getName().toLowerCase().includes("inquis")) {
                 inquisExists += 1
 
-                ChatLib.say(`/pc [HJES Diana] Inquis `)
+                inquisX = parseInt(entity.getX())
+                inquisY = parseInt(entity.getY())
+                inquisZ = parseInt(entity.getZ())
+
+                inquisClosestWarp = getClosestWarp(inquisX, inquisY, inquisZ)
+
+                ChatLib.say(`/pc [HJES Diana] Inquis`)
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+                    ChatLib.say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ}`)
                 }, 500)
-            
-                closestWarp(entity)
+
                 setTimeout(() => {
-                    if(Settings.nearestInquisWarp) {
-                        ChatLib.say(`/pc Closest location to inquis is ${locationInquis}`)
+                    if (Settings.nearestInquisWarp) {
+                        ChatLib.say(`/pc Closest location to inquis is ${inquisClosestWarp}`)
                     }
                 }, 1000)
-                
+
                 setTimeout(() => {
                     if (inquisExists) {
-                        ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registered as dead!")
+                        ChatLib.chat(HJESMessage("Inquis timeout reached. Inquis registered as dead!", "Diana"))
                     }
                     inquisExists -= 1
                 }, parseInt(Settings.inquisTimeout))
             }
 
             // same thing as inquis code, but doesn't change the inquisExists variable
-            else if (entity.getName().toLowerCase().includes("champ") && Settings.announceChamp) {
+            else if (entity.getName().toLowerCase().includes("minos champion") && Settings.announceChamp) {
                 ChatLib.say(`/pc [HJES Diana] Champ`)
+
+                champX = parseInt(entity.getLastX())
+                champY = parseInt(entity.getLastY())
+                champZ = parseInt(entity.getLastZ())
+
+                ChatLib.chat(`x:${champX}\ny:${champY}\nz:${champZ}\n${entity.getName()}`)
+
+                champClosestWarp = getClosestWarp(champX, champY, champZ)
+
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())} [HJES Diana]`)
-                }, 500)
-                closestWarp(entity)
-                setTimeout(() => {
-                    if(Settings.nearestInquisWarp) {
-                        ChatLib.say(`/pc Closest location to inquis is ${locationInquis}`)
-                        ChatLib.chat(`${lowestDist}, ${castleDist}, ${daDist}, ${museumDist}, ${hubDist}`)
-                        ChatLib.chat(`Math.pow(${entity.getLastX()}-${warpData.castle[0]}, 2) + Math.pow(${entity.getLastZ()}-${warpData.castle[2]}, 2)`)
-                        ChatLib.chat(`${entity.getLastX()-warpData.castle[0]} ${entity.getLastZ()-warpData.castle[2]}`)
-                        ChatLib.chat(`${Math.pow(entity.getLastX()-warpData.castle[0], 2)}, ${Math.pow(entity.getLastZ()-warpData.castle[2], 2)}`)
-                        ChatLib.chat(`${Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2)}`)
-                    }
+                    ChatLib.chat(HJESMessage(champClosestWarp, "Diana"))
                 }, 1000)
+
 
                 setTimeout(() => {
                     ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registered as dead!")
@@ -347,3 +351,7 @@ register("command", (args) => {
         ChatLib.chat(`&d[HJES Diana]&f ${args} is not a valid option. Type '/inquis help' for help.`)
     }
 }).setName("inquisitor", true).setAliases("inquis", "inq", "iq")
+
+register("command", () => {
+    ChatLib.chat(getClosestWarp(Player.getLastX(), Player.getLastY(), Player.getLastZ()))
+}).setName("getClosestWarp")
