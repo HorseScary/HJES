@@ -1,5 +1,5 @@
 import Settings from "../../config"
-import "./detectPlayers"
+import "./randomNotifier"
 import { getRandomInt, helpHelper, HJESMessage } from "../../functions"
 
 let myCheese = false
