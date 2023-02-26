@@ -1,11 +1,6 @@
-<<<<<<< HEAD:HJES/features/diana.js
 import Settings from "../config"
 import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../functions"
-=======
-import Settings from "../../config"
 import "./randomNotifier"
-import { getRandomInt, helpHelper, HJESMessage } from "../../functions"
->>>>>>> diana:HJES/features/diana/diana.js
 
 let myCheese = false
 let inquisExists = 0
