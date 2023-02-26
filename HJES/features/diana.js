@@ -8,6 +8,11 @@ let lastMob = String()
 let lastBurrowType = String()
 let lastTreasure = String()
 let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
+let castleDist
+let daDist
+let museumDist
+let hubDist
+let lowestDist
 
 let warpData={
     "castle":[-250,130,45],
@@ -57,19 +62,30 @@ register("chat", () => {
                     ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
                 }, 500)
             
-                let castleDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastY()-warpData.castle[1], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2))
-                let daDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.da[0], 2) + Math.pow(entity.getLastY()-warpData.da[1], 2) + Math.pow(entity.getLastZ()-warpData.da[2], 2))
-                let museumDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.museum[0], 2) + Math.pow(entity.getLastY()-warpData.museum[1], 2) + Math.pow(entity.getLastZ()-warpData.museum[2], 2))
-                let hubDist = Math.sqrt(Math.pow(entity.getLastX()-warpData.hub[0], 2) + Math.pow(entity.getLastY()-warpData.hub[1], 2) + Math.pow(entity.getLastZ()-warpData.hub[2], 2))
-                trollege = {
-                    castleDist: "castle",
-                    daDist: "da",
-                    museumDist: "museum",
-                    hubDist: "hub"
+                castleDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2)))
+                daDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.da[0], 2) + Math.pow(entity.getLastZ()-warpData.da[2], 2)))
+                museumDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.museum[0], 2) + Math.pow(entity.getLastZ()-warpData.museum[2], 2)))
+                hubDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.hub[0], 2) + Math.pow(entity.getLastZ()-warpData.hub[2], 2)))
+                lowestDist = parseInt(Math.min(castleDist, daDist, museumDist, hubDist))
+                switch(lowestDist) {
+                    case daDist:
+                        locationInquis = "da";
+                        break;
+                    case museumDist:
+                        locationInquis = "museum";
+                        break;
+                    case hubDist:
+                        locationInquis = "hub";
+                        break;
+                    case castleDist:
+                        locationInquis = "castle";
+                        break;
+                    default: 
+                        locationInquis = "it broke skull reaction";
                 }
                 setTimeout(() => {
                     if(Settings.nearestInquisWarp) {
-                        ChatLib.say(`/pc Closest location to inquis is ${trollege[Math.min(castleDist, daDist, museumDist, hubDist)]}`)
+                        ChatLib.say(`/pc Closest location to inquis is ${locationInquis}`)
                     }
                 }, 1000)
                 
@@ -87,6 +103,37 @@ register("chat", () => {
                 setTimeout(() => {
                     ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())} [HJES Diana]`)
                 }, 500)
+                castleDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2)))
+                daDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.da[0], 2) + Math.pow(entity.getLastZ()-warpData.da[2], 2)))
+                museumDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.museum[0], 2) + Math.pow(entity.getLastZ()-warpData.museum[2], 2)))
+                hubDist = parseInt(Math.sqrt(Math.pow(entity.getLastX()-warpData.hub[0], 2) + Math.pow(entity.getLastZ()-warpData.hub[2], 2)))
+                lowestDist = parseInt(Math.min(castleDist, daDist, museumDist, hubDist))
+                switch(lowestDist) {
+                    case daDist:
+                        locationInquis = "da";
+                        break;
+                    case museumDist:
+                        locationInquis = "museum";
+                        break;
+                    case hubDist:
+                        locationInquis = "hub";
+                        break;
+                    case castleDist:
+                        locationInquis = "castle";
+                        break;
+                    default: 
+                        locationInquis = "it broke skull reaction";
+                }
+                setTimeout(() => {
+                    if(Settings.nearestInquisWarp) {
+                        ChatLib.say(`/pc Closest location to inquis is ${locationInquis}`)
+                        ChatLib.chat(`${lowestDist}, ${castleDist}, ${daDist}, ${museumDist}, ${hubDist}`)
+                        ChatLib.chat(`Math.pow(${entity.getLastX()}-${warpData.castle[0]}, 2) + Math.pow(${entity.getLastZ()}-${warpData.castle[2]}, 2)`)
+                        ChatLib.chat(`${entity.getLastX()-warpData.castle[0]} ${entity.getLastZ()-warpData.castle[2]}`)
+                        ChatLib.chat(`${Math.pow(entity.getLastX()-warpData.castle[0], 2)}, ${Math.pow(entity.getLastZ()-warpData.castle[2], 2)}`)
+                        ChatLib.chat(`${Math.pow(entity.getLastX()-warpData.castle[0], 2) + Math.pow(entity.getLastZ()-warpData.castle[2], 2)}`)
+                    }
+                }, 1000)
 
                 setTimeout(() => {
                     ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registered as dead!")
