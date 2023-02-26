@@ -59,7 +59,7 @@ export function minToMillisecond(mins) {
 }
 
 
-export function getClosestWarp(x, y, z) {
+export function getClosestWarp(x, y, z, usePlayerCoords) {
     let warpData = {
         "castle": [-250, 130, 45],
         "da": [91, 75, 176],
@@ -71,8 +71,10 @@ export function getClosestWarp(x, y, z) {
     daDist = Math.hypot(Math.abs(x - warpData.da[0]), Math.abs(y - warpData.da[1]), Math.abs(z - warpData.da[2]))
     museumDist = Math.hypot(Math.abs(x - warpData.museum[0]), Math.abs(y - warpData.museum[1]), Math.abs(z - warpData.museum[2]))
     hubDist = Math.hypot(Math.abs(x - warpData.hub[0]), Math.abs(y - warpData.hub[1]), Math.abs(z - warpData.hub[2]))
+    if (usePlayerCoords) {
+        playerDist = Math.hypot(Math.abs(x - Player.getX()), Math.abs(y - Player.getY()), Math.abs(z - Player.getZ()))
+    }
 
-    ChatLib.chat(`hubDist: ${hubDist}\nx: ${x}`)
 
     dist = {}
     dist[castleDist] = "castle"
@@ -80,6 +82,13 @@ export function getClosestWarp(x, y, z) {
     dist[museumDist] = "da"
     dist[hubDist] = "hub"
 
-    closest = Math.min(castleDist, daDist, museumDist, hubDist)
+    if (usePlayerCoords) {
+        dist[playerDist] = null
+        closest = Math.min(castleDist, daDist, museumDist, hubDist, playerDist)
+    }
+    else {
+        closest = Math.min(castleDist, daDist, museumDist, hubDist)
+    }
+
     return dist[closest]
 }

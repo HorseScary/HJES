@@ -54,14 +54,16 @@ register("chat", () => {
 
                 ChatLib.say(`/pc [HJES Diana] Inquis`)
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ}`)
+                    ChatLib.say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
                 }, 500)
 
+                /*
                 setTimeout(() => {
                     if (Settings.nearestInquisWarp) {
                         ChatLib.say(`/pc Closest location to inquis is ${inquisClosestWarp}`)
                     }
                 }, 1000)
+                */
 
                 setTimeout(() => {
                     if (inquisExists) {
@@ -75,15 +77,16 @@ register("chat", () => {
             else if (entity.getName().toLowerCase().includes("minos champion") && Settings.announceChamp) {
                 ChatLib.say(`/pc [HJES Diana] Champ`)
 
-                champX = parseInt(entity.getLastX())
-                champY = parseInt(entity.getLastY())
-                champZ = parseInt(entity.getLastZ())
+                champX = parseInt(Player.getLastX())
+                champY = parseInt(Player.getLastY())
+                champZ = parseInt(Player.getLastZ())
 
                 ChatLib.chat(`x:${champX}\ny:${champY}\nz:${champZ}\n${entity.getName()}`)
 
                 champClosestWarp = getClosestWarp(champX, champY, champZ)
 
                 setTimeout(() => {
+                    ChatLib.say(`/pc x: ${champX}, y: ${champY}, z: ${champZ} [HJES Diana]`)
                     ChatLib.chat(HJESMessage(champClosestWarp, "Diana"))
                 }, 1000)
 
@@ -95,6 +98,27 @@ register("chat", () => {
         })
     }
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
+
+register("chat", (chat) => {
+    if (Settings.getClosestWarp) {
+        registeredChat = new Message(chat).getUnformattedText()
+        splitChat = registeredChat.split(":")
+        x = parseInt(splitChat[2])
+        y = parseInt(splitChat[3])
+        z = parseInt(splitChat[4])
+
+        closestWarp = getClosestWarp(x, y, z, true)
+
+        if (closestWarp) {
+            ChatLib.chat(HJESMessage(`The closest warp is ${closestWarp}.`, "Diana"))
+        }
+        else {
+            ChatLib.chat(HJESMessage(`You are closer than any warp!`, "Diana"))
+        }
+    }
+
+    //    &r&9Party &8> &b[MVP&5+&b] HorseScary&f: &rx: -88, y: 87, z: 58 [HJES Diana]&r
+}).setCriteria("&r&9Party &8>${*}[HJES Diana]&r")
 
 // 😼
 register("chat", () => {
@@ -351,7 +375,3 @@ register("command", (args) => {
         ChatLib.chat(`&d[HJES Diana]&f ${args} is not a valid option. Type '/inquis help' for help.`)
     }
 }).setName("inquisitor", true).setAliases("inquis", "inq", "iq")
-
-register("command", () => {
-    ChatLib.chat(getClosestWarp(Player.getLastX(), Player.getLastY(), Player.getLastZ()))
-}).setName("getClosestWarp")
