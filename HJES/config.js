@@ -89,17 +89,6 @@ class Settings {
     })
     randomNotifier = false;
 
-    @SliderProperty({
-        name: "Players in Party",
-        description: "Number of players in your party.",
-        min: 2,
-        max: 10,
-        category: "Diana",
-        subcategory: "Random Notifier"
-
-    })
-    partyPlayers = 2;
-
     //Trollege configs
     @SwitchProperty({
         name: "Auto Mute",
