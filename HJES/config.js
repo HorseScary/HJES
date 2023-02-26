@@ -81,6 +81,14 @@ class Settings {
     })
     burrowOverview = false;
 
+    @SwitchProperty({
+        name: "Random Notifier",
+        description: "notifies you if there are more players in the lobby than in your diana party.",
+        category: "Diana",
+        subcategory: "Random Notifier"
+    })
+    randomNotifier = false;
+
     //Trollege configs
     @SwitchProperty({
         name: "Auto Mute",
