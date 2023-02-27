@@ -34,11 +34,8 @@ register("tick", () => {
                     ChatLib.chat(HJESMessage(`A random has left! There are now ${players - partyPlayers} randoms.`))
                 }
             }
-            else if (players <= partyPlayers && randomDetected) {
+            else if (randomDetected) {
                 ChatLib.chat(HJESMessage("The random is gone!"))
-                randomDetected = false
-            }
-            else {
                 randomDetected = false
             }
 
