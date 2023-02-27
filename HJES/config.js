@@ -40,7 +40,7 @@ class Settings {
         subcategory: "Inquis",
         placeholder: "100000"
     })
-    inquisTimeout = "100000";
+    inquisTimeout = "75000";
 
     @SwitchProperty({
         name: "Announce Inquis",
