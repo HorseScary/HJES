@@ -3,6 +3,7 @@ import { HJESMessage, helpHelper } from "../../functions";
 
 let randomDetected = false
 let lobbyChecked = false
+let lobbyPlayers = 0
 let partyPlayers = 1
 
 register("tick", () => {
@@ -26,6 +27,12 @@ register("tick", () => {
                     World.playSound("random.orb", 1, 1)
                     randomDetected = true
                 }
+                else if (players > lobbyPlayers) {
+                    ChatLib.chat(HJESMessage(`Another random has joined! There are now ${players - partyPlayers} randoms.`))
+                }
+                else if (players < lobbyPlayers) {
+                    ChatLib.chat(HJESMessage(`A random has left! There are now ${players - partyPlayers} randoms.`))
+                }
             }
             else if (players <= partyPlayers && randomDetected) {
                 ChatLib.chat(HJESMessage("The random is gone!"))
@@ -34,6 +41,8 @@ register("tick", () => {
             else {
                 randomDetected = false
             }
+
+            lobbyPlayers = players
         }
 
     }
