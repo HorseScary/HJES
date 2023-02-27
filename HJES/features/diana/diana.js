@@ -58,6 +58,11 @@ register("chat", () => {
                 setTimeout(() => {
                     ChatLib.say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
                 }, 500)
+                if (Settings.announceClosestWarp) {
+                    setTimeout(() => {
+                        ChatLib.say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
+                    })
+                }
 
                 setTimeout(() => {
                     if (inquisExists > 0) {

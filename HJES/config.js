@@ -89,11 +89,20 @@ class Settings {
     randomNotifier = false;
 
     @SwitchProperty({
-        name: "Show nearest warp to inquis",
+        name: "Show Nearest Warp to Inquis",
         description: "Tells you the closest warp to the inquis when coords are sent in chat.",
-        category: "Diana"
+        category: "Diana",
+        subcategory: "ClosestWarp"
     })
     getClosestWarp = true;
+
+    @SwitchProperty({
+        name: "Announce Closest Warp to Inquis",
+        description: "Says the closest warp to your inquis in party chat.",
+        category: "Diana",
+        subcategory: "ClosestWarp"
+    })
+    announceClosestWarp = false;
 
     //Trollege configs
     @SwitchProperty({
