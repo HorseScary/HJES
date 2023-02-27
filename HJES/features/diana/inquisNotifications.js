@@ -22,4 +22,4 @@ register("chat", (chat) => {
 
 register("chat", () => {
     World.playSound("random.orb", 1, 1)
-}).setCriteria("&r&9Party &8>${*}[HJES Diana] Inquis")
+}).setCriteria("&r&9Party &8>${*}[HJES Diana] Inquis&r")
