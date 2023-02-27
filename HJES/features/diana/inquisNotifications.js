@@ -18,8 +18,6 @@ register("chat", (chat) => {
             ChatLib.chat(HJESMessage(`You are closer than any warp!`, "Diana"))
         }
     }
-
-    //    &r&9Party &8> &b[MVP&5+&b] HorseScary&f: &rx: -88, y: 87, z: 58 [HJES Diana]&r
 }).setCriteria("&r&9Party &8>${*}[HJES Diana]&r")
 
 register("chat", () => {

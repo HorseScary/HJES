@@ -16,6 +16,10 @@ register("tick", () => {
                     randomDetected = true
                 }
             }
+            else if (players <= partyPlayers && randomDetected) {
+                ChatLib.chat(HJESMessage("The random is gone!", "Diana"))
+                randomDetected = false
+            }
             else {
                 randomDetected = false
             }
