@@ -1,16 +1,16 @@
 import Settings from "../../config"
-import { HJESMessage } from "../../functions";
+import { HJESMessage, helpHelper } from "../../functions";
 
 let randomDetected = false
 let lobbyChecked = false
-let partyPlayers = 0
+let partyPlayers = 1
 
 register("tick", () => {
     players = TabList.getNames().find((name) => name.includes("Players"));
     if (players) {
         players = parseInt(players.split("(")[1])
 
-        if (Settings.randomNotifier && partyPlayers) {
+        if (Settings.randomNotifier) {
             if (players > partyPlayers) {
                 if (!randomDetected) {
                     ChatLib.chat(HJESMessage("Theres a random in the lobby!"))
@@ -27,6 +27,7 @@ register("tick", () => {
         }
         if (Settings.privateFinder && !lobbyChecked) {
             if (players == 1) {
+                lobbyChecked = true
                 ChatLib.chat(HJESMessage("Private lobby!"))
                 World.playSound("random.orb", 1, 1)
             }
@@ -37,7 +38,7 @@ register("tick", () => {
 
 register("worldLoad", () => {
     if (Settings.randomNotifier && !partyPlayers) {
-        ChatLib.chat(HJESMessage("Run /pl or /setpartyplayers for random notifier to work!"))
+        ChatLib.chat(HJESMessage("Run /pl or /partyplayers for random notifier to work!"))
     }
 
     if (Settings.privateFinder) {
@@ -45,13 +46,36 @@ register("worldLoad", () => {
     }
 })
 
-register("command", (players) => {
-    partyPlayers = parseInt(players)
-}).setName("setPartyPlayers")
+register("command", (args) => {
+    if (args == "get") {
+        if (partyPlayers == 1) {
+            ChatLib.chat(HJESMessage(`There is ${partyPlayers} player in your party.`))
 
-register("command", () => {
-    ChatLib.chat(HJESMessage(`There are ${partyPlayers} in your party.`))
-}).setName("getPartyPlayers")
+        }
+        else {
+            ChatLib.chat(HJESMessage(`There are ${partyPlayers} players in your party.`))
+        }
+    }
+    else if (args == "help" || !args) {
+        ChatLib.chat(helpHelper({
+            "Random Notifier": "__title__",
+            "partyPlayers [num]": "__custom__",
+            "get": "displays value of partyPlayers"
+
+        }))
+    }
+    else {
+        players = parseInt(args)
+        if (isNaN(players)) {
+            ChatLib.chat(HJESMessage(`${args} is not a number!`))
+        }
+        else {
+            partyPlayers = players
+        }
+
+        partyPlayers = parseInt(players)
+    }
+}).setName("partyPlayers")
 
 register("chat", (chat) => {
     registeredChat = new Message(chat).getUnformattedText()
