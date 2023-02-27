@@ -2,7 +2,7 @@ import Settings from "../../config"
 import { HJESMessage, helpHelper } from "../../functions";
 
 let randomDetected = false
-let lobbyChecked = false
+let lobbyChecked = true
 let lobbyPlayers = 0
 let partyPlayers = 1
 
@@ -81,9 +81,8 @@ register("command", (args) => {
         }
         else {
             partyPlayers = players
+            ChatLib.chat(HJESMessage(`partyPlayers has been set to ${partyPlayers}`))
         }
-
-        partyPlayers = parseInt(players)
     }
 }).setName("partyPlayers", true).setAliases('pp')
 
@@ -91,7 +90,9 @@ register("chat", (chat) => {
     registeredChat = new Message(chat).getUnformattedText()
     partyPlayers = parseInt(registeredChat.split("(")[1])
 
-    ChatLib.chat(HJESMessage(`partyPlayers has been set to ${partyPlayers}`, "Diana"))
+    setTimeout(() => {
+        ChatLib.chat(HJESMessage(`partyPlayers has been set to ${partyPlayers}`))
+    }, 10)
 }).setCriteria("&6Party Members (${*})&r")
 
 register("chat", () => {
