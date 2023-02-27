@@ -27,7 +27,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Auto-Join to Skyblock",
-        description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normaly)\nBased on max hype message so like have that.",
+        description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normally)\nBased on max hype message so like have that.\n&4Disable this feature if you are using diana auto-rat",
         category: "General"
     })
     afk2 = false;
@@ -107,7 +107,7 @@ class Settings {
     //Trollege configs
     @SwitchProperty({
         name: "Auto Mute",
-        description: "automaticly g mutes player",
+        description: "automatically g mutes player",
         category: "Trollege"
     })
     autoMute = false;
@@ -122,7 +122,7 @@ class Settings {
 
     @SwitchProperty({
         name: "runic",
-        description: "justifies gia construct deaths",
+        description: "justifies gaia construct deaths",
         category: "Trollege",
         subcategory: "Diana"
     })
@@ -255,7 +255,7 @@ class Settings {
         this.setCategoryDescription("Trollege", "&4 trollege")
         this.setSubcategoryDescription("Trollege", "Diana", "Diana Trollege")
 
-        this.setCategoryDescription("Testing", "prolly dont enable these")
+        this.setCategoryDescription("Testing", "prolly don't enable these")
     }
 }
 
