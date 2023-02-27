@@ -92,7 +92,7 @@ class Settings {
     // privateLobby configs
     @SwitchProperty({
         name: "Random Notifier",
-        description: "notifies you if there are more players in the lobby than in your diana party.",
+        description: "notifies you if there are more players in the lobby than in your diana party.\nUse /partyPlayers or run /pl to set the number of players in your party",
         category: "Private Lobbies",
     })
     randomNotifier = false;

@@ -14,6 +14,10 @@ register("command", (arg) => {
         '': '__title__',
         'Diana': '__subtitle__',
         'inquis': 'Diana inquisitor functions',
+        'Blaze': '__subtitle__',
+        'blazeEffectTimes': 'gives the time left on re-heated gummy and wisp pots',
+        'Random Notifier': '__subtitle__',
+        'partyPlayers': 'set or view the number of players in your party',
         'Trollege': '__subtitle__',
         'sendPenis': 'sends coordinates of a penis. works best with soopy player coordinates thing'
     })

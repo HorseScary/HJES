@@ -75,7 +75,7 @@ register("command", (args) => {
 
         partyPlayers = parseInt(players)
     }
-}).setName("partyPlayers")
+}).setName("partyPlayers", true).setAliases('pp')
 
 register("chat", (chat) => {
     registeredChat = new Message(chat).getUnformattedText()
