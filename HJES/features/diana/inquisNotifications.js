@@ -11,12 +11,14 @@ register("chat", (chat) => {
 
         closestWarp = getClosestWarp(x, y, z, true)
 
-        if (closestWarp) {
-            ChatLib.chat(HJESMessage(`The closest warp is ${closestWarp}.`, "Diana"))
-        }
-        else {
-            ChatLib.chat(HJESMessage(`You are closer than any warp!`, "Diana"))
-        }
+        setTimeout(() => {
+            if (closestWarp) {
+                ChatLib.chat(HJESMessage(`The closest warp is ${closestWarp}.`, "Diana"))
+            }
+            else {
+                ChatLib.chat(HJESMessage(`You are closer than any warp!`, "Diana"))
+            }
+        }, 100)
     }
 }).setCriteria("&r&9Party &8>${*}[HJES Diana]&r")
 
