@@ -88,6 +88,13 @@ class Settings {
     })
     randomNotifier = false;
 
+    @SwitchProperty({
+        name: "Show nearest warp to inquis",
+        description: "Tells you the closest warp to the inquis when coords are sent in chat.",
+        category: "Diana"
+    })
+    getClosestWarp = true;
+
     //Trollege configs
     @SwitchProperty({
         name: "Auto Mute",
@@ -156,12 +163,6 @@ class Settings {
     })
     announceCoinsAtValue = 8;
 
-    @SwitchProperty({
-        name: "Show nearest warp to inquis",
-        description: "Tells you the closest warp to the inquis when coords are sent in chat.",
-        category: "Diana",
-    })
-    nearestInquisWarp = true;
 
     //Blaze configs
     @SwitchProperty({
