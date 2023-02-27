@@ -1,6 +1,7 @@
 import Settings from "../../config"
 import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../../functions"
 import "./randomNotifier"
+import "./inquisNotifications"
 
 let myCheese = false
 let inquisExists = 0
@@ -93,27 +94,6 @@ register("chat", () => {
         })
     }
 }).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
-
-register("chat", (chat) => {
-    if (Settings.getClosestWarp) {
-        registeredChat = new Message(chat).getUnformattedText()
-        splitChat = registeredChat.split(":")
-        x = parseInt(splitChat[2])
-        y = parseInt(splitChat[3])
-        z = parseInt(splitChat[4])
-
-        closestWarp = getClosestWarp(x, y, z, true)
-
-        if (closestWarp) {
-            ChatLib.chat(HJESMessage(`The closest warp is ${closestWarp}.`, "Diana"))
-        }
-        else {
-            ChatLib.chat(HJESMessage(`You are closer than any warp!`, "Diana"))
-        }
-    }
-
-    //    &r&9Party &8> &b[MVP&5+&b] HorseScary&f: &rx: -88, y: 87, z: 58 [HJES Diana]&r
-}).setCriteria("&r&9Party &8>${*}[HJES Diana]&r")
 
 // 😼
 register("chat", () => {
