@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Blaze", "Trinity", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Private Lobbies", "Blaze", "Trinity", "Trollege", "Testing"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -82,19 +82,27 @@ class Settings {
     burrowOverview = false;
 
     @SwitchProperty({
-        name: "Random Notifier",
-        description: "notifies you if there are more players in the lobby than in your diana party.",
-        category: "Diana",
-    })
-    randomNotifier = false;
-
-    @SwitchProperty({
         name: "Show Nearest Warp to Inquis",
         description: "Tells you the closest warp to the inquis when coords are sent in chat.",
         category: "Diana",
         subcategory: "ClosestWarp"
     })
     getClosestWarp = true;
+
+    // privateLobby configs
+    @SwitchProperty({
+        name: "Random Notifier",
+        description: "notifies you if there are more players in the lobby than in your diana party.",
+        category: "Private Lobbies",
+    })
+    randomNotifier = false;
+
+    @SwitchProperty({
+        name: "Private Lobby Finder",
+        description: "Notifies you when you find a private lobby",
+        category: "Private Lobbies"
+    })
+    privateFinder = false;
 
     @SwitchProperty({
         name: "Announce Closest Warp to Inquis",

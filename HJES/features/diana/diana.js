@@ -1,6 +1,5 @@
 import Settings from "../../config"
 import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../../functions"
-import "./randomNotifier"
 import "./inquisNotifications"
 
 let myCheese = false

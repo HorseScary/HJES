@@ -4,6 +4,7 @@ import "./features/trollege"
 import "./features/afk"
 import "./features/trinity"
 import "./features/blaze"
+import "./features/privateLobby/index"
 
 import { helpHelper, HJESMessage } from "./functions";
 
