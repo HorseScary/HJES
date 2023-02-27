@@ -10,10 +10,20 @@ register("tick", () => {
     if (players) {
         players = parseInt(players.split("(")[1])
 
+        if (Settings.privateFinder && !lobbyChecked) {
+            if (players == 1) {
+                lobbyChecked = true
+                randomDetected = false
+                ChatLib.chat(HJESMessage("Private lobby!"))
+                World.playSound("random.orb", 1, 1)
+            }
+        }
+
         if (Settings.randomNotifier) {
             if (players > partyPlayers) {
                 if (!randomDetected) {
                     ChatLib.chat(HJESMessage("Theres a random in the lobby!"))
+                    World.playSound("random.orb", 1, 1)
                     randomDetected = true
                 }
             }
@@ -25,13 +35,7 @@ register("tick", () => {
                 randomDetected = false
             }
         }
-        if (Settings.privateFinder && !lobbyChecked) {
-            if (players == 1) {
-                lobbyChecked = true
-                ChatLib.chat(HJESMessage("Private lobby!"))
-                World.playSound("random.orb", 1, 1)
-            }
-        }
+
     }
 
 })
