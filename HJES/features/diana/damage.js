@@ -3,7 +3,7 @@ let renderedText = ""
 
 register("renderOverlay", () => {
     x = (Renderer.screen.getWidth() / 2) - (Renderer.getStringWidth(renderedText) / 2)
-    y = (Renderer.screen.getHeight() / 2) - 10
+    y = (Renderer.screen.getHeight() / 2) + 10
     Renderer.drawString(renderedText, x, y, true)
 })
 
