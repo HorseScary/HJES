@@ -25,7 +25,7 @@ register("tick", () => {
             if (players > partyPlayers) {
                 randoms = players - partyPlayers
                 if (!lobbyChecked) {
-                    if (randoms != 1) {
+                    if (randoms == 1) {
                         ChatLib.chat(HJESMessage(`There is ${randoms} random in this lobby.`))
                     }
                     else {
