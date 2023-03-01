@@ -32,13 +32,23 @@ class Settings {
     })
     afk2 = false;
 
-    //Diana configs
+    // Diana configs
+
+    // Inquis 
+    @SwitchProperty({
+        name: "Show Damage Percentage",
+        description: "Displays inquis and champ damage percentage on screen",
+        category: "Diana",
+        subcategory: "Inquis"
+    })
+    showPercentage = false;
+
     @TextProperty({
         name: "InquisTimeout",
         description: "Time (in milliseconds) before inquis is registered as killed",
         category: "Diana",
         subcategory: "Inquis",
-        placeholder: "100000"
+        placeholder: "75000"
     })
     inquisTimeout = "75000";
 
@@ -50,6 +60,23 @@ class Settings {
     })
     announceInquis = true;
 
+    @SwitchProperty({
+        name: "Show Nearest Warp to Inquis",
+        description: "Tells you the closest warp to the inquis when coords are sent in chat.",
+        category: "Diana",
+        subcategory: "Inquis"
+    })
+    getClosestWarp = true;
+
+    @SwitchProperty({
+        name: "Announce Closest Warp to Inquis",
+        description: "Says the closest warp to your inquis in party chat.",
+        category: "Diana",
+        subcategory: "Inquis"
+    })
+    announceClosestWarp = false;
+
+    // rat
     @SwitchProperty({
         name: "Cheese Announcement",
         description: "Tells party when cheese spawns and when cheese is picked up",
@@ -74,20 +101,15 @@ class Settings {
     })
     rejoinOnCheese = true;
 
+    // misc
     @SwitchProperty({
         name: "Burrow Overview",
         description: "Gives overview of burrow in chat. Mostly for debugging purposes.",
-        category: "Diana"
+        category: "Diana",
+        subcategory: "Misc"
     })
     burrowOverview = false;
 
-    @SwitchProperty({
-        name: "Show Nearest Warp to Inquis",
-        description: "Tells you the closest warp to the inquis when coords are sent in chat.",
-        category: "Diana",
-        subcategory: "ClosestWarp"
-    })
-    getClosestWarp = true;
 
     // privateLobby configs
     @SwitchProperty({
@@ -104,13 +126,6 @@ class Settings {
     })
     privateFinder = false;
 
-    @SwitchProperty({
-        name: "Announce Closest Warp to Inquis",
-        description: "Says the closest warp to your inquis in party chat.",
-        category: "Diana",
-        subcategory: "ClosestWarp"
-    })
-    announceClosestWarp = false;
 
     //Trollege configs
     @SwitchProperty({
@@ -143,7 +158,6 @@ class Settings {
         subcategory: "Diana"
     })
     announceDrops = false;
-
 
     @SelectorProperty({
         name: "Announce Drops Chat",
@@ -214,6 +228,7 @@ class Settings {
     })
     notifyWispOffset = 0;
 
+
     //Trinity configs
     @SwitchProperty({
         name: "5 Puzzle Alert",
@@ -228,6 +243,7 @@ class Settings {
         category: "Trinity"
     })
     transferAlert = false;
+
 
     //Testing configs
     @SwitchProperty({
