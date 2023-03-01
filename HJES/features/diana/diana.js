@@ -355,9 +355,3 @@ register("command", (args) => {
         ChatLib.chat(`&d[HJES Diana]&f ${args} is not a valid option. Type '/inquis help' for help.`)
     }
 }).setName("inquisitor", true).setAliases("inquis", "inq", "iq")
-
-register("command", () => {
-    World.getAllEntities().forEach(entity => {
-        ChatLib.chat(entity.getName())
-    })
-}).setName("getEntities")
