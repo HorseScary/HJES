@@ -32,6 +32,13 @@ class Settings {
     })
     afk2 = false;
 
+    @SwitchProperty({
+        name: "Chicken Head",
+        description: "Tells you when chicken head is ready to make a new egg.",
+        category: "General"
+    })
+    eggReady = true;
+
     // Diana configs
 
     // Inquis 
