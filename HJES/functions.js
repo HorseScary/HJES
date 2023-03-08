@@ -57,3 +57,63 @@ export function getRandomInt(min, max) {
 export function minToMillisecond(mins) {
     return (mins * 60000)
 }
+
+
+export function getClosestWarp(x, y, z, usePlayerCoords) {
+    let warpData = {
+        "castle": [-250, 130, 45],
+        "da": [91, 75, 176],
+        "museum": [-75, 76, 80],
+        "hub": [-2, 70, -69]
+    }
+
+    castleDist = Math.hypot(Math.abs(x - warpData.castle[0]), Math.abs(y - warpData.castle[1]), Math.abs(z - warpData.castle[2]))
+    daDist = Math.hypot(Math.abs(x - warpData.da[0]), Math.abs(y - warpData.da[1]), Math.abs(z - warpData.da[2]))
+    museumDist = Math.hypot(Math.abs(x - warpData.museum[0]), Math.abs(y - warpData.museum[1]), Math.abs(z - warpData.museum[2]))
+    hubDist = Math.hypot(Math.abs(x - warpData.hub[0]), Math.abs(y - warpData.hub[1]), Math.abs(z - warpData.hub[2]))
+    if (usePlayerCoords) {
+        playerDist = Math.hypot(Math.abs(x - Player.getX()), Math.abs(y - Player.getY()), Math.abs(z - Player.getZ()))
+    }
+
+
+    dist = {}
+    dist[castleDist] = "castle"
+    dist[daDist] = "da"
+    dist[museumDist] = "da"
+    dist[hubDist] = "hub"
+
+    if (usePlayerCoords) {
+        dist[playerDist] = null
+        closest = Math.min(castleDist, daDist, museumDist, hubDist, playerDist)
+    }
+    else {
+        closest = Math.min(castleDist, daDist, museumDist, hubDist)
+    }
+
+    return dist[closest]
+}
+
+export function timeFormat(milliseconds) {
+    time = []
+    time[0] = parseInt(milliseconds / 1000)
+    for (i = 0; i < 2; i++) {
+        time[i + 1] = parseInt(time[i] / 60)
+        time[i] -= time[i + 1] * 60
+    }
+
+    for (i = 0; i < 3; i++) {
+        if (time[i] == 0) {
+            time[i] = ''
+        }
+        time[i] = time[i].toString()
+
+        if (i != 2) {
+            time[i] = time[i].padStart(2, 0)
+        }
+        if (i != 0 && time[i]) {
+            time[i] = time[i].concat(':')
+        }
+    }
+
+    return (`${time[2]}${time[1]}${time[0]}`)
+}

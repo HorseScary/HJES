@@ -1,5 +1,6 @@
-import Settings from "../config"
-import { getRandomInt, helpHelper, HJESMessage } from "../functions"
+import Settings from "../../config"
+import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../../functions"
+import "./inquisNotifications"
 
 let myCheese = false
 let inquisExists = 0
@@ -8,8 +9,6 @@ let lastMob = String()
 let lastBurrowType = String()
 let lastTreasure = String()
 let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
-
-
 
 // Leaves to hub when someone gets cheese
 register("chat", () => {
@@ -29,9 +28,17 @@ register("chat", () => {
 // tells party when you pick up cheese
 register("chat", () => {
     if (Settings.announceCheese) {
+        myCheese = false;
         ChatLib.say('/pc [HJES Diana] Cheese obtained!')
     }
 }).setChatCriteria("&r&e&lCHEESE!&r&7 You buffed &r${*}&r&7 giving them &r&b+${*}✯ Magic Find&r&7 for &r&a${*}&r&7 seconds!&r")
+
+// rejoins lobby when cheese obtained message is registered
+register("chat", () => {
+    if (Settings.rejoinOnCheese) {
+        ChatLib.say('/play sb')
+    }
+}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 register("chat", () => {
     if (Settings.announceInquis) {
@@ -40,25 +47,49 @@ register("chat", () => {
             if (entity.getName().toLowerCase().includes("inquis")) {
                 inquisExists += 1
 
-                ChatLib.say(`/pc [HJES Diana] Inquis `)
+                inquisX = parseInt(entity.getX())
+                inquisY = parseInt(entity.getY())
+                inquisZ = parseInt(entity.getZ())
+
+                inquisClosestWarp = getClosestWarp(inquisX, inquisY, inquisZ)
+
+                ChatLib.say(`/pc [HJES Diana] Inquis`)
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+                    ChatLib.say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
                 }, 500)
+                if (Settings.announceClosestWarp) {
+                    setTimeout(() => {
+                        ChatLib.say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
+                    })
+                }
 
                 setTimeout(() => {
-                    if (inquisExists) {
-                        ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registered as dead!")
+                    if (inquisExists > 0) {
+                        inquisExists -= 1
                     }
-                    inquisExists -= 1
+                    if (inquisExists == 0) {
+                        ChatLib.chat(HJESMessage("Inquis timeout reached. Inquis registered as dead!", "Diana"))
+                    }
                 }, parseInt(Settings.inquisTimeout))
             }
 
             // same thing as inquis code, but doesn't change the inquisExists variable
-            else if (entity.getName().toLowerCase().includes("champ") && Settings.announceChamp) {
+            else if (entity.getName().toLowerCase().includes("minos champion") && Settings.announceChamp) {
                 ChatLib.say(`/pc [HJES Diana] Champ`)
+
+                champX = parseInt(Player.getLastX())
+                champY = parseInt(Player.getLastY())
+                champZ = parseInt(Player.getLastZ())
+
+                ChatLib.chat(`x:${champX}\ny:${champY}\nz:${champZ}\n${entity.getName()}`)
+
+                champClosestWarp = getClosestWarp(champX, champY, champZ)
+
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
-                }, 500)
+                    ChatLib.say(`/pc x: ${champX}, y: ${champY}, z: ${champZ} [HJES Diana]`)
+                    ChatLib.chat(HJESMessage(champClosestWarp, "Diana"))
+                }, 1000)
+
 
                 setTimeout(() => {
                     ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registered as dead!")
@@ -75,12 +106,6 @@ register("chat", () => {
     }
 }).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${*}")
 
-// rejoins lobby when cheese obtained message is registered
-register("chat", () => {
-    if (Settings.rejoinOnCheese) {
-        ChatLib.say('/play sb')
-    }
-}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 // puts the items in your inventory in chat. for debugging
 register("command", () => {
@@ -316,7 +341,7 @@ register("command", (args) => {
 
         setTimeout(() => {
             if (inquisExists) {
-                ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registerd as dead!")
+                ChatLib.chat("&d[HJES Diana]&f Inquis timeout reached. Inquis registered as dead!")
             }
             inquisExists -= 1
         }, parseInt(Settings.inquisTmeout))

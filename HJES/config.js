@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Garden", "Blaze", "Trinity", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Private Lobbies", "Blaze", "Trinity", "Trollege", "Testing"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -27,7 +27,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Auto-Join to Skyblock",
-        description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normaly)\nBased on max hype message so like have that.",
+        description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normally)\nBased on max hype message so like have that.\n&4Disable this feature if you are using diana auto-rat",
         category: "General"
     })
     afk2 = false;
@@ -40,7 +40,7 @@ class Settings {
         subcategory: "Inquis",
         placeholder: "100000"
     })
-    inquisTimeout = "100000";
+    inquisTimeout = "75000";
 
     @SwitchProperty({
         name: "Announce Inquis",
@@ -81,10 +81,41 @@ class Settings {
     })
     burrowOverview = false;
 
+    @SwitchProperty({
+        name: "Show Nearest Warp to Inquis",
+        description: "Tells you the closest warp to the inquis when coords are sent in chat.",
+        category: "Diana",
+        subcategory: "ClosestWarp"
+    })
+    getClosestWarp = true;
+
+    // privateLobby configs
+    @SwitchProperty({
+        name: "Random Notifier",
+        description: "notifies you if there are more players in the lobby than in your diana party.\nUse /partyPlayers or run /pl to set the number of players in your party",
+        category: "Private Lobbies",
+    })
+    randomNotifier = false;
+
+    @SwitchProperty({
+        name: "Private Lobby Finder",
+        description: "Notifies you when you find a private lobby",
+        category: "Private Lobbies"
+    })
+    privateFinder = false;
+
+    @SwitchProperty({
+        name: "Announce Closest Warp to Inquis",
+        description: "Says the closest warp to your inquis in party chat.",
+        category: "Diana",
+        subcategory: "ClosestWarp"
+    })
+    announceClosestWarp = false;
+
     //Trollege configs
     @SwitchProperty({
         name: "Auto Mute",
-        description: "automaticly g mutes player",
+        description: "automatically g mutes player",
         category: "Trollege"
     })
     autoMute = false;
@@ -99,7 +130,7 @@ class Settings {
 
     @SwitchProperty({
         name: "runic",
-        description: "justifies gia construct deaths",
+        description: "justifies gaia construct deaths",
         category: "Trollege",
         subcategory: "Diana"
     })
@@ -148,14 +179,6 @@ class Settings {
         options: ["10k", "15k", "25k", "40k", "50k", "75k", "100k", "250k", "500k", "750k"]
     })
     announceCoinsAtValue = 8;
-
-    //Garden configs
-    @SwitchProperty({
-        name: "New Visiter Alert",
-        description: "alerts you when a new visitor arrives",
-        category: "Garden"
-    })
-    gardenAlert = false;
 
     //Blaze configs
     @SwitchProperty({
@@ -239,7 +262,7 @@ class Settings {
         this.setCategoryDescription("Trollege", "&4 trollege")
         this.setSubcategoryDescription("Trollege", "Diana", "Diana Trollege")
 
-        this.setCategoryDescription("Testing", "prolly dont enable these")
+        this.setCategoryDescription("Testing", "prolly don't enable these")
     }
 }
 
