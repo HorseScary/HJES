@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Private Lobbies", "Blaze", "Trinity", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Private Lobbies", "Blaze", "Trinity", "Trollege", "Testing", "Garden"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -250,6 +250,14 @@ class Settings {
         category: "Testing"
     })
     chatThing = false;
+
+    //Garden configs
+    @SwitchProperty({
+        name: "New Visitor Alert",
+        description: "alerts you when a new visitor arrives",
+        category: "Garden"
+    })
+    visitorAlert = true;
 
     constructor() {
         this.initialize(this);

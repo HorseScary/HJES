@@ -5,6 +5,7 @@ import "./features/afk"
 import "./features/trinity"
 import "./features/blaze"
 import "./features/privateLobby/index"
+import "./features/garden"
 
 import { helpHelper, HJESMessage } from "./functions";
 
