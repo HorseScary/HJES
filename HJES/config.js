@@ -259,6 +259,29 @@ class Settings {
     })
     visitorAlert = true;
 
+    @SwitchProperty({
+        name: "Visitor Display",
+        description: "displays visitors, /changevisitordisplaycoords x y to change position",
+        category: "Garden"
+    })
+    displayVisitors = true;
+
+    @TextProperty({
+        name: "Visitor Display X Coordinate",
+        description: "/changevisitordisplaycoords (x) (y) works too",
+        category: "Garden",
+        placeholder: "500"
+    })
+    visitorX = "500";
+
+    @TextProperty({
+        name: "Visitor Display Y Coordinate",
+        description: "/changevisitordisplaycoords (x) (y) works too",
+        category: "Garden",
+        placeholder: "500"
+    })
+    visitorY = "500";
+
     constructor() {
         this.initialize(this);
         this.setCategoryDescription("General", "&aH&3J&dES")
