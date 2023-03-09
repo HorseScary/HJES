@@ -1,83 +1,83 @@
 import Settings from "../config"
+import { HJESMessage } from "../functions"
 
 let realVisitors = 0
-let visitorCount = 0
-let renderedText = ``
+let visitorNames = []
+let scale = 0;
 
 register("command", (args1, args2) => {
-    Settings.visitorX = parseInt(args1)
-    Settings.visitorY = parseInt(args2)
+    Settings.visitorX = args1
+    Settings.visitorY = args2
     ChatLib.chat(`Display changed to ${Settings.visitorX}, ${Settings.visitorY}`)
 }).setName("changevisitordisplaycoords")
 
 register("renderOverlay", () => {
+
     if (Settings.displayVisitors) {
-        Renderer.drawString(renderedText, Settings.visitorX, Settings.visitorY, true)
+        renderedText = `Visitors: ${realVisitors}`
+        for (i = 0; i < visitorNames.length; i++) {
+            renderedText += `\n${visitorNames[i]}`
+        }
+        Renderer.drawString(renderedText, parseInt(Settings.visitorX), parseInt(Settings.visitorY), true)
     }
 })
 
 register("tick", () => {
-    if(Settings.visitorAlert) {
+    if (Settings.visitorAlert) {
         visitorArray = []
         visitors = TabList.getNames().find((name) => name.includes("Visitors:"));
         visitorTimer = TabList.getNames().find((name) => name.includes("Next Visitor:"))
-        let inGarden
-        if(visitorTimer) {
-            inGarden = true
-        }
-        if(inGarden) {
-            if(visitors) {
+
+        if (visitors) {
             visitorCount = parseInt(visitors.split("(")[1])
+            visitorNames = TabList.getNames().slice(TabList.getNames().indexOf(visitors) + 1, TabList.getNames().indexOf(visitors) + visitorCount + 1)
+
+            if (visitorCount > realVisitors) {
+                ChatLib.chat(HJESMessage(`\nVisitors: ${visitors}\nNew Visitor: ${visitorNames[visitorNames.length - 1]}`, "Garden"))
             }
-            if (visitorCount !== realVisitors || inGardenWorldLoad) {
-                renderedText = `Visitors: ${visitorCount}`
-                let visitorIndex = TabList.getNames().indexOf(visitors)
-                for(i = 1; i <= visitorCount; i++) {
-                    renderedText += `\n${TabList.getNames()[visitorIndex + i]}`
-                }
-                inGardenWorldLoad = false
+
+            if (visitorCount != realVisitors) {
+                visitorText = `Visitors: ${visitors}`
+                visitorIndex = TabList.getNames().indexOf(visitors)
             }
-            if (visitorCount > realVisitors) { 
-                ChatLib.chat(`Visitors: ${visitorCount}`)
-                ChatLib.chat(`New Visitor:${TabList.getNames()[TabList.getNames().indexOf(visitors) + visitorCount]}`)
-            }
+
             realVisitors = visitorCount
-            }
+        }
+
     }
 })
 
 register("worldLoad", () => {
-   setTimeout(() => {
-    visitorTimerWorldLoad = TabList.getNames().find((name) => name.includes("Next Visitor:"))
-        let inGardenWorldLoad
-        if(visitorTimer) {
+    setTimeout(() => {
+        visitorTimerWorldLoad = TabList.getNames().find((name) => name.includes("Next Visitor:"))
+        if (visitorTimer) {
             inGardenWorldLoad = true
         }
-   }, 1000)
+    }, 1000)
 })
 
 register("command", () => {
     visitors = TabList.getNames().find((name) => name.includes("Visitors:"));
-        if(visitors) {
-            visitorCount = parseInt(visitors.split("(")[1])
-                let visitorIndex = TabList.getNames().indexOf(visitors)
-                for (let i = 0; i <= visitorCount; i++) {
-                    ChatLib.chat(`${TabList.getNames()[visitorIndex + i]}`)
-                }
-            realVisitors = visitorCount
-            }
+    if (visitors) {
+        visitorCount = parseInt(visitors.split("(")[1])
+        let visitorIndex = TabList.getNames().indexOf(visitors)
+        for (let i = 0; i <= visitorCount; i++) {
+            ChatLib.chat(`${TabList.getNames()[visitorIndex + i]}`)
+        }
+        realVisitors = visitorCount
+    }
 }).setName("visitors")
 
 register("command", () => {
-        visitors = TabList.getNames().find((name) => name.includes("Visitors:"));
-        if(visitors) {
-            visitorCount = parseInt(visitors.split("(")[1])
-                let visitorIndex = TabList.getNames().indexOf(visitors)
-                for (let i = 0; i <= visitorCount; i++) {
-                    renderedText += `\n${TabList.getNames()[visitorIndex + i]}`
-            }
-            realVisitors = visitorCount
-            }
+    visitors = TabList.getNames().find((name) => name.includes("Visitors:"));
+    if (visitors) {
+        visitorCount = parseInt(visitors.split("(")[1])
+        let visitorIndex = TabList.getNames().indexOf(visitors)
+        for (let i = 0; i <= visitorCount; i++) {
+            renderedText += `\n${TabList.getNames()[visitorIndex + i]}`
+        }
+        realVisitors = visitorCount
+    }
 }).setName("updatevisitors")
 
 /*export function getVisitors(visitorCount, realVisitors) {
