@@ -3,7 +3,6 @@ import { HJESMessage } from "../functions"
 
 let realVisitors = 0
 let visitorNames = []
-let scale = 0;
 
 register("command", (args1, args2) => {
     Settings.visitorX = args1
@@ -28,17 +27,18 @@ register("tick", () => {
         visitors = TabList.getNames().find((name) => name.includes("Visitors:"));
         visitorTimer = TabList.getNames().find((name) => name.includes("Next Visitor:"))
 
-        if (visitors) {
-            visitorCount = parseInt(visitors.split("(")[1])
-            visitorNames = TabList.getNames().slice(TabList.getNames().indexOf(visitors) + 1, TabList.getNames().indexOf(visitors) + visitorCount + 1)
-
-            if (visitorCount > realVisitors) {
-                ChatLib.chat(HJESMessage(`\nVisitors: ${visitors}\nNew Visitor: ${visitorNames[visitorNames.length - 1]}`, "Garden"))
+        if (visitorTimer) {
+            if (!visitors) {
+                visitorCount = 0
+                visitorNames = []
             }
+            else {
+                visitorCount = parseInt(visitors.split("(")[1])
+                visitorNames = TabList.getNames().slice(TabList.getNames().indexOf(visitors) + 1, TabList.getNames().indexOf(visitors) + visitorCount + 1)
 
-            if (visitorCount != realVisitors) {
-                visitorText = `Visitors: ${visitors}`
-                visitorIndex = TabList.getNames().indexOf(visitors)
+                if (visitorCount > realVisitors) {
+                    ChatLib.chat(HJESMessage(`\nVisitors: ${visitors}\nNew Visitor: ${visitorNames[visitorNames.length - 1]}`, "Garden"))
+                }
             }
 
             realVisitors = visitorCount
