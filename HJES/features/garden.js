@@ -26,22 +26,14 @@ register("tick", () => {
             inGarden = true
         }
         if(inGarden) {
-            renderedText += `${TabList.getNames().find((name) => name.includes("Visitors:"))}`
             if(visitors) {
             visitorCount = parseInt(visitors.split("(")[1])
             }
-            if(visitorCount == 0) {
-                renderedText = `Visitors: 0`
-            } else {
-                renderedText = `Visitors: ${visitorCount}`
-            }
             if (visitorCount !== realVisitors || inGardenWorldLoad) {
+                renderedText = `Visitors: ${visitorCount}`
                 let visitorIndex = TabList.getNames().indexOf(visitors)
-                for (let i = 1; i <= visitorCount; i++) {
-                    visitorArray.push(`${TabList.getNames()[visitorIndex + i]}`)
-                }
-                for(i = 1; i < visitorArray.length; i++) {
-                    renderedText += `\n${visitorArray[i]}`
+                for(i = 1; i <= visitorCount; i++) {
+                    renderedText += `\n${TabList.getNames()[visitorIndex + i]}`
                 }
                 inGardenWorldLoad = false
             }
@@ -77,13 +69,12 @@ register("command", () => {
 }).setName("visitors")
 
 register("command", () => {
-    visitorArray = []
         visitors = TabList.getNames().find((name) => name.includes("Visitors:"));
         if(visitors) {
             visitorCount = parseInt(visitors.split("(")[1])
                 let visitorIndex = TabList.getNames().indexOf(visitors)
                 for (let i = 0; i <= visitorCount; i++) {
-                    visitorArray.push(`${TabList.getNames()[visitorIndex + i]}`)
+                    renderedText += `\n${TabList.getNames()[visitorIndex + i]}`
             }
             realVisitors = visitorCount
             }
