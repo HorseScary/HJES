@@ -106,16 +106,6 @@ register("chat", () => {
     }
 }).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${*}")
 
-
-// puts the items in your inventory in chat. for debugging
-register("command", () => {
-    items = Player.getInventory().getItems()
-    for (i = 0; i < items.length; i++) {
-        ChatLib.chat(items[i])
-    }
-
-}).setName("hjesgetitems")
-
 // returns chat command based on the announceDropsChat setting
 function announceDropsChat() {
     chat = Settings.announceDropsChat
