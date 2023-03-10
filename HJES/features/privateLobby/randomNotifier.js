@@ -71,7 +71,15 @@ register("worldLoad", () => {
 })
 
 register("command", (args) => {
-    if (args == "get") {
+    if (args == "help") {
+        ChatLib.chat(helpHelper({
+            "Random Notifier": "__title__",
+            "partyPlayers [num]": "__custom__",
+            "get": "displays value of partyPlayers"
+
+        }))
+    }
+    else if (!args || args == "get") {
         if (partyPlayers == 1) {
             ChatLib.chat(HJESMessage(`There is ${partyPlayers} player in your party.`))
 
@@ -80,14 +88,7 @@ register("command", (args) => {
             ChatLib.chat(HJESMessage(`There are ${partyPlayers} players in your party.`))
         }
     }
-    else if (args == "help" || !args) {
-        ChatLib.chat(helpHelper({
-            "Random Notifier": "__title__",
-            "partyPlayers [num]": "__custom__",
-            "get": "displays value of partyPlayers"
 
-        }))
-    }
     else {
         players = parseInt(args)
         if (isNaN(players)) {
