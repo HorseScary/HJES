@@ -6,6 +6,7 @@ import "./features/trinity"
 import "./features/blaze"
 import "./features/privateLobby/index"
 import "./features/misc/index"
+import "./features/plane/index"
 
 import { helpHelper, HJESMessage } from "./functions";
 
