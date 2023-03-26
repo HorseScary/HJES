@@ -56,13 +56,10 @@ register("chat", () => {
                 inquisClosestWarp = getClosestWarp(inquisX, inquisY, inquisZ)
 
                 say(`/pc [HJES Diana] Inquis`)
-                setTimeout(() => {
-                    say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
-                }, 500)
+                say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
+
                 if (Settings.announceClosestWarp) {
-                    setTimeout(() => {
-                        say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
-                    })
+                    say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
                 }
 
                 setTimeout(() => {
@@ -87,10 +84,8 @@ register("chat", () => {
 
                 champClosestWarp = getClosestWarp(champX, champY, champZ)
 
-                setTimeout(() => {
-                    say(`/pc x: ${champX}, y: ${champY}, z: ${champZ} [HJES Diana]`)
-                    ChatLib.chat(HJESMessage(champClosestWarp, "Diana"))
-                }, 1000)
+                say(`/pc x: ${champX}, y: ${champY}, z: ${champZ} [HJES Diana]`)
+                ChatLib.chat(HJESMessage(champClosestWarp, "Diana"))
 
 
                 setTimeout(() => {
@@ -337,9 +332,7 @@ register("command", (args) => {
         inquisExists += 1
 
         say(`/pc [HJES Diana] Inquis `)
-        setTimeout(() => {
-            say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
-        }, 500)
+        say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
 
         setTimeout(() => {
             if (inquisExists) {
