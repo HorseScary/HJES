@@ -1,3 +1,5 @@
+import { say } from "../../handlers/say"
+
 function getPlaneCoords(x, y, z) {
     return ({
         "x": [x, x - 1, x - 2, x - 3, x - 1, x - 1, x - 1, x - 1, x - 3, x - 3],
@@ -12,7 +14,7 @@ register("command", () => {
     for (i = 0; i < 10; i++) {
         (function (x, y, z) {
             setTimeout(() => {
-                ChatLib.say(`/pc x: ${x}, y: ${y}, z: ${z}`)
+                say(`/pc x: ${x}, y: ${y}, z: ${z}`)
             }, 500 * i)
         })(planeCoords.x[i], planeCoords.y[i], planeCoords.z[i])
     }
@@ -29,11 +31,7 @@ register("command", () => {
             setTimeout(() => {
                 planeCoords = getPlaneCoords(x, 88, -144)
                 for (j = 0; j < 10; j++) {
-                    (function (x, y, z) {
-                        setTimeout(() => {
-                            ChatLib.say(`/pc x: ${x}, y: ${y}, z: ${z}`)
-                        }, 500 * j)
-                    })(planeCoords.x[j], planeCoords.y[j], planeCoords.z[j])
+                    say(`/pc x: ${planeCoords.x[j]}, y: ${planeCoords.y[j]}, z: ${planeCoords.z[j]}`)
                 }
             }, 6000 * i)
 

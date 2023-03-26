@@ -1,5 +1,6 @@
 import Settings from "../../config"
 import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../../functions"
+import { say } from "../../handlers/say"
 import "./inquisNotifications"
 import "./damage"
 
@@ -14,7 +15,7 @@ let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
 // Leaves to hub when someone gets cheese
 register("chat", () => {
     if (!myCheese && !inquisExists && Settings.leaveOnCheese) {
-        ChatLib.say('/l')
+        say('/l')
     }
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese!&r")
 
@@ -22,7 +23,7 @@ register("chat", () => {
 register("chat", () => {
     if (Settings.announceCheese) {
         myCheese = true
-        ChatLib.say('/pc [HJES Diana] Cheese!')
+        say('/pc [HJES Diana] Cheese!')
     }
 }).setChatCriteria("&r&e&lCHEESE! &r&7You smell Cheese nearby!&r")
 
@@ -30,14 +31,14 @@ register("chat", () => {
 register("chat", () => {
     if (Settings.announceCheese) {
         myCheese = false;
-        ChatLib.say('/pc [HJES Diana] Cheese obtained!')
+        say('/pc [HJES Diana] Cheese obtained!')
     }
 }).setChatCriteria("&r&e&lCHEESE!&r&7 You buffed &r${*}&r&7 giving them &r&b+${*}✯ Magic Find&r&7 for &r&a${*}&r&7 seconds!&r")
 
 // rejoins lobby when cheese obtained message is registered
 register("chat", () => {
     if (Settings.rejoinOnCheese) {
-        ChatLib.say('/play sb')
+        say('/play sb')
     }
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
@@ -54,13 +55,13 @@ register("chat", () => {
 
                 inquisClosestWarp = getClosestWarp(inquisX, inquisY, inquisZ)
 
-                ChatLib.say(`/pc [HJES Diana] Inquis`)
+                say(`/pc [HJES Diana] Inquis`)
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
+                    say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
                 }, 500)
                 if (Settings.announceClosestWarp) {
                     setTimeout(() => {
-                        ChatLib.say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
+                        say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
                     })
                 }
 
@@ -76,7 +77,7 @@ register("chat", () => {
 
             // same thing as inquis code, but doesn't change the inquisExists variable
             else if (entity.getName().toLowerCase().includes("minos champion") && Settings.announceChamp) {
-                ChatLib.say(`/pc [HJES Diana] Champ`)
+                say(`/pc [HJES Diana] Champ`)
 
                 champX = parseInt(Player.getLastX())
                 champY = parseInt(Player.getLastY())
@@ -87,7 +88,7 @@ register("chat", () => {
                 champClosestWarp = getClosestWarp(champX, champY, champZ)
 
                 setTimeout(() => {
-                    ChatLib.say(`/pc x: ${champX}, y: ${champY}, z: ${champZ} [HJES Diana]`)
+                    say(`/pc x: ${champX}, y: ${champY}, z: ${champZ} [HJES Diana]`)
                     ChatLib.chat(HJESMessage(champClosestWarp, "Diana"))
                 }, 1000)
 
@@ -103,7 +104,7 @@ register("chat", () => {
 // 😼
 register("chat", () => {
     if (Settings.runic) {
-        ChatLib.say("/pc It was runic, I swear!")
+        say("/pc It was runic, I swear!")
     }
 }).setChatCriteria("&r&c ☠ ${*} killed by &r&2Exalted ${*}")
 
@@ -145,7 +146,7 @@ register("chat", (chat) => {
             coins = parseInt(lastTreasure.split('coins')[0])
             coinsToAnnounce = 0
             if (coins >= coinValues[Settings.announceCoinsAtValue]) {
-                ChatLib.say(`${announceDropsChat()} Wow! You dug out ${coins},000 coins!`)
+                say(`${announceDropsChat()} Wow! You dug out ${coins},000 coins!`)
             }
         }
     }
@@ -157,13 +158,13 @@ register("chat", (chat) => {
         if (Settings.announceDrops) {
             level = Settings.announceDropsLevel
             if (level >= 1 && lastTreasure.includes("Crown of Greed")) {
-                ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
+                say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
             }
             else if (level >= 2 && lastTreasure.includes("Washed-up")) {
-                ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
+                say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
             }
             else if (level >= 3 && lastTreasure.includes("Griffin Feather")) {
-                ChatLib.say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
+                say(`${announceDropsChat()} RARE DROP! You dug out a ${lastTreasure}!`)
             }
         }
     }
@@ -305,7 +306,7 @@ register("chat", (chat) => {
                 }
 
                 if (rarestDrop) {
-                    ChatLib.say(dropMessage)
+                    say(dropMessage)
                 }
             }
         }
@@ -335,9 +336,9 @@ register("command", (args) => {
         ChatLib.chat(HJESMessage('Inquis manually registered.', 'Diana'))
         inquisExists += 1
 
-        ChatLib.say(`/pc [HJES Diana] Inquis `)
+        say(`/pc [HJES Diana] Inquis `)
         setTimeout(() => {
-            ChatLib.say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
+            say(`/pc x: ${parseInt(entity.getLastX())}, y: ${parseInt(entity.getLastY())}, z: ${parseInt(entity.getLastZ())}`)
         }, 500)
 
         setTimeout(() => {
