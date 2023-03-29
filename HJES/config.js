@@ -39,6 +39,27 @@ class Settings {
     })
     eggReady = true;
 
+    @SwitchProperty({
+        name: "Flare Hype Break (No Book Of Stats!!!)",
+        description: "notifies you if hype breaks when killing flares, /isflaring to turn on and off",
+        category: "General"
+    })
+    isFlaring = false;
+
+    @SwitchProperty({
+        name: "Announces Vanquishers to Party",
+        description: "does what you think it does",
+        category: "General"
+    })
+    announceVanqs = true;
+
+    @SwitchProperty({
+        name: "Turn off all flare features",
+        description: "no book of stats flare tracking is hard so it can break sometimes so use this",
+        category: "General"
+    })
+    noFlaring = true
+
     // Diana configs
 
     // Inquis 
