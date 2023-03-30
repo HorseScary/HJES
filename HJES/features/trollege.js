@@ -10,7 +10,7 @@ register("command", () => {
     say(`/pc x: ${playerX + 2}, y: ${playerY}, z: ${playerZ}`)
     say(`/pc x: ${playerX + 1}, y: ${playerY + 1}, z: ${playerZ}`)
     say(`/pc x: ${playerX + 1}, y: ${playerY + 2}, z: ${playerZ}`)
-}).setName('sendpenis', true)
+}).setName('sendRocket', true)
 
 
 register("pickupitem", () => {
