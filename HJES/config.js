@@ -201,6 +201,23 @@ class Settings {
     })
     announceCoinsAtValue = 8;
 
+    @SwitchProperty({
+        name: "Animation",
+        description: "/911 animation by default",
+        category: "Trollege",
+        subcategory: "911"
+    })
+    animate911 = false;
+
+    @SliderProperty({
+        name: "Planes",
+        description: "Number of planes for /911 animation",
+        category: "Trollege",
+        subcategory: "911",
+        min: 1,
+        max: 10,
+    })
+    numPlanes = 1;
 
     //Blaze configs
     @SwitchProperty({

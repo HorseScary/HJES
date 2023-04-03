@@ -8,9 +8,7 @@ function getPlaneCoords(x, y, z) {
     })
 }
 
-register("command", () => {
-    planeCoords = getPlaneCoords(Player.getX(), Player.getY(), Player.getZ())
-
+function drawPlane(planeCoords) {
     for (i = 0; i < 10; i++) {
         (function (x, y, z) {
             setTimeout(() => {
@@ -18,11 +16,56 @@ register("command", () => {
             }, 500 * i)
         })(planeCoords.x[i], planeCoords.y[i], planeCoords.z[i])
     }
-}).setName("drawPlane")
+}
 
 register("command", () => {
+    planeCoords = getPlaneCoords(Player.getX(), Player.getY(), Player.getZ())
+
+    drawPlane(planeCoords)
+
+}).setName("drawPlane")
+
+register("command", (arg1, arg2) => {
     //Party > [MVP+] jperrm: x: -11, y: 88, z: -144
-    animationX = [-21, -16, -11, -6]
+
+    numPlanes = Settings.numPlanes
+    doAnimation = Settings.animate911
+    /*
+    nothing passed: take defaults
+    num passed: animation w/ n number of planes
+    /911 true 5
+    /911 true
+    /911 5
+    /911 false
+    */
+
+    if (arg1 = "true") {
+        doAnimation = true
+        if (!isNaN(parseInt(arg2))) {
+            numPlanes = parseInt(arg2)
+        }
+    }
+    else if (arg1 == "false") {
+        doAnimation = false
+    }
+    else if (isNaN(parseInt(arg1))) {
+        ChatLib.chat(`${arg1} is not a valid input!`)
+    }
+
+    if (doAnimation) {
+
+    }
+    else {
+        planeCoords = getPlaneCoords(-11, 88, -144)
+        for (i = 0; i < planeCoords.length; i++) {
+
+            setTimeout(() => {
+                (function (x, y, z) {
+                    say(`/pc x: ${planeCoords.x[j]}, y: ${planeCoords.y[j]}, z: ${planeCoords.z[j]}`)
+                }, planeCoords.x[i], planeCoords.y[i], planeCoords.z[i])
+            }, 6000 * i)
+        }
+    }
 
     for (i = 0; i < animationX.length; i++) {
 
@@ -37,6 +80,4 @@ register("command", () => {
 
         })(animationX[i])
     }
-
-
 }).setName("911")
