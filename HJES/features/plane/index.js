@@ -21,6 +21,7 @@ register("command", () => {
 
 }).setName("drawPlane")
 
+//TODO: add explosion
 register("command", (arg1, arg2) => {
     //Party > [MVP+] jperrm: x: -11, y: 88, z: -144
 
