@@ -1,5 +1,8 @@
 import PogObject from "PogData"
 
+let hudGUI = new Gui;
+let selectedItem = null
+
 let hudItems = {}
 let hudPositions = new PogObject("HJES", {
 }, ".HUDPos.json")
@@ -17,3 +20,7 @@ register("renderOverlay", () => {
         Renderer.drawStringWithShadow(hudItems[keys[i]], hudPositions[keys[i]][0], hudPositions[keys[i]][1])
     }
 })
+
+register("command", () => {
+
+}).setName("hjesEditHUD")
