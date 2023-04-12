@@ -7,8 +7,8 @@ let hudItems = {}
 let hudPositions = new PogObject("HJES", {
 }, ".HUDPos.json")
 
-export function addToHUD(item, id) {
-    hudItems[id] = item
+export function addToHUD(text, id) {
+    hudItems[id] = text
 
     hudPositions[id] = [0, 0]
     hudPositions.save()
