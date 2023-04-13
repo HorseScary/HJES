@@ -25,7 +25,9 @@ register("command", (arg) => {
         'Random Notifier': '__subtitle__',
         '/partyPlayers': 'set or view the number of players in your party',
         'Trollege': '__subtitle__',
-        '/sendRocket': 'sends coordinates in the shape of a rocketship. works best with soopy player coordinates thing'
+        '/sendRocket': 'sends coordinates in the shape of a rocketship. works best with soopy player coordinates thing',
+        '/911': 'soopy coordinate art of a historical event',
+        '/drawPlane': 'draws a plane with soopy coordinates'
     })
     if (arg == "help") {
         ChatLib.chat(helpMessage)
