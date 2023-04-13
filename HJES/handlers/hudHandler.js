@@ -7,15 +7,24 @@ let hudItems = {}
 let hudPositions = new PogObject("HJES", {
 }, ".HUDPos.json")
 
-export function addToHUD(text, id) {
+export function addToHUD(id, text) {
     hudItems[id] = text
 
-    hudPositions[id] = [0, 0]
-    hudPositions.save()
+    if (!hudPositions[id]) {
+
+        hudPositions[id] = [0, 0]
+        hudPositions.save()
+    }
+}
+
+export function updateHUD(id, text) {
+    if (hudItems[id]) {
+        hudItems[id] = text;
+    }
 }
 
 register("dragged", (dx, dy, x, y) => {
-    if (!testGUI.isOpen()) return;
+    if (!hudGUI.isOpen()) return;
 
     if (selectedItem) {
         hudPositions[selectedItem][0] = x
@@ -32,7 +41,7 @@ register("clicked", (x, y, button) => {
         itemY = hudPositions[keys[i]][1]
         textWidth = Renderer.getStringWidth(hudItems[keys[i]])
         textHeight = 9
-        if (x >= itemX && x <= itemX + textWidth && y >= itemY && Y <= itemY + textHeight) {
+        if (x >= itemX && x <= itemX + textWidth && y >= itemY && y <= itemY + textHeight) {
             selectedItem = keys[i]
             itemSelected = true;
         }
@@ -46,7 +55,7 @@ register("clicked", (x, y, button) => {
 register("renderOverlay", () => {
     if (hudGUI.isOpen()) {
         middle = Renderer.screen.getWidth() / 2
-        Renderer.DrawStringWithShadow("[Move the things]", middle, 4)
+        Renderer.drawStringWithShadow("[Move the things]", middle, 4)
     }
 
     keys = Object.keys(hudItems)

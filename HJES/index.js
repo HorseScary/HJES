@@ -7,8 +7,11 @@ import "./features/blaze"
 import "./features/privateLobby/index"
 import "./features/misc/index"
 import "./features/plane/index"
-import "./handlers/chatHandler"
 
+import "./handlers/chatHandler"
+import "./handlers/hudHandler"
+
+import { addToHUD, updateHUD } from "./handlers/hudHandler";
 import { helpHelper, HJESMessage } from "./functions";
 
 
@@ -36,3 +39,13 @@ register("command", (arg) => {
         ChatLib.chat(HJESMessage(`${arg} is not a valid option. Type /HJES help for help.`))
     }
 }).setName("HJES", true);
+
+/*
+// Hud testing
+addToHUD("owo", "OwO")
+addToHUD("uwu", "&dUwU")
+
+register("command", () => {
+    updateHUD("owo", "OWOWOWOWOWOWOWOOW")
+}).setName("HJESTestUpdate")
+*/
