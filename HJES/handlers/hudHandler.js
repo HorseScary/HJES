@@ -1,4 +1,12 @@
 import PogObject from "PogData"
+import Settings from "../config"
+
+/*TODO: make gui editing display all the things that could be rendered
+- each thing that could get rendered gets a id
+- get a list of all the ids
+- check settings to see if the thing is enabled
+- if it is, add it to the gui object
+*/
 
 let hudGUI = new Gui;
 let selectedItem = null
@@ -11,6 +19,12 @@ export function openHudGui() {
     hudGUI.open()
 }
 
+/**
+ * @param {String} id 
+ * should be the same as the variable in settings
+ * @param {String} text 
+ * 
+ */
 export function addToHUD(id, text) {
     hudItems[id] = text
 
@@ -62,9 +76,11 @@ register("renderOverlay", () => {
         Renderer.drawStringWithShadow("[Move the things]", middle, 4)
     }
 
-    keys = Object.keys(hudItems)
-    for (i = 0; i < keys.length; i++) {
-        Renderer.drawStringWithShadow(hudItems[keys[i]], hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+    else {
+        keys = Object.keys(hudItems)
+        for (i = 0; i < keys.length; i++) {
+            Renderer.drawStringWithShadow(hudItems[keys[i]], hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+        }
     }
 })
 
