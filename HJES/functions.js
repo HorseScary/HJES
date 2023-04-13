@@ -5,7 +5,7 @@ function spaceAdder(text) {
     return (text.padStart(text.length + 1, " "))
 }
 
-/*
+/** 
 Generates help messages from an object
 Example usage:
 helpHelper({
