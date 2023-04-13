@@ -7,6 +7,10 @@ let hudItems = {}
 let hudPositions = new PogObject("HJES", {
 }, ".HUDPos.json")
 
+export function openHudGui() {
+    hudGUI.open()
+}
+
 export function addToHUD(id, text) {
     hudItems[id] = text
 

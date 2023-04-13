@@ -18,6 +18,16 @@ class Config {
 })
 class Settings {
     // General config
+    @ButtonProperty({
+        name: "Edit GUI locations",
+        description: "what the name says",
+        category: "General",
+        placeholder: "Change"
+    })
+    action() {
+        ChatLib.command("HJES gui", true)
+    }
+
     @SwitchProperty({
         name: "Stay in Skyblock",
         description: "Sends to island if in limbo or kicked from island",
