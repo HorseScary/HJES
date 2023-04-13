@@ -44,15 +44,3 @@ register("command", (arg) => {
         ChatLib.chat(HJESMessage(`${arg} is not a valid option. Type /HJES help for help.`))
     }
 }).setName("HJES", true).setAliases("hjes");
-
-
-
-/*
-// Hud testing
-addToHUD("owo", "OwO")
-addToHUD("uwu", "&dUwU")
-
-register("command", () => {
-    updateHUD("owo", "OWOWOWOWOWOWOWOOW")
-}).setName("HJESTestUpdate")
-*/
