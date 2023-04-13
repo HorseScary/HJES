@@ -5,16 +5,12 @@ function spaceAdder(text) {
     return (text.padStart(text.length + 1, " "))
 }
 
-/** 
-Generates help messages from an object
-Example usage:
-helpHelper({
-    '':'__title__',
-    'subtitle':'__subtitle__',
-    'someCommandName':'this command does something',
-    'custom text! free of helpHelpers formatting!!':'__custom__'
-})
-*/
+/**
+ * 
+ * @param {Object} commandInfo 
+ * helpHelper({"":"__title__", "command":"__subtitle__", "someCommandName":"command does something", "custom text, free of formatting":"__custom__" })
+ * @returns help message
+ */
 export function helpHelper(commandInfo) {
     lastItem = (function () {
         entries = Object.entries(commandInfo)
