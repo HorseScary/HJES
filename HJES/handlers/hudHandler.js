@@ -79,8 +79,10 @@ register("clicked", (x, y, button) => {
 register("renderOverlay", () => {
     keys = Object.keys(hudItems)
     if (hudGUI.isOpen()) {
-        middle = Renderer.screen.getWidth() / 2
-        Renderer.drawStringWithShadow("[Move the things]", middle, 4)
+        editHudText = "[Move the things]"
+        position = (Renderer.screen.getWidth() / 2) - Renderer.getStringWidth(editHudText)
+
+        Renderer.drawStringWithShadow(editHudText, position, 4)
 
         for (i = 0; i < keys.length; i++) {
             if (Settings[keys[i]]) {
