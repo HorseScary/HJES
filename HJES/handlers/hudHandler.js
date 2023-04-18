@@ -1,15 +1,9 @@
 import PogObject from "PogData"
 import Settings from "../config"
 
-/*TODO: make gui editing display all the things that could be rendered
-- each thing that could get rendered gets a id
-- get a list of all the ids
-- check settings to see if the thing is enabled
-- if it is, add it to the gui object
-*/
-
 let hudGUI = new Gui;
 let selectedItem = null
+let offsets = [0, 0]
 
 let hudItems = {}
 let hudPositions = new PogObject("HJES", {
@@ -20,24 +14,33 @@ export function openHudGui() {
 }
 
 /**
- * @param {String} id 
- * should be the same as the variable in settings
- * @param {String} text 
+ * creates a "HudItem" object in the hudItems object
+ * @param {String} id - the id should be the same as the variable used in settings 
+ * 
+ * @param {String} exampleText - the text that displays when configuring the GUI
  * 
  */
-export function addToHUD(id, text) {
-    hudItems[id] = text
-
-    if (!hudPositions[id]) {
-
-        hudPositions[id] = [0, 0]
-        hudPositions.save()
+export function addHudItem(id, exampleText) {
+    if (!hudItems[id]) {
+        hudItems[id] = {
+            "exampleText": exampleText,
+            "text": ""
+        }
+        if (!hudPositions[id]) {
+            hudPositions[id] = [0, 0]
+            hudPositions.save()
+        }
     }
 }
 
+/**
+ * 
+ * @param {String} id - id of the hudItem you want to update
+ * @param {String} text - the new text for the hudItem
+ */
 export function updateHUD(id, text) {
     if (hudItems[id]) {
-        hudItems[id] = text;
+        hudItems[id].text = text;
     }
 }
 
@@ -45,8 +48,8 @@ register("dragged", (dx, dy, x, y) => {
     if (!hudGUI.isOpen()) return;
 
     if (selectedItem) {
-        hudPositions[selectedItem][0] = x
-        hudPositions[selectedItem][1] = y
+        hudPositions[selectedItem][0] = x + offsets[0]
+        hudPositions[selectedItem][1] = y + offsets[1]
         hudPositions.save();
     }
 })
@@ -62,6 +65,9 @@ register("clicked", (x, y, button) => {
         if (x >= itemX && x <= itemX + textWidth && y >= itemY && y <= itemY + textHeight) {
             selectedItem = keys[i]
             itemSelected = true;
+
+            offsets[0] = hudPositions[keys[i]][0] - x
+            offsets[1] = hudPositions[keys[i]][1] - y
         }
     }
 
@@ -71,15 +77,22 @@ register("clicked", (x, y, button) => {
 })
 
 register("renderOverlay", () => {
+    keys = Object.keys(hudItems)
     if (hudGUI.isOpen()) {
         middle = Renderer.screen.getWidth() / 2
         Renderer.drawStringWithShadow("[Move the things]", middle, 4)
-    }
 
-    else {
-        keys = Object.keys(hudItems)
         for (i = 0; i < keys.length; i++) {
-            Renderer.drawStringWithShadow(hudItems[keys[i]], hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+            if (Settings[keys[i]]) {
+                Renderer.drawStringWithShadow(hudItems[keys[i]].exampleText, hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+            }
+        }
+    }
+    else {
+        for (i = 0; i < keys.length; i++) {
+            if (Settings[keys[i]]) {
+                Renderer.drawStringWithShadow(hudItems[keys[i]].text, hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+            }
         }
     }
 })
