@@ -86,7 +86,12 @@ register("renderOverlay", () => {
 
         for (i = 0; i < keys.length; i++) {
             if (Settings[keys[i]]) {
-                Renderer.drawStringWithShadow(hudItems[keys[i]].exampleText, hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+                if (hudItems[keys].text == '') {
+                    Renderer.drawStringWithShadow(hudItems[keys[i]].exampleText, hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+                }
+                else {
+                    Renderer.drawStringWithShadow(hudItems[keys[i]].text, hudPositions[keys[i]][0], hudPositions[keys[i]][1])
+                }
             }
         }
     }
