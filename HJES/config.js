@@ -31,21 +31,24 @@ class Settings {
     @SwitchProperty({
         name: "Stay in Skyblock",
         description: "Sends to island if in limbo or kicked from island",
-        category: "General"
+        category: "General",
+        subcategory: "afk",
     })
     afk = false;
 
     @SwitchProperty({
         name: "Auto-Join to Skyblock",
         description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normally)\nBased on max hype message so like have that.\n&4Disable this feature if you are using diana auto-rat",
-        category: "General"
+        category: "General",
+        subcategory: "afk",
     })
     afk2 = false;
 
     @SwitchProperty({
         name: "Chicken Head",
         description: "Tells you when chicken head is ready to make a new egg.",
-        category: "General"
+        category: "General",
+        subcategory: "general",
     })
     eggReady = true;
 
