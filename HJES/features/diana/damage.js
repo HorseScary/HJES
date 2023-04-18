@@ -1,5 +1,8 @@
 import Settings from "../../config"
+import { addHudItem, updateHUD } from "../../handlers/hudHandler"
 let renderedText = ""
+
+addHudItem("showPercentage", "&c0% damage")
 
 register("renderOverlay", () => {
     if (Settings.showPercentage) {
@@ -13,10 +16,10 @@ register("tick", () => {
     if (Settings.showPercentage) {
         damage = World.getAllEntities().find(element => element.getName().includes("damage"))
         if (damage) {
-            renderedText = damage.getName()
+            updateHUD("showPercentage", damage)
         }
         else {
-            renderedText = ''
+            updateHUD("showPercentage", "")
         }
     }
 })
