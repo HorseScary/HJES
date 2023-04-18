@@ -11,7 +11,7 @@ import "./features/plane/index"
 import "./handlers/chatHandler"
 import "./handlers/hudHandler"
 
-import { addToHUD, updateHUD, openHudGui } from "./handlers/hudHandler";
+import { openHudGui } from "./handlers/hudHandler";
 import { helpHelper, HJESMessage } from "./functions";
 
 
@@ -32,7 +32,7 @@ register("command", (arg) => {
     if (arg == "help") {
         ChatLib.chat(helpMessage)
     }
-    else if (arg == "gui") {
+    else if (arg == "gui" || arg == "hud") {
         openHudGui()
     }
 
