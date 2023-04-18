@@ -80,7 +80,7 @@ register("renderOverlay", () => {
     keys = Object.keys(hudItems)
     if (hudGUI.isOpen()) {
         editHudText = "[Move the things]"
-        position = (Renderer.screen.getWidth() / 2) - Renderer.getStringWidth(editHudText)
+        position = (Renderer.screen.getWidth() - Renderer.getStringWidth(editHudText)) / 2
 
         Renderer.drawStringWithShadow(editHudText, position, 4)
 
