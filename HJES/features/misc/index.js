@@ -1,5 +1,5 @@
 import Settings from "../../config"
-import { HJESMessage, distanceToPlayer } from "../../functions"
+import { HJESMessage, } from "../../functions"
 
 let worldLoadCooldown = true
 
