@@ -16,7 +16,7 @@ register("tick", () => {
     if (Settings.showPercentage) {
         damage = World.getAllEntities().find(element => element.getName().includes("damage"))
         if (damage) {
-            updateHUD("showPercentage", damage)
+            updateHUD("showPercentage", damage.getName())
         }
         else {
             updateHUD("showPercentage", "")
