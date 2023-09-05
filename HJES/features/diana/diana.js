@@ -94,7 +94,7 @@ register("chat", () => {
             }
         })
     }
-}).setChatCriteria("${*}&r&eYou dug out &r&2a Minos Champion&r&e!&r")
+}).setChatCriteria("${*}&r&eYou dug out a &r&2Minos Inquisitor&r&e!&r")
 
 // 😼
 register("chat", () => {
