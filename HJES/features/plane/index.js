@@ -1,5 +1,6 @@
 import { helpHelper } from "../../functions"
 import { say } from "../../handlers/say"
+import Settings from "../../config"
 
 function getPlaneCoords(x, y, z) {
     return ({
@@ -74,15 +75,15 @@ register("command", (arg1, arg2) => {
         if (continueWithPlane) {
             if (doAnimation) {
                 for (i = 0; i < numPlanes; i++) {
-                    x = -11 - 5 * (numPlanes - 1 - i)
-                        (function (x) {
-                            setTimeout(() => {
-                                drawPlane(getPlaneCoords(x, 88, -144))
-                                for (j = 0; j < 10; j++) {
-                                    say(`/pc x: ${planeCoords.x[j]}, y: ${planeCoords.y[j]}, z: ${planeCoords.z[j]}`)
-                                }
-                            }, 6000 * i)
-                        })(x)
+                    x = -11 - (5 * (numPlanes - 1 - i))
+                    setTimeout(() => {
+                        setTimeout(() => {
+                            drawPlane(getPlaneCoords(x, 88, -144))
+                            for (j = 0; j < 10; j++) {
+                                say(`/pc x: ${planeCoords.x[j]}, y: ${planeCoords.y[j]}, z: ${planeCoords.z[j]}`)
+                            }
+                        }, 6000 * i)
+                    })(x)
                 }
             }
             else {
