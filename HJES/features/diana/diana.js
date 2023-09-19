@@ -43,56 +43,32 @@ register("chat", () => {
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 register("chat", () => {
+    inquisExists += 1
+    setTimeout(() => {
+        if (inquisExists > 0) {
+            inquisExists -= 1
+        }
+        else if (inquisExists == 0) {
+            ChatLib.chat(HJESMessage("Inquis timeout reached. Inquis registered as dead!", "Diana"))
+        }
+    }, parseInt(Settings.inquisTimeout))
+
     if (Settings.announceInquis) {
-        // Looks for entity who's name includes "inquis"
-        World.getAllEntities().forEach(entity => {
-            if (entity.getName().toLowerCase().includes("inquis")) {
-                inquisExists += 1
 
-                inquisX = parseInt(entity.getX())
-                inquisY = parseInt(entity.getY())
-                inquisZ = parseInt(entity.getZ())
+        inquisX = parseInt(entity.getX())
+        inquisY = parseInt(entity.getY())
+        inquisZ = parseInt(entity.getZ())
 
-                inquisClosestWarp = getClosestWarp(inquisX, inquisY, inquisZ)
+        inquisClosestWarp = getClosestWarp(inquisX, inquisY, inquisZ)
 
-                say(`/pc [HJES Diana] Inquis`)
-                say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
+        say(`/pc [HJES Diana] Inquis`)
+        say(`/pc x: ${inquisX}, y: ${inquisY}, z: ${inquisZ} [HJES Diana]`)
 
-                if (Settings.announceClosestWarp) {
-                    say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
-                }
-
-                setTimeout(() => {
-                    if (inquisExists > 0) {
-                        inquisExists -= 1
-                    }
-                    if (inquisExists == 0) {
-                        ChatLib.chat(HJESMessage("Inquis timeout reached. Inquis registered as dead!", "Diana"))
-                    }
-                }, parseInt(Settings.inquisTimeout))
-            }
-
-            // same thing as inquis code, but doesn't change the inquisExists variable
-            else if (entity.getName().toLowerCase().includes("minos champion") && Settings.announceChamp) {
-                say(`/pc [HJES Diana] Champ`)
-
-                champX = parseInt(Player.getLastX())
-                champY = parseInt(Player.getLastY())
-                champZ = parseInt(Player.getLastZ())
-
-                ChatLib.chat(`x:${champX}\ny:${champY}\nz:${champZ}\n${entity.getName()}`)
-
-                champClosestWarp = getClosestWarp(champX, champY, champZ)
-
-                say(`/pc x: ${champX}, y: ${champY}, z: ${champZ} [HJES Diana]`)
-                ChatLib.chat(HJESMessage(champClosestWarp, "Diana"))
+        if (Settings.announceClosestWarp) {
+            say(`/pc [HJES Diana] The closest warp is ${inquisClosestWarp}`)
+        }
 
 
-                setTimeout(() => {
-                    ChatLib.chat("&d[HJES Diana]&f Champ timeout reached. Champ registered as dead!")
-                }, parseInt(Settings.champTimeout))
-            }
-        })
     }
 }).setChatCriteria("${*}&r&eYou dug out a &r&2Minos Inquisitor&r&e!&r")
 
