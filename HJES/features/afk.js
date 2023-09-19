@@ -1,4 +1,6 @@
 import Settings from "../config"
+import { say } from "../handlers/say"
+
 
 let warpback = false
 let warpbacklimbo = false
@@ -6,9 +8,9 @@ let warpbacklimbo = false
 register("chat", () => {
     if (Settings.afk2) {
         setTimeout(() => {
-            ChatLib.say("/play sb")
+            say("/play sb")
             setTimeout(() => {
-                ChatLib.say("/is")
+                say("/is")
             }, 4000)
         }, 2000)
     }
@@ -21,7 +23,7 @@ register("chat", () => {
 register("worldLoad", () => {
     if (warpback && Settings.afk) {
         setTimeout(() => {
-            ChatLib.say('/is')
+            say('/is')
             warpback = false
         }, 4000) // 1s
     }
@@ -39,11 +41,11 @@ register("tick", () => {
     if (warpbacklimbo && Settings.afk) {
         warpbacklimbo = false
         setTimeout(() => {
-            ChatLib.say("/l")
+            say("/l")
             setTimeout(() => {
-                ChatLib.say("/play sb")
+                say("/play sb")
                 setTimeout(() => {
-                    ChatLib.say("/is")
+                    say("/is")
                 }, 4000)
             }, 2000)
         }, 1000)

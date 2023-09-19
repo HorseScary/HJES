@@ -18,24 +18,37 @@ class Config {
 })
 class Settings {
     // General config
+    @ButtonProperty({
+        name: "Edit GUI locations",
+        description: "what the name says",
+        category: "General",
+        placeholder: "Change"
+    })
+    action() {
+        ChatLib.command("HJES gui", true)
+    }
+
     @SwitchProperty({
         name: "Stay in Skyblock",
         description: "Sends to island if in limbo or kicked from island",
-        category: "General"
+        category: "General",
+        subcategory: "afk",
     })
     afk = false;
 
     @SwitchProperty({
         name: "Auto-Join to Skyblock",
         description: "Faster rejoin by joining skyblock on joining prototype lobby (since if you disconnect, you need to get limboed before you get sent to sb normally)\nBased on max hype message so like have that.\n&4Disable this feature if you are using diana auto-rat",
-        category: "General"
+        category: "General",
+        subcategory: "afk",
     })
     afk2 = false;
 
     @SwitchProperty({
         name: "Chicken Head",
         description: "Tells you when chicken head is ready to make a new egg.",
-        category: "General"
+        category: "General",
+        subcategory: "general",
     })
     eggReady = true;
 
@@ -222,6 +235,23 @@ class Settings {
     })
     announceCoinsAtValue = 8;
 
+    @SwitchProperty({
+        name: "Animation",
+        description: "/911 animation by default",
+        category: "Trollege",
+        subcategory: "911"
+    })
+    animate911 = false;
+
+    @SliderProperty({
+        name: "Planes",
+        description: "Number of planes for /911 animation",
+        category: "Trollege",
+        subcategory: "911",
+        min: 1,
+        max: 10,
+    })
+    numPlanes = 1;
 
     //Blaze configs
     @SwitchProperty({
