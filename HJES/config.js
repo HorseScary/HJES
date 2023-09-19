@@ -305,21 +305,6 @@ class Settings {
 
     //Testing configs
     @SwitchProperty({
-        name: "announce champ",
-        description: "tests inquis stuff",
-        category: "Testing"
-    })
-    announceChamp = false;
-
-    @TextProperty({
-        name: "ChampTimeout",
-        description: "Time (in milliseconds) before inquis is registered as killed",
-        category: "Testing",
-        placeholder: "100000"
-    })
-    champTimeout = "100000";
-
-    @SwitchProperty({
         name: "chat thing",
         description: "tests chat thing",
         category: "Testing"
