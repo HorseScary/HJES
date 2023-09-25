@@ -3,6 +3,7 @@ import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../../fun
 import { say } from "../../handlers/say"
 import "./inquisNotifications"
 import "./damage"
+import "./cheese"
 
 let myCheese = false
 let inquisExists = 0
