@@ -15,6 +15,7 @@ let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
 let ratKey = new KeyBind("Key to press when ratting", Keyboard.CHAR_NONE, "HJES")
 let ratDest = ""
 let myCheese = false
+let fakeRat = false
 
 
 // tells party when you get cheese
@@ -49,7 +50,7 @@ register("chat", () => {
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 register("tick", () => {
-    if (ratKey.isKeyDown() & ratDest) {
+    if (ratKey.isKeyDown() && ratDest) {
         if (ratDest = "lobby") {
             say("/l")
             ratDest = ""
@@ -59,7 +60,21 @@ register("tick", () => {
             ratDest = ""
         }
     }
+    if (ratKey.isKeyDown()) {
+        ChatLib.chat("Rat key pressed!!!!!!")
+    }
 })
+
+register("command", () => {
+    if (fakeRat) {
+        say('/pc [HJES Diana] Cheese!')
+        fakeRat = true;
+    }
+    else {
+        say('/pc [HJES Diana] Cheese obtained!')
+        fakeRat = false;
+    }
+}).setName("HJESFakeCheese")
 
 register("chat", () => {
     inquisExists += 1
