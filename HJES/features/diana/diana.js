@@ -323,6 +323,7 @@ register("chat", (chat) => {
     // Chat criteria is weird cause it needs to account for 2 types of burrows and they are capitalized differently
 }).setChatCriteria("&r&eYou ${*} Griffin ${*}urrow${*}&r&7(${*}")
 
+// /inquisitor command
 register("command", (args) => {
     helpMessage = helpHelper({
         'Diana': '__title__',
