@@ -300,7 +300,7 @@ class Settings {
         this.setCategoryDescription("General", "&aH&3J&dES")
 
         this.setCategoryDescription("Diana", "&dDiana Utils");
-        this.setSubcategoryDescription("Diana", "Rat", "Remote Access Tool config");
+        this.setSubcategoryDescription("Diana", "Rat", "Remote Access Trojan config");
         this.setSubcategoryDescription("Diana", "Inquis", "things for inquisitors");
 
         this.setCategoryDescription("Trollege", "&4 trollege")
