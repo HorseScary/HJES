@@ -1,7 +1,6 @@
 import Settings from "./config";
 import "./features/diana/diana"
 import "./features/trollege"
-import "./features/afk"
 import "./features/trinity"
 import "./features/blaze"
 import "./features/privateLobby/index"

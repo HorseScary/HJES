@@ -3,9 +3,7 @@ import { getRandomInt, helpHelper, HJESMessage, getClosestWarp } from "../../fun
 import { say } from "../../handlers/say"
 import "./inquisNotifications"
 import "./damage"
-import "./cheese"
 
-let myCheese = false
 let inquisExists = 0
 let inventoryItems = Array()
 let lastMob = String()
@@ -13,12 +11,11 @@ let lastBurrowType = String()
 let lastTreasure = String()
 let coinValues = [10, 15, 25, 40, 50, 75, 100, 250, 500, 750]
 
-// Leaves to hub when someone gets cheese
-register("chat", () => {
-    if (!myCheese && !inquisExists && Settings.leaveOnCheese) {
-        say('/l')
-    }
-}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese!&r")
+// rat!!
+let ratKey = new KeyBind("Key to press when ratting", Keyboard.CHAR_NONE, "HJES")
+let ratDest = ""
+let myCheese = false
+
 
 // tells party when you get cheese
 register("chat", () => {
@@ -36,12 +33,33 @@ register("chat", () => {
     }
 }).setChatCriteria("&r&e&lCHEESE!&r&7 You buffed &r${*}&r&7 giving them &r&b+${*}✯ Magic Find&r&7 for &r&a${*}&r&7 seconds!&r")
 
+
+// Leaves to hub when someone gets cheese
+register("chat", () => {
+    if (!myCheese && !inquisExists && Settings.leaveOnCheese) {
+        ratDest = "lobby"
+    }
+}).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese!&r")
+
 // rejoins lobby when cheese obtained message is registered
 register("chat", () => {
     if (Settings.rejoinOnCheese) {
-        say('/play sb')
+        ratDest = "sb"
     }
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
+
+register("tick", () => {
+    if (ratKey.isKeyDown() & ratDest) {
+        if (ratDest = "lobby") {
+            say("/l")
+            ratDest = ""
+        }
+        else if (ratDest = "sb") {
+            say("/play sb")
+            ratDest = ""
+        }
+    }
+})
 
 register("chat", () => {
     inquisExists += 1
