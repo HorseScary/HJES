@@ -39,7 +39,6 @@ register("chat", () => {
 register("chat", () => {
     if (!myCheese && !inquisExists && Settings.leaveOnCheese) {
         ratDest = "lobby"
-        Client.showTitle("&4GET THE FRICK OUT!!!!", "", 0, 60, 20)
         World.playSound("random.orb", 1, 1)
     }
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese!&r")
@@ -48,14 +47,13 @@ register("chat", () => {
 register("chat", () => {
     if (Settings.rejoinOnCheese) {
         ratDest = "sb"
-        Client.showTitle("&2COME BACK!!!!!!!", "", 0, 60, 20)
         World.playSound("random.orb", 1, 1)
     }
 }).setChatCriteria("&r&9Party &8>${*}&f: &r[HJES Diana] Cheese obtained!&r")
 
 register("tick", () => {
     if (ratKey.isKeyDown() && ratDest) {
-        if (ratDest = "lobby") {
+        if (ratDest == "lobby") {
             say("/l")
             ratDest = ""
         }
@@ -64,13 +62,10 @@ register("tick", () => {
             ratDest = ""
         }
     }
-    if (ratKey.isKeyDown()) {
-        ChatLib.chat("Rat key pressed!!!!!!")
-    }
 })
 
 register("command", () => {
-    if (fakeRat) {
+    if (!fakeRat) {
         say('/pc [HJES Diana] Cheese!')
         fakeRat = true;
     }

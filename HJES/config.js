@@ -12,7 +12,7 @@ class Config {
 */
 @Vigilant("HJES", "HJES", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Diana", "Private Lobbies", "Blaze", "Trinity", "Trollege", "Testing"]
+        const categories = ["General", "Diana", "Private Lobbies", "Blaze", "Crimson", "Trinity", "Trollege", "Testing"]
         return categories.indexOf(a.name) - categories.indexOf(b.name)
     }
 })
@@ -36,24 +36,25 @@ class Settings {
     })
     eggReady = true;
 
+    // crimson
     @SwitchProperty({
         name: "Flare Hype Break (No Book Of Stats!!!)",
         description: "notifies you if hype breaks when killing flares, /isflaring to turn on and off",
-        category: "General"
+        category: "Crimson"
     })
     isFlaring = false;
 
     @SwitchProperty({
         name: "Announces Vanquishers to Party",
         description: "does what you think it does",
-        category: "General"
+        category: "Crimson"
     })
     announceVanqs = true;
 
     @SwitchProperty({
         name: "Turn off all flare features",
         description: "no book of stats flare tracking is hard so it can break sometimes so use this",
-        category: "General"
+        category: "Crimson"
     })
     noFlaring = true
 
